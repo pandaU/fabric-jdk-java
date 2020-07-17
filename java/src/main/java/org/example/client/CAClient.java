@@ -18,12 +18,14 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.example.config.Config;
 import org.example.user.UserContext;
 import org.example.util.Util;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
+import org.hyperledger.fabric_ca.sdk.EnrollmentRequest;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 
@@ -75,7 +77,6 @@ public class CAClient {
 		this.caProperties = caProperties;
 		init();
 	}
-
 	public void init() throws MalformedURLException, IllegalAccessException, InstantiationException, ClassNotFoundException, CryptoException, InvalidArgumentException, NoSuchMethodException, InvocationTargetException {
 		CryptoSuite cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
 		instance = HFCAClient.createNewInstance(caUrl, caProperties);
@@ -147,5 +148,21 @@ public class CAClient {
 		Logger.getLogger(CAClient.class.getName()).log(Level.INFO, "CA -" + caUrl +" Enrolled User - " + user.getName());
 		return user;
 	}
+	public UserContext enrollAdminUserTLS(String username, String password) throws Exception {
 
+		UserContext userContext = Util.readUserContext(adminContext.getAffiliation(), username);
+		if (userContext != null) {
+			Logger.getLogger(CAClient.class.getName()).log(Level.WARNING, "CA -" + caUrl + " admin is already enrolled.");
+			return userContext;
+		}
+		instance.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
+		EnrollmentRequest enrollmentRequestTLS  = new EnrollmentRequest();
+		enrollmentRequestTLS.addHost(Config.CA_ORG1_URL);
+		enrollmentRequestTLS.setProfile("tls");
+		Enrollment adminenroll = instance.enroll(username, password, enrollmentRequestTLS);
+		adminContext.setEnrollment(adminenroll);
+		Logger.getLogger(CAClient.class.getName()).log(Level.INFO, "CA -" + caUrl + " Enrolled Admin.");
+		Util.writeUserContext(adminContext);
+		return adminContext;
+	}
 }

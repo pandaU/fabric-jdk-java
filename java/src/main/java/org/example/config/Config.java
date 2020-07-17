@@ -25,26 +25,34 @@ public class Config {
 	public static final String ORG2_USR_BASE_PATH = "crypto-config" + File.separator + "peerOrganizations" + File.separator
 			+ "org2.example.com" + File.separator + "users" + File.separator + "Admin@org2.example.com"
 			+ File.separator + "msp";
-	
+	public static final String CA1_TLSFILE = File.separator+"data"+File.separator+ "crypto-config" + File.separator + "peerOrganizations" + File.separator
+			+"org1.example.com"+File.separator+ "ca"+ File.separator+"ca.org1.example.com-cert.pem";
+
+	public static final String ORG1_PER1_CAFILE=File.separator+"data"+File.separator+ "crypto-config" + File.separator + "peerOrganizations" + File.separator
+			+ "org1.example.com" + File.separator + "tlsca" + File.separator + "tlsca.org1.example.com-cert.pem";
+	public static final String ORG2_PER1_CAFILE=File.separator+"data"+File.separator+ "crypto-config" + File.separator + "peerOrganizations" + File.separator
+			+ "org2.example.com" + File.separator + "tlsca" + File.separator + "tlsca.org2.example.com-cert.pem";
+	public static final String ORDER_CAFILE=File.separator+"data"+File.separator+ "crypto-config" + File.separator + "ordererOrganizations" + File.separator
+			+ "example.com" + File.separator + "tlsca" + File.separator + "tlsca.example.com-cert.pem";
 	public static final String ORG1_USR_ADMIN_PK = ORG1_USR_BASE_PATH + File.separator + "keystore";
 	public static final String ORG1_USR_ADMIN_CERT = ORG1_USR_BASE_PATH + File.separator + "admincerts";
 
 	public static final String ORG2_USR_ADMIN_PK = ORG2_USR_BASE_PATH + File.separator + "keystore";
 	public static final String ORG2_USR_ADMIN_CERT = ORG2_USR_BASE_PATH + File.separator + "admincerts";
 	
-	public static final String CA_ORG1_URL = "http://localhost:7054";
+	public static final String CA_ORG1_URL = "https://172.16.8.19:7054";
 	
 	public static final String CA_ORG2_URL = "http://localhost:8054";
 	
-	public static final String ORDERER_URL = "grpc://localhost:7050";
+	public static final String ORDERER_URL = "grpc://172.16.8.19:7050";
 	
 	public static final String ORDERER_NAME = "orderer.example.com";
 	
-	public static final String CHANNEL_NAME = "mychannel";
+	public static final String CHANNEL_NAME = "xxribd";
 	
 	public static final String ORG1_PEER_0 = "peer0.org1.example.com";
 	
-	public static final String ORG1_PEER_0_URL = "grpc://localhost:7051";
+	public static final String ORG1_PEER_0_URL = "grpc://172.16.8.19:7051";
 	
 	public static final String ORG1_PEER_1 = "peer1.org1.example.com";
 	

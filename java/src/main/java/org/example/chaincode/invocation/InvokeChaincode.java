@@ -64,10 +64,10 @@ public class InvokeChaincode {
 			ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
 			Channel channel = channelClient.getChannel();
 			Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-			EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
+			//EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
 			Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
 			channel.addPeer(peer);
-			channel.addEventHub(eventHub);
+			//channel.addEventHub(eventHub);
 			channel.addOrderer(orderer);
 			channel.initialize();
 
