@@ -36,7 +36,7 @@ public class ContrllerTest {
             UserContext adminUser = new UserContext();
             adminUser.setName(Config.ADMIN);
             adminUser.setAffiliation(Config.ORG2);
-            adminUser.setMspId(Config.ORG1_MSP);
+            adminUser.setMspId(Config.ORG2_MSP);
             File f = new File (this.getClass().getResource("/ca.crt").getPath());
             String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
             Properties properties = new Properties();
