@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: io.netty:netty-tcnative:windows-x86_64:1.1.33.Fork23">
+    <CLASSES>
+      <root url="jar://D:/repository/io/netty/netty-tcnative/1.1.33.Fork23/netty-tcnative-1.1.33.Fork23-windows-x86_64.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/repository/io/netty/netty-tcnative/1.1.33.Fork23/netty-tcnative-1.1.33.Fork23-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/repository/io/netty/netty-tcnative/1.1.33.Fork23/netty-tcnative-1.1.33.Fork23-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

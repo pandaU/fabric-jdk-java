@@ -14,12 +14,16 @@ package org.example.chaincode.invocation;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.compress.utils.IOUtils;
 import org.example.client.CAClient;
 import org.example.client.ChannelClient;
 import org.example.client.FabricClient;
@@ -29,7 +33,7 @@ import org.example.util.Util;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.ChaincodeResponse.Status;
 import org.hyperledger.fabric.sdk.Channel;
-import org.hyperledger.fabric.sdk.EventHub;
+
 import org.hyperledger.fabric.sdk.Orderer;
 import org.hyperledger.fabric.sdk.Peer;
 import org.hyperledger.fabric.sdk.ProposalResponse;
@@ -54,19 +58,46 @@ public class InvokeChaincode {
 			// Enroll Admin to Org1MSP
 			UserContext adminUserContext = new UserContext();
 			adminUserContext.setName(Config.ADMIN);
-			adminUserContext.setAffiliation(Config.ORG1);
+			adminUserContext.setAffiliation(Config.ORG2);
 			adminUserContext.setMspId(Config.ORG1_MSP);
 			caClient.setAdminUserContext(adminUserContext);
-			adminUserContext = caClient.enrollAdminUser(Config.ADMIN, Config.ADMIN_PASSWORD);
-			
+			File f = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
+			String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
+			Properties properties = new Properties();
+			properties.put("pemBytes", certficate.getBytes());
+			properties.setProperty("pemFile", f.getAbsolutePath());
+			properties.setProperty("allowAllHostNames", "true");
+			CAClient caclient=new  CAClient(Config.CA_ORG2_URL, properties);
+			caclient.setAdminUserContext(adminUserContext);
+			adminUserContext =  caclient.enrollAdminUserTLS("admin", "adminpw");
 			FabricClient fabClient = new FabricClient(adminUserContext);
-			
 			ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
 			Channel channel = channelClient.getChannel();
-			Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
+			File fp = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server");
+			String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
+			Properties peer_properties = new Properties();
+			peer_properties.put("pemBytes", certficatep.getBytes());
+			peer_properties.setProperty("sslProvider", "openSSL");
+			peer_properties.setProperty("negotiationType", "TLS");
+			Peer peer = fabClient.getInstance().newPeer(Config.ORG2_PEER_0, Config.ORG2_PEER_0_URL,peer_properties);
 			//EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
-			Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
+			File fpOder = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\order");
+			String certficatepOder = new String (IOUtils.toByteArray(new FileInputStream(fpOder)),"UTF-8");
+			Properties peer_propertiesOder = new Properties();
+			peer_propertiesOder.put("pemBytes", certficatepOder.getBytes());
+			peer_propertiesOder.setProperty("sslProvider", "openSSL");
+			peer_propertiesOder.setProperty("negotiationType", "TLS");
+			Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL,peer_propertiesOder);
+
+			File fp2 = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server2");
+			String certficatep2 = new String (IOUtils.toByteArray(new FileInputStream(fp2)),"UTF-8");
+			Properties peer_properties2= new Properties();
+			peer_properties2.put("pemBytes", certficatep2.getBytes());
+			peer_properties2.setProperty("sslProvider", "openSSL");
+			peer_properties2.setProperty("negotiationType", "TLS");
+			Peer peer2 = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL,peer_properties2);
 			channel.addPeer(peer);
+			channel.addPeer(peer2);
 			//channel.addEventHub(eventHub);
 			channel.addOrderer(orderer);
 			channel.initialize();
@@ -75,7 +106,7 @@ public class InvokeChaincode {
 			ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
 			request.setChaincodeID(ccid);
 			request.setFcn("createCar");
-			String[] arguments = { "CAR1", "Chevy", "Volt", "Red", "Nick" };
+			String[] arguments = { "CAR11", "Mini", "Volt", "Red", "pandaU" };
 			request.setArgs(arguments);
 			request.setProposalWaitTime(1000);
 

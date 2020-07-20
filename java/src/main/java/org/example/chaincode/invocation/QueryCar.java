@@ -1,6 +1,5 @@
 package org.example.chaincode.invocation;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.apache.commons.compress.utils.IOUtils;
 import org.bouncycastle.openssl.PEMWriter;
 import org.example.client.CAClient;
@@ -15,13 +14,17 @@ import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.exception.EnrollmentException;
 import org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException;
 
+import javax.net.ssl.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
 import java.util.Collection;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -69,6 +72,45 @@ public class QueryCar {
 
     }
 
+    static {
+        disableSslVerification();
+    }
+
+    private static void disableSslVerification() {
+        try
+        {
+            // Create a trust manager that does not validate certificate chains
+            TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                }
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                }
+            }
+            };
+
+            // Install the all-trusting trust manager
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+            // Create all-trusting host name verifier
+            HostnameVerifier allHostsValid = new HostnameVerifier() {
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            };
+
+            // Install the all-trusting host verifier
+            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
@@ -77,7 +119,7 @@ public class QueryCar {
             Util.cleanUp();
             UserContext adminUser = new UserContext();
             adminUser.setName(Config.ADMIN);
-            adminUser.setAffiliation(Config.ORG1);
+            adminUser.setAffiliation(Config.ORG2);
             adminUser.setMspId(Config.ORG1_MSP);
             File f = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
             String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
@@ -85,15 +127,13 @@ public class QueryCar {
             properties.put("pemBytes", certficate.getBytes());
             properties.setProperty("pemFile", f.getAbsolutePath());
             properties.setProperty("allowAllHostNames", "true");
-            CAClient caclient=new  CAClient(Config.CA_ORG1_URL, properties);
+            CAClient caclient=new  CAClient(Config.CA_ORG2_URL, properties);
             caclient.setAdminUserContext(adminUser);
             adminUser =  caclient.enrollAdminUserTLS("admin", "adminpw");
             FabricClient fabClient = new FabricClient(adminUser);
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
             //Properties propertiess = new Properties();
-
-            // 其实只需要一个TLS根证书就可以了，比如TLS相关的秘钥等都是可选的
             /*propertiess.put("pemBytes", Files.readAllBytes(Paths.get("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt")));
             propertiess.setProperty("sslProvider", "openSSL");
             propertiess.setProperty("negotiationType", "TLS");
@@ -105,7 +145,13 @@ public class QueryCar {
             propert.put("pemBytes", ficate.getBytes());
             propert.setProperty("pemFile", fs.getAbsolutePath());
             propert.setProperty("allowAllHostNames", "true");*/
-            Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
+            File fp = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server");
+            String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
+            Properties peer_properties = new Properties();
+            peer_properties.put("pemBytes", certficatep.getBytes());
+            peer_properties.setProperty("sslProvider", "openSSL");
+            peer_properties.setProperty("negotiationType", "TLS");
+            Peer peer = fabClient.getInstance().newPeer(Config.ORG2_PEER_0, Config.ORG2_PEER_0_URL,peer_properties);
 
            // EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01",Config.grpc+ Config.baseUrl+":7053");
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
@@ -113,7 +159,7 @@ public class QueryCar {
             channel.addPeer(peer);
             channel.initialize();
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying   ...");
-            Collection<ProposalResponse> responsesQuery = channelClient.queryByChainCode("fabcar", "query", new String[] {"b"});
+            Collection<ProposalResponse> responsesQuery = channelClient.queryByChainCode("fabcar", "queryCar", new String[] {"CAR9"});
             for (ProposalResponse pres : responsesQuery) {
                 String stringResponse = new String(pres.getChaincodeActionResponsePayload());
                 Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);

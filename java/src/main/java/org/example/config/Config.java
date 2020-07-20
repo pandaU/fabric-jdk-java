@@ -4,13 +4,13 @@ import java.io.File;
 
 public class Config {
 	
-	public static final String ORG1_MSP = "Org1MSP";
+	public static final String ORG1_MSP = "Org2MSP";
 
 	public static final String ORG1 = "org1";
 
 	public static final String ORG2_MSP = "Org2MSP";
 
-	public static final String ORG2 = "org2";
+	public static final String ORG2 = "Org2";
 
 	public static final String ADMIN = "admin";
 
@@ -42,25 +42,25 @@ public class Config {
 	
 	public static final String CA_ORG1_URL = "https://172.16.8.19:7054";
 	
-	public static final String CA_ORG2_URL = "http://localhost:8054";
+	public static final String CA_ORG2_URL = "https://172.16.8.19:8054";
 	
-	public static final String ORDERER_URL = "grpc://172.16.8.19:7050";
+	public static final String ORDERER_URL = "grpcs://orderer.example.com:7050";
 	
 	public static final String ORDERER_NAME = "orderer.example.com";
 	
-	public static final String CHANNEL_NAME = "xxribd";
+	public static final String CHANNEL_NAME = "mychannel";
 	
 	public static final String ORG1_PEER_0 = "peer0.org1.example.com";
 	
-	public static final String ORG1_PEER_0_URL = "grpc://172.16.8.19:7051";
+	public static final String ORG1_PEER_0_URL = "grpcs://peer0.org1.example.com:7051";
 	
 	public static final String ORG1_PEER_1 = "peer1.org1.example.com";
 	
-	public static final String ORG1_PEER_1_URL = "grpc://localhost:7056";
-	
+	public static final String ORG1_PEER_1_URL = "grpcs://172.16.8.19:7056";
+
     public static final String ORG2_PEER_0 = "peer0.org2.example.com";
 	
-	public static final String ORG2_PEER_0_URL = "grpc://localhost:8051";
+	public static final String ORG2_PEER_0_URL = "grpcs://peer0.org2.example.com:9051";
 	
 	public static final String ORG2_PEER_1 = "peer1.org2.example.com";
 	
