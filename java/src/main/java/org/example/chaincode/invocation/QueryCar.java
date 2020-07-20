@@ -121,11 +121,7 @@ public class QueryCar {
             adminUser.setName(Config.ADMIN);
             adminUser.setAffiliation(Config.ORG2);
             adminUser.setMspId(Config.ORG2_MSP);
-<<<<<<< HEAD
             File f = new File (QueryCar.class.getResource("/ca.crt").getPath());
-=======
-            File f = new File ("/Users/jiangbingren/Documents/code/fabric-test/java/src/main/resources/ca.crt");
->>>>>>> 9e6381c77e1dc831abb02d95f228e0d67c55d81c
             String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
             Properties properties = new Properties();
             properties.put("pemBytes", certficate.getBytes());
@@ -149,11 +145,8 @@ public class QueryCar {
             propert.put("pemBytes", ficate.getBytes());
             propert.setProperty("pemFile", fs.getAbsolutePath());
             propert.setProperty("allowAllHostNames", "true");*/
-<<<<<<< HEAD
+
             File fp = new File (QueryCar.class.getResource("/server-ogr2p0.crt").getPath());
-=======
-            File fp = new File ("/Users/jiangbingren/Documents/code/fabric-test/java/src/main/resources/server");
->>>>>>> 9e6381c77e1dc831abb02d95f228e0d67c55d81c
             String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
             Properties peer_properties = new Properties();
             peer_properties.put("pemBytes", certficatep.getBytes());
