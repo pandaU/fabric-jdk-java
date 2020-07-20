@@ -4,9 +4,9 @@ import java.io.File;
 
 public class Config {
 	
-	public static final String ORG1_MSP = "Org2MSP";
+	public static final String ORG1_MSP = "Org1MSP";
 
-	public static final String ORG1 = "org1";
+	public static final String ORG1 = "Org1";
 
 	public static final String ORG2_MSP = "Org2MSP";
 

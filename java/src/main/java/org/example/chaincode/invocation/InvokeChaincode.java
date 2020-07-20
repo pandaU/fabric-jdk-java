@@ -59,7 +59,7 @@ public class InvokeChaincode {
 			UserContext adminUserContext = new UserContext();
 			adminUserContext.setName(Config.ADMIN);
 			adminUserContext.setAffiliation(Config.ORG2);
-			adminUserContext.setMspId(Config.ORG1_MSP);
+			adminUserContext.setMspId(Config.ORG2_MSP);
 			caClient.setAdminUserContext(adminUserContext);
 			File f = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
 			String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");

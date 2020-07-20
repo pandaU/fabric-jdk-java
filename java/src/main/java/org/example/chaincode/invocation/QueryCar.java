@@ -120,7 +120,7 @@ public class QueryCar {
             UserContext adminUser = new UserContext();
             adminUser.setName(Config.ADMIN);
             adminUser.setAffiliation(Config.ORG2);
-            adminUser.setMspId(Config.ORG1_MSP);
+            adminUser.setMspId(Config.ORG2_MSP);
             File f = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
             String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
             Properties properties = new Properties();
