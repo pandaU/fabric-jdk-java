@@ -18,7 +18,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.hyperledger.fabric-sdk-java:fabric-sdk-java:2.1.1" level="project" />
     <orderEntry type="library" name="Maven: io.grpc:grpc-netty:1.23.0" level="project" />

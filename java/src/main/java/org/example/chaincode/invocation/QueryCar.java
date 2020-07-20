@@ -121,7 +121,7 @@ public class QueryCar {
             adminUser.setName(Config.ADMIN);
             adminUser.setAffiliation(Config.ORG2);
             adminUser.setMspId(Config.ORG2_MSP);
-            File f = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
+            File f = new File ("/Users/jiangbingren/Documents/code/fabric-test/java/src/main/resources/ca.crt");
             String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
             Properties properties = new Properties();
             properties.put("pemBytes", certficate.getBytes());
@@ -145,7 +145,7 @@ public class QueryCar {
             propert.put("pemBytes", ficate.getBytes());
             propert.setProperty("pemFile", fs.getAbsolutePath());
             propert.setProperty("allowAllHostNames", "true");*/
-            File fp = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server");
+            File fp = new File ("/Users/jiangbingren/Documents/code/fabric-test/java/src/main/resources/server");
             String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
             Properties peer_properties = new Properties();
             peer_properties.put("pemBytes", certficatep.getBytes());
