@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.apache.commons.compress.utils.IOUtils;
 import org.example.chaincode.invocation.InvokeChaincode;
+import org.example.chaincode.invocation.QueryCar;
 import org.example.chaincode.invocation.QueryChaincode;
 import org.example.client.CAClient;
 import org.example.client.ChannelClient;
@@ -36,7 +37,7 @@ public class ContrllerTest {
             adminUser.setName(Config.ADMIN);
             adminUser.setAffiliation(Config.ORG2);
             adminUser.setMspId(Config.ORG1_MSP);
-            File f = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
+            File f = new File (this.getClass().getResource("/ca.crt").getPath());
             String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
             Properties properties = new Properties();
             properties.put("pemBytes", certficate.getBytes());
@@ -60,7 +61,7 @@ public class ContrllerTest {
             propert.put("pemBytes", ficate.getBytes());
             propert.setProperty("pemFile", fs.getAbsolutePath());
             propert.setProperty("allowAllHostNames", "true");*/
-            File fp = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server");
+            File fp = new File (this.getClass().getResource("/server-ogr2p0.crt").getPath());
             String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
             Properties peer_properties = new Properties();
             peer_properties.put("pemBytes", certficatep.getBytes());
@@ -97,7 +98,7 @@ public class ContrllerTest {
             adminUserContext.setAffiliation(Config.ORG2);
             adminUserContext.setMspId(Config.ORG2_MSP);
             caClient.setAdminUserContext(adminUserContext);
-            File f = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
+            File f = new File (this.getClass().getResource("/ca.crt").getPath());
             String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
             Properties properties = new Properties();
             properties.put("pemBytes", certficate.getBytes());
@@ -109,7 +110,7 @@ public class ContrllerTest {
             FabricClient fabClient = new FabricClient(adminUserContext);
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
-            File fp = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server");
+            File fp = new File (this.getClass().getResource("/server-ogr2p0.crt").getPath());
             String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
             Properties peer_properties = new Properties();
             peer_properties.put("pemBytes", certficatep.getBytes());
@@ -117,7 +118,7 @@ public class ContrllerTest {
             peer_properties.setProperty("negotiationType", "TLS");
             Peer peer = fabClient.getInstance().newPeer(Config.ORG2_PEER_0, Config.ORG2_PEER_0_URL,peer_properties);
             //EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
-            File fpOder = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\order");
+            File fpOder = new File (this.getClass().getResource("/order.crt").getPath());
             String certficatepOder = new String (IOUtils.toByteArray(new FileInputStream(fpOder)),"UTF-8");
             Properties peer_propertiesOder = new Properties();
             peer_propertiesOder.put("pemBytes", certficatepOder.getBytes());
@@ -125,7 +126,7 @@ public class ContrllerTest {
             peer_propertiesOder.setProperty("negotiationType", "TLS");
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL,peer_propertiesOder);
 
-            File fp2 = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server2");
+            File fp2 = new File (this.getClass().getResource("/server-ogr1p0.crt").getPath());
             String certficatep2 = new String (IOUtils.toByteArray(new FileInputStream(fp2)),"UTF-8");
             Properties peer_properties2= new Properties();
             peer_properties2.put("pemBytes", certficatep2.getBytes());
@@ -178,7 +179,7 @@ public class ContrllerTest {
             adminUserContext.setAffiliation(Config.ORG2);
             adminUserContext.setMspId(Config.ORG2_MSP);
             caClient.setAdminUserContext(adminUserContext);
-            File f = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
+            File f = new File (this.getClass().getResource("/ca.crt").getPath());
             String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
             Properties properties = new Properties();
             properties.put("pemBytes", certficate.getBytes());
@@ -190,7 +191,7 @@ public class ContrllerTest {
             FabricClient fabClient = new FabricClient(adminUserContext);
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
-            File fp = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server");
+            File fp = new File (this.getClass().getResource("/server-ogr2p0.crt").getPath());
             String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
             Properties peer_properties = new Properties();
             peer_properties.put("pemBytes", certficatep.getBytes());
@@ -198,7 +199,7 @@ public class ContrllerTest {
             peer_properties.setProperty("negotiationType", "TLS");
             Peer peer = fabClient.getInstance().newPeer(Config.ORG2_PEER_0, Config.ORG2_PEER_0_URL,peer_properties);
             //EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
-            File fpOder = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\order");
+            File fpOder = new File (this.getClass().getResource("/order.crt").getPath());
             String certficatepOder = new String (IOUtils.toByteArray(new FileInputStream(fpOder)),"UTF-8");
             Properties peer_propertiesOder = new Properties();
             peer_propertiesOder.put("pemBytes", certficatepOder.getBytes());
@@ -206,7 +207,7 @@ public class ContrllerTest {
             peer_propertiesOder.setProperty("negotiationType", "TLS");
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL,peer_propertiesOder);
 
-            File fp2 = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server2");
+            File fp2 = new File (this.getClass().getResource("/server-ogr1p0.crt").getPath());
             String certficatep2 = new String (IOUtils.toByteArray(new FileInputStream(fp2)),"UTF-8");
             Properties peer_properties2= new Properties();
             peer_properties2.put("pemBytes", certficatep2.getBytes());

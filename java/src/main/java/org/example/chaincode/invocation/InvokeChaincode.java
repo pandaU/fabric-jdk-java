@@ -61,7 +61,7 @@ public class InvokeChaincode {
 			adminUserContext.setAffiliation(Config.ORG2);
 			adminUserContext.setMspId(Config.ORG2_MSP);
 			caClient.setAdminUserContext(adminUserContext);
-			File f = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
+			File f = new File (InvokeChaincode.class.getResource("/ca.crt").getPath());
 			String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
 			Properties properties = new Properties();
 			properties.put("pemBytes", certficate.getBytes());
@@ -73,7 +73,7 @@ public class InvokeChaincode {
 			FabricClient fabClient = new FabricClient(adminUserContext);
 			ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
 			Channel channel = channelClient.getChannel();
-			File fp = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server");
+			File fp = new File (InvokeChaincode.class.getResource("/server-ogr2p0.crt").getPath());
 			String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
 			Properties peer_properties = new Properties();
 			peer_properties.put("pemBytes", certficatep.getBytes());
@@ -81,7 +81,7 @@ public class InvokeChaincode {
 			peer_properties.setProperty("negotiationType", "TLS");
 			Peer peer = fabClient.getInstance().newPeer(Config.ORG2_PEER_0, Config.ORG2_PEER_0_URL,peer_properties);
 			//EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
-			File fpOder = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\order");
+			File fpOder = new File (InvokeChaincode.class.getResource("/order.crt").getPath());
 			String certficatepOder = new String (IOUtils.toByteArray(new FileInputStream(fpOder)),"UTF-8");
 			Properties peer_propertiesOder = new Properties();
 			peer_propertiesOder.put("pemBytes", certficatepOder.getBytes());
@@ -89,7 +89,7 @@ public class InvokeChaincode {
 			peer_propertiesOder.setProperty("negotiationType", "TLS");
 			Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL,peer_propertiesOder);
 
-			File fp2 = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server2");
+			File fp2 = new File (InvokeChaincode.class.getResource("/server-org1p0.crt").getPath());
 			String certficatep2 = new String (IOUtils.toByteArray(new FileInputStream(fp2)),"UTF-8");
 			Properties peer_properties2= new Properties();
 			peer_properties2.put("pemBytes", certficatep2.getBytes());
@@ -106,7 +106,7 @@ public class InvokeChaincode {
 			ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
 			request.setChaincodeID(ccid);
 			request.setFcn("createCar");
-			String[] arguments = { "CAR11", "Mini", "Volt", "Red", "pandaU" };
+			String[] arguments = { "CAR12", "Mini", "Volt", "Red", "pandaUUU" };
 			request.setArgs(arguments);
 			request.setProposalWaitTime(1000);
 

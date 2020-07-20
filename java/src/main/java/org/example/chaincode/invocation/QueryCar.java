@@ -121,7 +121,7 @@ public class QueryCar {
             adminUser.setName(Config.ADMIN);
             adminUser.setAffiliation(Config.ORG2);
             adminUser.setMspId(Config.ORG2_MSP);
-            File f = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
+            File f = new File (QueryCar.class.getResource("/ca.crt").getPath());
             String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
             Properties properties = new Properties();
             properties.put("pemBytes", certficate.getBytes());
@@ -145,17 +145,13 @@ public class QueryCar {
             propert.put("pemBytes", ficate.getBytes());
             propert.setProperty("pemFile", fs.getAbsolutePath());
             propert.setProperty("allowAllHostNames", "true");*/
-            File fp = new File ("C:\\Users\\xxrib\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server");
+            File fp = new File (QueryCar.class.getResource("/server-ogr2p0.crt").getPath());
             String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
             Properties peer_properties = new Properties();
             peer_properties.put("pemBytes", certficatep.getBytes());
             peer_properties.setProperty("sslProvider", "openSSL");
             peer_properties.setProperty("negotiationType", "TLS");
-            Peer peer = fabClient.getInstance().newPeer(Config.ORG2_PEER_0, Config.ORG2_PEER_0_URL,peer_properties);
-
-           // EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01",Config.grpc+ Config.baseUrl+":7053");
-            Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
-            channel.addOrderer(orderer);
+            Peer peer = fabClient.getInstance().newPeer(Config.ORG2_PEER_0, Config.ORG2_PEER_0_URL,peer_properties);;
             channel.addPeer(peer);
             channel.initialize();
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying   ...");
