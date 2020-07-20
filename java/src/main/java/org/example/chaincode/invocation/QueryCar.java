@@ -19,8 +19,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
@@ -146,7 +144,7 @@ public class QueryCar {
             propert.setProperty("pemFile", fs.getAbsolutePath());
             propert.setProperty("allowAllHostNames", "true");*/
 
-            File fp = new File (QueryCar.class.getResource("/server-ogr2p0.crt").getPath());
+            File fp = new File (QueryCar.class.getResource("/server-org2p0.crt").getPath());
             String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
             Properties peer_properties = new Properties();
             peer_properties.put("pemBytes", certficatep.getBytes());
