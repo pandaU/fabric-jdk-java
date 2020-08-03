@@ -12,9 +12,15 @@
  */
 package org.example.user;
 
+import org.apache.commons.compress.utils.IOUtils;
+import org.example.chaincode.invocation.QueryCar;
 import org.example.client.CAClient;
 import org.example.config.Config;
 import org.example.util.Util;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
 
 /**
  * 
@@ -27,27 +33,33 @@ public class RegisterEnrollUser {
 	public static void main(String args[]) {
 		try {
 			Util.cleanUp();
-			String caUrl = Config.CA_ORG1_URL;
-			CAClient caClient = new CAClient(caUrl, null);
+			File f = new File (QueryCar.class.getResource("/ca.crt").getPath());
+			String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
+			Properties properties = new Properties();
+			properties.put("pemBytes", certficate.getBytes());
+			properties.setProperty("pemFile", f.getAbsolutePath());
+			properties.setProperty("allowAllHostNames", "true");
+			String caUrl = Config.CA_ORG2_URL;
+			CAClient caClient = new CAClient(caUrl, properties);
 			// Enroll Admin to Org1MSP
 			UserContext adminUserContext = new UserContext();
 			adminUserContext.setName(Config.ADMIN);
-			adminUserContext.setAffiliation(Config.ORG1);
-			adminUserContext.setMspId(Config.ORG1_MSP);
+			adminUserContext.setAffiliation(Config.ORG2);
+			adminUserContext.setMspId(Config.ORG2_MSP);
 			caClient.setAdminUserContext(adminUserContext);
-			adminUserContext = caClient.enrollAdminUser(Config.ADMIN, Config.ADMIN_PASSWORD);
+			adminUserContext = caClient.enrollAdminUserTLS(Config.ADMIN, Config.ADMIN_PASSWORD);
 
 			// Register and Enroll user to Org1MSP
 			UserContext userContext = new UserContext();
-			String name = "user"+System.currentTimeMillis();
+			String name = "my_user555";
 			userContext.setName(name);
-			userContext.setAffiliation(Config.ORG1);
-			userContext.setMspId(Config.ORG1_MSP);
+			userContext.setAffiliation(Config.ORG2);
+			userContext.setMspId(Config.ORG2_MSP);
 
-			String eSecret = caClient.registerUser(name, Config.ORG1);
+			String eSecret = caClient.registerUser(name, Config.ORG2);
 
-			userContext = caClient.enrollUser(userContext, eSecret);
-
+			userContext = caClient.enrollUser(userContext,eSecret);
+			System.out.println(userContext);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

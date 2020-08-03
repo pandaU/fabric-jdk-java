@@ -117,7 +117,7 @@ public class Util {
 
 		try {
 
-			isKey = new FileInputStream(keyFolderPath + File.separator + keyFileName);
+			isKey = new FileInputStream(keyFolderPath);
 			brKey = new BufferedReader(new InputStreamReader(isKey));
 			StringBuilder keyBuilder = new StringBuilder();
 
@@ -127,7 +127,7 @@ public class Util {
 				}
 			}
 
-			certificate = new String(Files.readAllBytes(Paths.get(certFolderPath, certFileName)));
+			certificate = new String(Files.readAllBytes(Paths.get(certFolderPath)));
 
 			byte[] encoded = DatatypeConverter.parseBase64Binary(keyBuilder.toString());
 			PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(encoded);

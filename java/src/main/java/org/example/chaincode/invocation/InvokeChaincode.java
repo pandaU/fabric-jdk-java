@@ -53,14 +53,10 @@ public class InvokeChaincode {
 	public static void main(String args[]) {
 		try {
             Util.cleanUp();
-			String caUrl = Config.CA_ORG1_URL;
-			CAClient caClient = new CAClient(caUrl, null);
-			// Enroll Admin to Org1MSP
-			UserContext adminUserContext = new UserContext();
-			adminUserContext.setName(Config.ADMIN);
-			adminUserContext.setAffiliation(Config.ORG2);
-			adminUserContext.setMspId(Config.ORG2_MSP);
-			caClient.setAdminUserContext(adminUserContext);
+			UserContext adminUser = new UserContext();
+			adminUser.setName(Config.ADMIN);
+			adminUser.setAffiliation(Config.ORG2);
+			adminUser.setMspId(Config.ORG2_MSP);
 			File f = new File (InvokeChaincode.class.getResource("/ca.crt").getPath());
 			String certficate = new String (IOUtils.toByteArray(new FileInputStream(f)),"UTF-8");
 			Properties properties = new Properties();
@@ -68,12 +64,12 @@ public class InvokeChaincode {
 			properties.setProperty("pemFile", f.getAbsolutePath());
 			properties.setProperty("allowAllHostNames", "true");
 			CAClient caclient=new  CAClient(Config.CA_ORG2_URL, properties);
-			caclient.setAdminUserContext(adminUserContext);
-			adminUserContext =  caclient.enrollAdminUserTLS("admin", "adminpw");
-			FabricClient fabClient = new FabricClient(adminUserContext);
+			caclient.setAdminUserContext(adminUser);
+			adminUser =  caclient.enrollAdminUserTLS("admin", "adminpw");
+			FabricClient fabClient = new FabricClient(adminUser);
 			ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
 			Channel channel = channelClient.getChannel();
-			File fp = new File (InvokeChaincode.class.getResource("/server-ogr2p0.crt").getPath());
+			File fp = new File (InvokeChaincode.class.getResource("/server-org2p0.crt").getPath());
 			String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
 			Properties peer_properties = new Properties();
 			peer_properties.put("pemBytes", certficatep.getBytes());
@@ -106,7 +102,7 @@ public class InvokeChaincode {
 			ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
 			request.setChaincodeID(ccid);
 			request.setFcn("createCar");
-			String[] arguments = { "CAR12", "Mini", "Volt", "Red", "pandaUUU" };
+			String[] arguments = { "CAR15", "Mini", "Volt", "Red", "pandaUUU" };
 			request.setArgs(arguments);
 			request.setProposalWaitTime(1000);
 
