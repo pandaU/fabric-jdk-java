@@ -66,11 +66,11 @@ public class Config {
 	
 	public static final String ORG2_PEER_1_URL = "grpc://localhost:8056";
 	
-	public static final String CHAINCODE_ROOT_DIR = "chaincode";
+	public static final String CHAINCODE_ROOT_DIR = "D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\chaincode";
 	
 	public static final String CHAINCODE_1_NAME = "fabcar";
 	
-	public static final String CHAINCODE_1_PATH = "github.com/fabcar";
+	public static final String CHAINCODE_1_PATH = "github.com/fabcar/go";
 	
 	public static final String CHAINCODE_1_VERSION = "1";
 

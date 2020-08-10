@@ -13,9 +13,11 @@
 package org.example.network;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,11 +26,7 @@ import org.example.client.FabricClient;
 import org.example.config.Config;
 import org.example.user.UserContext;
 import org.example.util.Util;
-import org.hyperledger.fabric.sdk.Channel;
-import org.hyperledger.fabric.sdk.Enrollment;
-import org.hyperledger.fabric.sdk.Orderer;
-import org.hyperledger.fabric.sdk.Peer;
-import org.hyperledger.fabric.sdk.ProposalResponse;
+import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.TransactionRequest.Type;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
 
@@ -43,74 +41,82 @@ public class DeployInstantiateChaincode {
 	public static void main(String[] args) {
 		try {
 			CryptoSuite cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
-			
+
 			UserContext org1Admin = new UserContext();
-			File pkFolder1 = new File(Config.ORG1_USR_ADMIN_PK);
-			File[] pkFiles1 = pkFolder1.listFiles();
-			File certFolder = new File(Config.ORG1_USR_ADMIN_CERT);
-			File[] certFiles = certFolder.listFiles();
-			Enrollment enrollOrg1Admin = Util.getEnrollment(Config.ORG1_USR_ADMIN_PK, pkFiles1[0].getName(),
-					Config.ORG1_USR_ADMIN_CERT, certFiles[0].getName());
+			Enrollment enrollOrg1Admin = Util.getEnrollment("D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key1\\org1_key", null,
+					"D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server-org1p0.crt", null);
 			org1Admin.setEnrollment(enrollOrg1Admin);
-			org1Admin.setMspId("Org1MSP");
-			org1Admin.setName("admin");
+			org1Admin.setMspId(Config.ORG1_MSP);
+			org1Admin.setName(Config.ADMIN);
 
 			UserContext org2Admin = new UserContext();
-			File pkFolder2 = new File(Config.ORG2_USR_ADMIN_PK);
-			File[] pkFiles2 = pkFolder2.listFiles();
-			File certFolder2 = new File(Config.ORG2_USR_ADMIN_CERT);
-			File[] certFiles2 = certFolder2.listFiles();
-			Enrollment enrollOrg2Admin = Util.getEnrollment(Config.ORG2_USR_ADMIN_PK, pkFiles2[0].getName(),
-					Config.ORG2_USR_ADMIN_CERT, certFiles2[0].getName());
+			Enrollment enrollOrg2Admin = Util.getEnrollment("D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key2\\org2_key", null,
+					"D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server-org2p0.crt", null);
 			org2Admin.setEnrollment(enrollOrg2Admin);
 			org2Admin.setMspId(Config.ORG2_MSP);
 			org2Admin.setName(Config.ADMIN);
-			
 			FabricClient fabClient = new FabricClient(org1Admin);
+			HFClient client = fabClient.getInstance();
+			Channel mychannel = fabClient.getInstance().newChannel("mychxx");
+			Properties orderer1Prop = new Properties();
+			orderer1Prop.setProperty("pemFile", "D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\order.crt");
+			orderer1Prop.setProperty("sslProvider", "openSSL");
+			orderer1Prop.setProperty("negotiationType", "TLS");
+			orderer1Prop.setProperty("hostnameOverride", "orderer.example.com");
+			orderer1Prop.setProperty("trustServerCertificate", "true");
+			orderer1Prop.put("grpc.NettyChannelBuilderOption.maxInboundMessageSize", 9000000);
+			Orderer orderer = client.newOrderer("orderer.example.com", "grpcs://orderer.example.com:7050", orderer1Prop);
 
-			Channel mychannel = fabClient.getInstance().newChannel(Config.CHANNEL_NAME);
-			Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
-			Peer peer0_org1 = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-			Peer peer1_org1 = fabClient.getInstance().newPeer(Config.ORG1_PEER_1, Config.ORG1_PEER_1_URL);
-			Peer peer0_org2 = fabClient.getInstance().newPeer(Config.ORG2_PEER_0, Config.ORG2_PEER_0_URL);
-			Peer peer1_org2 = fabClient.getInstance().newPeer(Config.ORG2_PEER_1, Config.ORG2_PEER_1_URL);
+			Properties peer1Prop = new Properties();
+			peer1Prop.setProperty("pemFile", "D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca1.crt");
+			peer1Prop.setProperty("sslProvider", "openSSL");
+			peer1Prop.setProperty("negotiationType", "TLS");
+			peer1Prop.setProperty("hostnameOverride", "peer0.org1.example.com");
+			peer1Prop.setProperty("trustServerCertificate", "true");
+			peer1Prop.put("grpc.NettyChannelBuilderOption.maxInboundMessageSize", 9000000);
+			Peer peer = client.newPeer("peer0.org1.example.com", "grpcs://peer0.org1.example.com:7051", peer1Prop);
+
+			Properties peer2Prop = new Properties();
+			peer2Prop.setProperty("pemFile", "D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
+			peer2Prop.setProperty("sslProvider", "openSSL");
+			peer2Prop.setProperty("negotiationType", "TLS");
+			peer2Prop.setProperty("hostnameOverride", "peer0.org2.example.com");
+			peer2Prop.setProperty("trustServerCertificate", "true");
+			peer2Prop.put("grpc.NettyChannelBuilderOption.maxInboundMessageSize", 9000000);
+			Peer peer2 = client.newPeer("peer0.org2.example.com", "grpcs://peer0.org2.example.com:9051", peer2Prop);
 			mychannel.addOrderer(orderer);
-			mychannel.addPeer(peer0_org1);
-			mychannel.addPeer(peer1_org1);
-			mychannel.addPeer(peer0_org2);
-			mychannel.addPeer(peer1_org2);
+			mychannel.addPeer(peer);
+			mychannel.addPeer(peer2);
 			mychannel.initialize();
 
 			List<Peer> org1Peers = new ArrayList<Peer>();
-			org1Peers.add(peer0_org1);
-			org1Peers.add(peer1_org1);
+			org1Peers.add(peer);
 			
 			List<Peer> org2Peers = new ArrayList<Peer>();
-			org2Peers.add(peer0_org2);
-			org2Peers.add(peer1_org2);
-			
+			org2Peers.add(peer2);
+
 			Collection<ProposalResponse> response = fabClient.deployChainCode(Config.CHAINCODE_1_NAME,
 					Config.CHAINCODE_1_PATH, Config.CHAINCODE_ROOT_DIR, Type.GO_LANG.toString(),
 					Config.CHAINCODE_1_VERSION, org1Peers);
-			
-			
+
+
 			for (ProposalResponse res : response) {
 				Logger.getLogger(DeployInstantiateChaincode.class.getName()).log(Level.INFO,
 						Config.CHAINCODE_1_NAME + "- Chain code deployment " + res.getStatus());
 			}
 
 			fabClient.getInstance().setUserContext(org2Admin);
-			
+
 			response = fabClient.deployChainCode(Config.CHAINCODE_1_NAME,
 					Config.CHAINCODE_1_PATH, Config.CHAINCODE_ROOT_DIR, Type.GO_LANG.toString(),
 					Config.CHAINCODE_1_VERSION, org2Peers);
-			
-			
+
+
 			for (ProposalResponse res : response) {
 				Logger.getLogger(DeployInstantiateChaincode.class.getName()).log(Level.INFO,
 						Config.CHAINCODE_1_NAME + "- Chain code deployment " + res.getStatus());
 			}
-			
+
 			ChannelClient channelClient = new ChannelClient(mychannel.getName(), mychannel, fabClient);
 
 			String[] arguments = { "" };

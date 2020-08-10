@@ -13,7 +13,6 @@ import org.hyperledger.fabric.sdk.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,7 +72,7 @@ public class ContrllerTest {
             channel.addPeer(peer);
             channel.initialize();
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying   ...");
-            Collection<ProposalResponse> responsesQuery = channelClient.queryByChainCode("fabcar", "queryCar", new String[] {"CAR9"});
+            Collection<ProposalResponse> responsesQuery = channelClient.queryByChainCode("com/src/chaincode/fabcar", "queryCar", new String[] {"CAR9"});
             for (ProposalResponse pres : responsesQuery) {
                 String stringResponse = new String(pres.getChaincodeActionResponsePayload());
                 return  stringResponse;

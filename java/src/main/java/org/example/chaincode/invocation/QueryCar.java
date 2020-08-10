@@ -143,7 +143,7 @@ public class QueryCar {
             channel.initialize();
             System.out.println("channle size"+fabClient.getInstance().queryChannels(peer));
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying   ...");
-            Collection<ProposalResponse> responsesQuery = channelClient.queryByChainCode("fabcar", "queryCar", new String[] {"CAR12"});
+            Collection<ProposalResponse> responsesQuery = channelClient.queryByChainCode("fabcar", "queryCar", new String[] {"CAR9"});
             for (ProposalResponse pres : responsesQuery) {
                 String stringResponse = new String(pres.getChaincodeActionResponsePayload());
                 Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
