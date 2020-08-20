@@ -1,6 +1,6 @@
 all: vet test testrace
 
-build: deps
+builC:\\Users\\13202\\Desktop deps
 	go build google.golang.org/grpc/...
 
 clean:

@@ -15,21 +15,21 @@ package org.example.client;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.hyperledger.fabric.sdk.ChaincodeID;
-import org.hyperledger.fabric.sdk.Channel;
-import org.hyperledger.fabric.sdk.HFClient;
-import org.hyperledger.fabric.sdk.InstallProposalRequest;
-import org.hyperledger.fabric.sdk.Peer;
-import org.hyperledger.fabric.sdk.ProposalResponse;
-import org.hyperledger.fabric.sdk.User;
+import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.TransactionRequest.Type;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
+
+import static java.lang.String.format;
 
 /**
  * Wrapper class for HFClient.
@@ -98,22 +98,45 @@ public class FabricClient {
 	 * @throws IOException
 	 * @throws ProposalException
 	 */
-	public Collection<ProposalResponse> deployChainCode(String chainCodeName, String chaincodePath, String codepath,
-			String language, String version, Collection<Peer> peers)
+	public String deployChainCode(String chainCodeName, String chaincodePath, String codepath,
+			Type language, String version, Collection<Peer> peers)
 			throws InvalidArgumentException, IOException, ProposalException {
-		InstallProposalRequest request = instance.newInstallProposalRequest();
+		LifecycleInstallChaincodeRequest request = instance.newLifecycleInstallChaincodeRequest();
 		ChaincodeID.Builder chaincodeIDBuilder = ChaincodeID.newBuilder().setName(chainCodeName).setVersion(version)
 				.setPath(chaincodePath);
 		ChaincodeID chaincodeID = chaincodeIDBuilder.build();
 		Logger.getLogger(FabricClient.class.getName()).log(Level.INFO,
 				"Deploying chaincode " + chainCodeName + " using Fabric client " + instance.getUserContext().getMspId()
 						+ " " + instance.getUserContext().getName());
-		request.setChaincodeID(chaincodeID);
-		request.setUserContext(instance.getUserContext());
-		request.setChaincodeSourceLocation(new File(codepath));
-		request.setChaincodeVersion(version);
-		Collection<ProposalResponse> responses = instance.sendInstallProposal(request, peers);
-		return responses;
+		LifecycleChaincodePackage lifecycleChaincodePackage = createLifecycleChaincodePackage(
+				chainCodeName, // some label
+				Type.GO_LANG,
+				codepath,
+				chaincodePath,
+				null);
+		request.setLifecycleChaincodePackage(lifecycleChaincodePackage);
+		request.setProposalWaitTime(120000);
+		Collection<LifecycleInstallChaincodeProposalResponse> responses = instance.sendLifecycleInstallChaincodeRequest(request, peers);
+		String packageID = null;
+		for (LifecycleInstallChaincodeProposalResponse response : responses) {
+			if (response.getStatus() == ProposalResponse.Status.SUCCESS) {
+				if (packageID == null) {
+					packageID = response.getPackageId();
+				}
+			}
+		}
+		return packageID;
 	}
+	private LifecycleChaincodePackage createLifecycleChaincodePackage(String chaincodeLabel, Type chaincodeType, String chaincodeSourceLocation, String chaincodePath, String metadadataSource) throws IOException, InvalidArgumentException {
 
+		Path metadataSourcePath = null;
+		if (metadadataSource != null) {
+			metadataSourcePath = Paths.get(metadadataSource);
+		}
+		LifecycleChaincodePackage lifecycleChaincodePackage = LifecycleChaincodePackage.fromSource(chaincodeLabel, Paths.get(chaincodeSourceLocation),
+				chaincodeType,
+				chaincodePath, metadataSourcePath);
+
+		return lifecycleChaincodePackage;
+	}
 }

@@ -84,7 +84,7 @@ func doHTTPConnectHandshake(ctx context.Context, conn net.Conn, backendAddr stri
 	}()
 
 	req := &http.Request{
-		Method: http.MethodConnect,
+		MethoC:\\Users\\13202\\Desktop http.MethodConnect,
 		URL:    &url.URL{Host: backendAddr},
 		Header: map[string][]string{"User-Agent": {grpcUA}},
 	}

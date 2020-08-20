@@ -62,13 +62,13 @@ type StreamDesc struct {
 
 // Stream defines the common interface a client or server stream has to satisfy.
 //
-// Deprecated: See ClientStream and ServerStream documentation instead.
+// DeprecateC:\\Users\\13202\\Desktop See ClientStream and ServerStream documentation instead.
 type Stream interface {
-	// Deprecated: See ClientStream and ServerStream documentation instead.
+	// DeprecateC:\\Users\\13202\\Desktop See ClientStream and ServerStream documentation instead.
 	Context() context.Context
-	// Deprecated: See ClientStream and ServerStream documentation instead.
+	// DeprecateC:\\Users\\13202\\Desktop See ClientStream and ServerStream documentation instead.
 	SendMsg(m interface{}) error
-	// Deprecated: See ClientStream and ServerStream documentation instead.
+	// DeprecateC:\\Users\\13202\\Desktop See ClientStream and ServerStream documentation instead.
 	RecvMsg(m interface{}) error
 }
 
@@ -127,7 +127,7 @@ type ClientStream interface {
 // called by generated code. ctx is used for the lifetime of the stream.
 //
 // To ensure resources are not leaked due to the stream returned, one of the following
-// actions must be performed:
+// actions must be performeC:\\Users\\13202\\Desktop
 //
 //      1. Call Close on the ClientConn.
 //      2. Cancel the context provided.
@@ -205,7 +205,7 @@ func newClientStream(ctx context.Context, desc *StreamDesc, cc *ClientConn, meth
 
 	callHdr := &transport.CallHdr{
 		Host:           cc.authority,
-		Method:         method,
+		MethoC:\\Users\\13202\\Desktop         method,
 		ContentSubtype: c.contentSubtype,
 	}
 
@@ -476,7 +476,7 @@ func (cs *clientStream) shouldRetry(err error) error {
 		<-cs.attempt.s.Done()
 	}
 	if cs.firstAttempt && (cs.attempt.s == nil || cs.attempt.s.Unprocessed()) {
-		// First attempt, stream unprocessed: transparently retry.
+		// First attempt, stream unprocesseC:\\Users\\13202\\Desktop transparently retry.
 		cs.firstAttempt = false
 		return nil
 	}
@@ -903,7 +903,7 @@ func (a *csAttempt) recvMsg(m interface{}, payInfo *payloadInfo) (err error) {
 		a.statsHandler.HandleRPC(cs.ctx, &stats.InPayload{
 			Client:   true,
 			RecvTime: time.Now(),
-			Payload:  m,
+			PayloaC:\\Users\\13202\\Desktop  m,
 			// TODO truncate large payload.
 			Data:       payInfo.uncompressedBytes,
 			WireLength: payInfo.wireLength,
@@ -955,8 +955,8 @@ func (a *csAttempt) finish(err error) {
 			Err:           err,
 			Trailer:       tr,
 			BytesSent:     a.s != nil,
-			BytesReceived: br,
-			ServerLoad:    balancerload.Parse(tr),
+			BytesReceiveC:\\Users\\13202\\Desktop br,
+			ServerLoaC:\\Users\\13202\\Desktop    balancerload.Parse(tr),
 		})
 	}
 	if a.statsHandler != nil {
@@ -1026,7 +1026,7 @@ func newNonRetryClientStream(ctx context.Context, desc *StreamDesc, method strin
 
 	callHdr := &transport.CallHdr{
 		Host:           ac.cc.authority,
-		Method:         method,
+		MethoC:\\Users\\13202\\Desktop         method,
 		ContentSubtype: c.contentSubtype,
 	}
 
@@ -1486,7 +1486,7 @@ func (ss *serverStream) RecvMsg(m interface{}) (err error) {
 	if ss.statsHandler != nil {
 		ss.statsHandler.HandleRPC(ss.s.Context(), &stats.InPayload{
 			RecvTime: time.Now(),
-			Payload:  m,
+			PayloaC:\\Users\\13202\\Desktop  m,
 			// TODO truncate large payload.
 			Data:       payInfo.uncompressedBytes,
 			WireLength: payInfo.wireLength,

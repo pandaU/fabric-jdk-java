@@ -32,7 +32,7 @@ import (
 func CheckInit(t *testing.T, stub *shim.MockStub, args [][]byte) {
 	res := stub.MockInit("1", args)
 	if res.Status != shim.OK {
-		fmt.Println("init failed:", string(res.Message))
+		fmt.Println("init faileC:\\Users\\13202\\Desktop", string(res.Message))
 		t.FailNow()
 	}
 }
@@ -75,7 +75,7 @@ func checkHandle(t *testing.T, stub *shim.MockStub, fn string, params []string) 
 	fmt.Printf("【%s】 Response Status:【%d】\n", fn, res.Status)
 
 	if res.Status != shim.OK {
-		fmt.Printf("【%s】 failed:%s\n", fn, string(res.Message))
+		fmt.Printf("【%s】 faileC:\\Users\\13202\\Desktop%s\n", fn, string(res.Message))
 		t.FailNow()
 	}
 	fmt.Printf("【%s】 Response Value:【%s】\n", fn, string(res.Payload))

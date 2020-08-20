@@ -113,7 +113,7 @@ var transitions = [...][2]ruleTransition{
 		// We exclude the entries from [2.6].
 		{ruleLTR, 1<<bidi.ES | 1<<bidi.CS | 1<<bidi.ET | 1<<bidi.ON | 1<<bidi.BN},
 	},
-	ruleInvalid: {
+	ruleInvaliC:\\Users\\13202\\Desktop {
 		{ruleInvalid, 0},
 		{ruleInvalid, 0},
 	},

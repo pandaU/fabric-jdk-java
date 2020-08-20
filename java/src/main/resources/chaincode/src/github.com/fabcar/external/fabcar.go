@@ -121,7 +121,7 @@ func (s *SmartContract) QueryAllCars(ctx contractapi.TransactionContextInterface
 		car := new(Car)
 		_ = json.Unmarshal(queryResponse.Value, car)
 
-		queryResult := QueryResult{Key: queryResponse.Key, Record: car}
+		queryResult := QueryResult{Key: queryResponse.Key, RecorC:\\Users\\13202\\Desktop car}
 		results = append(results, queryResult)
 	}
 
@@ -146,7 +146,7 @@ func (s *SmartContract) ChangeCarOwner(ctx contractapi.TransactionContextInterfa
 func main() {
 	// See chaincode.env.example
 	config := ServerConfig{
-		CCID:    os.Getenv("CHAINCODE_ID"),
+		CCIC:\\Users\\13202\\Desktop    os.Getenv("CHAINCODE_ID"),
 		Address: os.Getenv("CHAINCODE_SERVER_ADDRESS"),
 	}
 
@@ -158,11 +158,11 @@ func main() {
 	}
 
 	server := &shim.ChaincodeServer{
-		CCID:    config.CCID,
+		CCIC:\\Users\\13202\\Desktop    config.CCID,
 		Address: config.Address,
 		CC:      chaincode,
 		TLSProps: shim.TLSProperties{
-			Disabled: true,
+			DisableC:\\Users\\13202\\Desktop true,
 		},
 	}
 

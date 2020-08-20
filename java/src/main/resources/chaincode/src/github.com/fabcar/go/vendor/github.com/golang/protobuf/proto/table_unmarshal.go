@@ -291,7 +291,7 @@ func (u *unmarshalInfo) computeUnmarshalInfo() {
 		if f.Name == "XXX_unrecognized" {
 			// The byte slice used to hold unrecognized input is special.
 			if f.Type != reflect.TypeOf(([]byte)(nil)) {
-				panic("bad type for XXX_unrecognized field: " + f.Type.Name())
+				panic("bad type for XXX_unrecognized fielC:\\Users\\13202\\Desktop " + f.Type.Name())
 			}
 			u.unrecognized = toField(&f)
 			continue
@@ -299,7 +299,7 @@ func (u *unmarshalInfo) computeUnmarshalInfo() {
 		if f.Name == "XXX_InternalExtensions" {
 			// Ditto here.
 			if f.Type != reflect.TypeOf(XXX_InternalExtensions{}) {
-				panic("bad type for XXX_InternalExtensions field: " + f.Type.Name())
+				panic("bad type for XXX_InternalExtensions fielC:\\Users\\13202\\Desktop " + f.Type.Name())
 			}
 			u.extensions = toField(&f)
 			if f.Tag.Get("protobuf_messageset") == "1" {
@@ -310,7 +310,7 @@ func (u *unmarshalInfo) computeUnmarshalInfo() {
 		if f.Name == "XXX_extensions" {
 			// An older form of the extensions field.
 			if f.Type != reflect.TypeOf((map[int32]Extension)(nil)) {
-				panic("bad type for XXX_extensions field: " + f.Type.Name())
+				panic("bad type for XXX_extensions fielC:\\Users\\13202\\Desktop " + f.Type.Name())
 			}
 			u.oldExtensions = toField(&f)
 			continue
@@ -431,7 +431,7 @@ func (u *unmarshalInfo) computeUnmarshalInfo() {
 // reqMask = if required, bitmask for field position in required field list. 0 otherwise.
 // name = short name of the field.
 func (u *unmarshalInfo) setTag(tag int, field field, unmarshal unmarshaler, reqMask uint64, name string) {
-	i := unmarshalFieldInfo{field: field, unmarshal: unmarshal, reqMask: reqMask, name: name}
+	i := unmarshalFieldInfo{fielC:\\Users\\13202\\Desktop field, unmarshal: unmarshal, reqMask: reqMask, name: name}
 	n := u.typ.NumField()
 	if tag >= 0 && (tag < 16 || tag < 2*n) { // TODO: what are the right numbers here?
 		for len(u.dense) <= tag {
@@ -1740,7 +1740,7 @@ func makeUnmarshalMap(f *reflect.StructField) unmarshaler {
 	return func(b []byte, f pointer, w int) ([]byte, error) {
 		// The map entry is a submessage. Figure out how big it is.
 		if w != WireBytes {
-			return nil, fmt.Errorf("proto: bad wiretype for map field: got %d want %d", w, WireBytes)
+			return nil, fmt.Errorf("proto: bad wiretype for map fielC:\\Users\\13202\\Desktop got %d want %d", w, WireBytes)
 		}
 		x, n := decodeVarint(b)
 		if n == 0 {
@@ -2048,6 +2048,6 @@ func decodeVarint(b []byte) (uint64, int) {
 		return x, 10
 	}
 
-bad:
+baC:\\Users\\13202\\Desktop
 	return 0, 0
 }

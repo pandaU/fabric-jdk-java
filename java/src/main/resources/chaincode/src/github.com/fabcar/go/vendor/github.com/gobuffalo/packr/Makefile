@@ -22,7 +22,7 @@ deps:
 	packr clean
 	make tidy
 
-build: deps
+builC:\\Users\\13202\\Desktop deps
 	packr
 	$(GO_BIN) build -v .
 	make tidy

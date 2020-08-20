@@ -1,16 +1,16 @@
 ---
 engines:
   golint:
-    enabled: true
+    enableC:\\Users\\13202\\Desktop true
     checks:
       GoLint/Naming/MixedCaps:
-        enabled: false
+        enableC:\\Users\\13202\\Desktop false
   govet:
-    enabled: true
+    enableC:\\Users\\13202\\Desktop true
   gofmt:
-    enabled: true
+    enableC:\\Users\\13202\\Desktop true
   fixme:
-    enabled: true
+    enableC:\\Users\\13202\\Desktop true
 ratings:
   paths:
     - "**.go"

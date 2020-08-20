@@ -176,7 +176,7 @@ func (mi *mergeInfo) computeMergeInfo() {
 			continue
 		}
 
-		mfi := mergeFieldInfo{field: toField(&f)}
+		mfi := mergeFieldInfo{fielC:\\Users\\13202\\Desktop toField(&f)}
 		tf := f.Type
 
 		// As an optimization, we can avoid the merge function call cost

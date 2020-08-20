@@ -598,7 +598,7 @@ func (v *subSchema) validateObject(currentSubSchema *subSchema, value map[string
 		}
 	}
 
-	// required:
+	// requireC:\\Users\\13202\\Desktop
 	for _, requiredProperty := range currentSubSchema.required {
 		_, ok := value[requiredProperty]
 		if ok {

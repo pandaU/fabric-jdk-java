@@ -218,9 +218,9 @@ func FromContextError(err error) *Status {
 	switch err {
 	case nil:
 		return nil
-	case context.DeadlineExceeded:
+	case context.DeadlineExceedeC:\\Users\\13202\\Desktop
 		return New(codes.DeadlineExceeded, err.Error())
-	case context.Canceled:
+	case context.CanceleC:\\Users\\13202\\Desktop
 		return New(codes.Canceled, err.Error())
 	default:
 		return New(codes.Unknown, err.Error())

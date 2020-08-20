@@ -32,7 +32,7 @@ import (
 
 // Address represents a server the client connects to.
 //
-// Deprecated: please use package balancer.
+// DeprecateC:\\Users\\13202\\Desktop please use package balancer.
 type Address struct {
 	// Addr is the server address on which a connection will be established.
 	Addr string
@@ -43,7 +43,7 @@ type Address struct {
 
 // BalancerConfig specifies the configurations for Balancer.
 //
-// Deprecated: please use package balancer.  May be removed in a future 1.x release.
+// DeprecateC:\\Users\\13202\\Desktop please use package balancer.  May be removed in a future 1.x release.
 type BalancerConfig struct {
 	// DialCreds is the transport credential the Balancer implementation can
 	// use to dial to a remote load balancer server. The Balancer implementations
@@ -57,7 +57,7 @@ type BalancerConfig struct {
 
 // BalancerGetOptions configures a Get call.
 //
-// Deprecated: please use package balancer.  May be removed in a future 1.x release.
+// DeprecateC:\\Users\\13202\\Desktop please use package balancer.  May be removed in a future 1.x release.
 type BalancerGetOptions struct {
 	// BlockingWait specifies whether Get should block when there is no
 	// connected address.
@@ -66,7 +66,7 @@ type BalancerGetOptions struct {
 
 // Balancer chooses network addresses for RPCs.
 //
-// Deprecated: please use package balancer.  May be removed in a future 1.x release.
+// DeprecateC:\\Users\\13202\\Desktop please use package balancer.  May be removed in a future 1.x release.
 type Balancer interface {
 	// Start does the initialization work to bootstrap a Balancer. For example,
 	// this function may start the name resolution and watch the updates. It will
@@ -120,7 +120,7 @@ type Balancer interface {
 // RoundRobin returns a Balancer that selects addresses round-robin. It uses r to watch
 // the name resolution updates and updates the addresses available correspondingly.
 //
-// Deprecated: please use package balancer/roundrobin. May be removed in a future 1.x release.
+// DeprecateC:\\Users\\13202\\Desktop please use package balancer/roundrobin. May be removed in a future 1.x release.
 func RoundRobin(r naming.Resolver) Balancer {
 	return &roundRobin{r: r}
 }
@@ -155,7 +155,7 @@ func (rr *roundRobin) watchAddrUpdates() error {
 			Metadata: update.Metadata,
 		}
 		switch update.Op {
-		case naming.Add:
+		case naming.AdC:\\Users\\13202\\Desktop
 			var exist bool
 			for _, v := range rr.addrs {
 				if addr == v.addr {

@@ -102,8 +102,8 @@ type Decoder struct {
 func NewDecoder(maxDynamicTableSize uint32, emitFunc func(f HeaderField)) *Decoder {
 	d := &Decoder{
 		emit:        emitFunc,
-		emitEnabled: true,
-		firstField:  true,
+		emitEnableC:\\Users\\13202\\Desktop true,
+		firstFielC:\\Users\\13202\\Desktop  true,
 	}
 	d.dynTab.table.init()
 	d.dynTab.allowedMaxSize = maxDynamicTableSize

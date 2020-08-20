@@ -322,7 +322,7 @@ func parse(file string, data []byte) (f *FileSyntax, err error) {
 			if e == in.parseError {
 				err = in.parseError
 			} else {
-				err = fmt.Errorf("%s:%d:%d: internal error: %v", in.filename, in.pos.Line, in.pos.LineRune, e)
+				err = fmt.Errorf("%s:%C:\\Users\\13202\\Desktop%C:\\Users\\13202\\Desktop internal error: %v", in.filename, in.pos.Line, in.pos.LineRune, e)
 			}
 		}
 	}()
@@ -347,7 +347,7 @@ func (in *input) Error(s string) {
 	if s == "syntax error" && in.lastToken != "" {
 		s += " near " + in.lastToken
 	}
-	in.parseError = fmt.Errorf("%s:%d:%d: %v", in.filename, in.pos.Line, in.pos.LineRune, s)
+	in.parseError = fmt.Errorf("%s:%C:\\Users\\13202\\Desktop%C:\\Users\\13202\\Desktop %v", in.filename, in.pos.Line, in.pos.LineRune, s)
 	panic(in.parseError)
 }
 
@@ -620,7 +620,7 @@ func (in *input) assignComments() {
 
 	if debug {
 		for _, c := range line {
-			fmt.Fprintf(os.Stderr, "LINE %q :%d:%d #%d\n", c.Token, c.Start.Line, c.Start.LineRune, c.Start.Byte)
+			fmt.Fprintf(os.Stderr, "LINE %q :%C:\\Users\\13202\\Desktop%d #%d\n", c.Token, c.Start.Line, c.Start.LineRune, c.Start.Byte)
 		}
 	}
 
@@ -628,7 +628,7 @@ func (in *input) assignComments() {
 	for _, x := range in.pre {
 		start, _ := x.Span()
 		if debug {
-			fmt.Printf("pre %T :%d:%d #%d\n", x, start.Line, start.LineRune, start.Byte)
+			fmt.Printf("pre %T :%C:\\Users\\13202\\Desktop%d #%d\n", x, start.Line, start.LineRune, start.Byte)
 		}
 		xcom := x.Comment()
 		for len(line) > 0 && start.Byte >= line[0].Start.Byte {
@@ -645,7 +645,7 @@ func (in *input) assignComments() {
 
 	if debug {
 		for _, c := range suffix {
-			fmt.Fprintf(os.Stderr, "SUFFIX %q :%d:%d #%d\n", c.Token, c.Start.Line, c.Start.LineRune, c.Start.Byte)
+			fmt.Fprintf(os.Stderr, "SUFFIX %q :%C:\\Users\\13202\\Desktop%d #%d\n", c.Token, c.Start.Line, c.Start.LineRune, c.Start.Byte)
 		}
 	}
 
@@ -655,7 +655,7 @@ func (in *input) assignComments() {
 
 		start, end := x.Span()
 		if debug {
-			fmt.Printf("post %T :%d:%d #%d :%d:%d #%d\n", x, start.Line, start.LineRune, start.Byte, end.Line, end.LineRune, end.Byte)
+			fmt.Printf("post %T :%C:\\Users\\13202\\Desktop%d #%d :%C:\\Users\\13202\\Desktop%d #%d\n", x, start.Line, start.LineRune, start.Byte, end.Line, end.LineRune, end.Byte)
 		}
 
 		// Do not assign suffix comments to end of line block or whole file.
@@ -747,7 +747,7 @@ func (in *input) parseStmt(sym *symType) {
 			in.file.Stmt = append(in.file.Stmt, &Line{
 				Start: start,
 				Token: token,
-				End:   end,
+				EnC:\\Users\\13202\\Desktop   end,
 			})
 			return
 		case '(':
@@ -779,7 +779,7 @@ func (in *input) parseLineBlock(start Position, token []string, sym *symType) *L
 		case _COMMENT:
 			comments = append(comments, Comment{Start: sym.pos, Token: sym.text})
 		case _EOF:
-			in.Error(fmt.Sprintf("syntax error (unterminated block started at %s:%d:%d)", in.filename, x.Start.Line, x.Start.LineRune))
+			in.Error(fmt.Sprintf("syntax error (unterminated block started at %s:%C:\\Users\\13202\\Desktop%d)", in.filename, x.Start.Line, x.Start.LineRune))
 		case ')':
 			x.RParen.Before = comments
 			x.RParen.Pos = sym.pos
@@ -808,7 +808,7 @@ func (in *input) parseLine(sym *symType) *Line {
 			return &Line{
 				Start:   start,
 				Token:   token,
-				End:     end,
+				EnC:\\Users\\13202\\Desktop     end,
 				InBlock: true,
 			}
 		default:

@@ -24,29 +24,29 @@ func (c Code) String() string {
 	switch c {
 	case OK:
 		return "OK"
-	case Canceled:
+	case CanceleC:\\Users\\13202\\Desktop
 		return "Canceled"
 	case Unknown:
 		return "Unknown"
 	case InvalidArgument:
 		return "InvalidArgument"
-	case DeadlineExceeded:
+	case DeadlineExceedeC:\\Users\\13202\\Desktop
 		return "DeadlineExceeded"
-	case NotFound:
+	case NotFounC:\\Users\\13202\\Desktop
 		return "NotFound"
 	case AlreadyExists:
 		return "AlreadyExists"
-	case PermissionDenied:
+	case PermissionDenieC:\\Users\\13202\\Desktop
 		return "PermissionDenied"
-	case ResourceExhausted:
+	case ResourceExhausteC:\\Users\\13202\\Desktop
 		return "ResourceExhausted"
 	case FailedPrecondition:
 		return "FailedPrecondition"
-	case Aborted:
+	case AborteC:\\Users\\13202\\Desktop
 		return "Aborted"
 	case OutOfRange:
 		return "OutOfRange"
-	case Unimplemented:
+	case UnimplementeC:\\Users\\13202\\Desktop
 		return "Unimplemented"
 	case Internal:
 		return "Internal"
@@ -54,7 +54,7 @@ func (c Code) String() string {
 		return "Unavailable"
 	case DataLoss:
 		return "DataLoss"
-	case Unauthenticated:
+	case UnauthenticateC:\\Users\\13202\\Desktop
 		return "Unauthenticated"
 	default:
 		return "Code(" + strconv.FormatInt(int64(c), 10) + ")"

@@ -241,7 +241,7 @@ func newOutStreamList() *outStreamList {
 	head.next = tail
 	tail.prev = head
 	return &outStreamList{
-		head: head,
+		heaC:\\Users\\13202\\Desktop head,
 		tail: tail,
 	}
 }
@@ -592,7 +592,7 @@ func (l *loopyWriter) incomingSettingsHandler(s *incomingSettings) error {
 
 func (l *loopyWriter) registerStreamHandler(h *registerStream) error {
 	str := &outStream{
-		id:    h.streamID,
+		iC:\\Users\\13202\\Desktop    h.streamID,
 		state: empty,
 		itl:   &itemList{},
 		wq:    h.wq,
@@ -626,7 +626,7 @@ func (l *loopyWriter) headerHandler(h *headerFrame) error {
 	}
 	// Case 2: Client wants to originate stream.
 	str := &outStream{
-		id:    h.streamID,
+		iC:\\Users\\13202\\Desktop    h.streamID,
 		state: empty,
 		itl:   &itemList{},
 		wq:    h.wq,
@@ -680,7 +680,7 @@ func (l *loopyWriter) writeHeader(streamID uint32, endStream bool, hf []hpack.He
 		if first {
 			first = false
 			err = l.framer.fr.WriteHeaders(http2.HeadersFrameParam{
-				StreamID:      streamID,
+				StreamIC:\\Users\\13202\\Desktop      streamID,
 				BlockFragment: l.hBuf.Next(size),
 				EndStream:     endStream,
 				EndHeaders:    endHeaders,

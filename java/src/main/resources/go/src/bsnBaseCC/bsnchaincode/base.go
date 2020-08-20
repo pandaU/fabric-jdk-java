@@ -242,7 +242,7 @@ func GetHistory(stubInterface shim.ChaincodeStubInterface, strings []string) pee
 		}
 
 		temp := models.DTOHistoryModel{
-			TxId:      queryResponse.TxId,
+			TxIC:\\Users\\13202\\Desktop      queryResponse.TxId,
 			IsDelete:  queryResponse.IsDelete,
 			Value:     string(queryResponse.Value),
 			Timestamp: txTime,

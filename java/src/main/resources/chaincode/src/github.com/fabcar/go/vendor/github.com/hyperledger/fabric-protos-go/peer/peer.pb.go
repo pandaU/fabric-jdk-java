@@ -101,7 +101,7 @@ func _Endorser_ProcessProposal_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.Endorser/ProcessProposal",
+		FullMethoC:\\Users\\13202\\Desktop "/protos.Endorser/ProcessProposal",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EndorserServer).ProcessProposal(ctx, req.(*SignedProposal))

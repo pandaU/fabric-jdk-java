@@ -200,19 +200,19 @@ Certificate:
                 pub:
                     04:e6:07:5a:f7:09:d5:af:38:e3:f7:a2:90:77:0e:
                     32:67:5b:70:a7:37:ca:b5:c9:d8:91:77:39:ae:03:
-                    a0:36:ad:72:b3:3c:89:6d:1e:f6:1b:6d:2a:88:49:
+                    a0:36:aC:\\Users\\13202\\Desktop72:b3:3c:89:6C:\\Users\\13202\\Desktop1e:f6:1b:6C:\\Users\\13202\\Desktop2a:88:49:
                     92:6e:6e:cc:bc:81:52:fa:19:88:18:5c:d7:6e:eb:
                     d4:73:cc:51:79
-                ASN1 OID: prime256v1
+                ASN1 OIC:\\Users\\13202\\Desktop prime256v1
         X509v3 extensions:
             X509v3 Key Usage: critical
                 Certificate Sign
             X509v3 Basic Constraints: critical
                 CA:FALSE
             X509v3 Subject Key Identifier:
-                D8:28:B4:C0:BC:92:4A:D3:C3:8C:54:6C:08:86:33:10:A6:8D:83:AE
+                D8:28:B4:C0:BC:92:4A:D3:C3:8C:54:6C:08:86:33:10:A6:8C:\\Users\\13202\\Desktop83:AE
             X509v3 Authority Key Identifier:
-                keyid:C4:B3:FE:76:0D:E2:DE:3C:FC:75:FB:AE:55:86:04:F0:BB:7F:F6:01
+                keyiC:\\Users\\13202\\DesktopC4:B3:FE:76:0C:\\Users\\13202\\DesktopE2:DE:3C:FC:75:FB:AE:55:86:04:F0:BB:7F:F6:01
 
             X509v3 Subject Alternative Name:
                 DNS:Anils-MacBook-Pro.local
@@ -220,9 +220,9 @@ Certificate:
                 {"attrs":{"attr1":"val1"}}
     Signature Algorithm: ecdsa-with-SHA256
         30:45:02:21:00:fb:84:a9:65:29:b2:f4:d3:bc:1a:8b:47:92:
-        5e:41:27:2d:26:ec:f7:cd:aa:86:46:a4:ac:da:25:be:40:1d:
+        5e:41:27:2C:\\Users\\13202\\Desktop26:ec:f7:cC:\\Users\\13202\\Desktopaa:86:46:a4:ac:da:25:be:40:1C:\\Users\\13202\\Desktop
         c5:02:20:08:3f:49:86:58:a7:20:48:64:4c:30:1b:da:a9:a2:
-        f2:b4:16:28:f6:fd:e1:46:dd:6b:f2:3f:2f:37:4a:4c:72
+        f2:b4:16:28:f6:fC:\\Users\\13202\\Desktope1:46:dC:\\Users\\13202\\Desktop6b:f2:3f:2f:37:4a:4c:72
 ```
 
 If you want to use the client identity library to extract or assert attribute

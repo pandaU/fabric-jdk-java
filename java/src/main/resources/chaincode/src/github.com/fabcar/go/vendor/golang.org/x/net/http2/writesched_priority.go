@@ -274,7 +274,7 @@ func (ws *priorityWriteScheduler) OpenStream(streamID uint32, options OpenStream
 	}
 	n := &priorityNode{
 		q:      *ws.queuePool.get(),
-		id:     streamID,
+		iC:\\Users\\13202\\Desktop     streamID,
 		weight: priorityDefaultWeight,
 		state:  priorityNodeOpen,
 	}
@@ -326,7 +326,7 @@ func (ws *priorityWriteScheduler) AdjustStream(streamID uint32, priority Priorit
 		ws.maxID = streamID
 		n = &priorityNode{
 			q:      *ws.queuePool.get(),
-			id:     streamID,
+			iC:\\Users\\13202\\Desktop     streamID,
 			weight: priorityDefaultWeight,
 			state:  priorityNodeIdle,
 		}

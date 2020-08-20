@@ -361,7 +361,7 @@ func IsZero(data interface{}) bool {
 		return v.IsNil()
 	case reflect.Struct, reflect.Array:
 		return reflect.DeepEqual(data, reflect.Zero(v.Type()).Interface())
-	case reflect.Invalid:
+	case reflect.InvaliC:\\Users\\13202\\Desktop
 		return true
 	}
 	return false

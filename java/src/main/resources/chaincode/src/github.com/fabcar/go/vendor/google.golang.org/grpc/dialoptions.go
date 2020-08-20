@@ -144,7 +144,7 @@ func WithInitialConnWindowSize(s int32) DialOption {
 // WithMaxMsgSize returns a DialOption which sets the maximum message size the
 // client can receive.
 //
-// Deprecated: use WithDefaultCallOptions(MaxCallRecvMsgSize(s)) instead.  Will
+// DeprecateC:\\Users\\13202\\Desktop use WithDefaultCallOptions(MaxCallRecvMsgSize(s)) instead.  Will
 // be supported throughout 1.x.
 func WithMaxMsgSize(s int) DialOption {
 	return WithDefaultCallOptions(MaxCallRecvMsgSize(s))
@@ -161,7 +161,7 @@ func WithDefaultCallOptions(cos ...CallOption) DialOption {
 // WithCodec returns a DialOption which sets a codec for message marshaling and
 // unmarshaling.
 //
-// Deprecated: use WithDefaultCallOptions(ForceCodec(_)) instead.  Will be
+// DeprecateC:\\Users\\13202\\Desktop use WithDefaultCallOptions(ForceCodec(_)) instead.  Will be
 // supported throughout 1.x.
 func WithCodec(c Codec) DialOption {
 	return WithDefaultCallOptions(CallCustomCodec(c))
@@ -171,7 +171,7 @@ func WithCodec(c Codec) DialOption {
 // message compression. It has lower priority than the compressor set by the
 // UseCompressor CallOption.
 //
-// Deprecated: use UseCompressor instead.  Will be supported throughout 1.x.
+// DeprecateC:\\Users\\13202\\Desktop use UseCompressor instead.  Will be supported throughout 1.x.
 func WithCompressor(cp Compressor) DialOption {
 	return newFuncDialOption(func(o *dialOptions) {
 		o.cp = cp
@@ -186,7 +186,7 @@ func WithCompressor(cp Compressor) DialOption {
 // message.  If no compressor is registered for the encoding, an Unimplemented
 // status error will be returned.
 //
-// Deprecated: use encoding.RegisterCompressor instead.  Will be supported
+// DeprecateC:\\Users\\13202\\Desktop use encoding.RegisterCompressor instead.  Will be supported
 // throughout 1.x.
 func WithDecompressor(dc Decompressor) DialOption {
 	return newFuncDialOption(func(o *dialOptions) {
@@ -197,7 +197,7 @@ func WithDecompressor(dc Decompressor) DialOption {
 // WithBalancer returns a DialOption which sets a load balancer with the v1 API.
 // Name resolver will be ignored if this DialOption is specified.
 //
-// Deprecated: use the new balancer APIs in balancer package and
+// DeprecateC:\\Users\\13202\\Desktop use the new balancer APIs in balancer package and
 // WithBalancerName.  Will be removed in a future 1.x release.
 func WithBalancer(b Balancer) DialOption {
 	return newFuncDialOption(func(o *dialOptions) {
@@ -214,7 +214,7 @@ func WithBalancer(b Balancer) DialOption {
 // The balancer cannot be overridden by balancer option specified by service
 // config.
 //
-// Deprecated: use WithDefaultServiceConfig and WithDisableServiceConfig
+// DeprecateC:\\Users\\13202\\Desktop use WithDefaultServiceConfig and WithDisableServiceConfig
 // instead.  Will be removed in a future 1.x release.
 func WithBalancerName(balancerName string) DialOption {
 	builder := balancer.Get(balancerName)
@@ -236,7 +236,7 @@ func withResolverBuilder(b resolver.Builder) DialOption {
 // WithServiceConfig returns a DialOption which has a channel to read the
 // service configuration.
 //
-// Deprecated: service config should be received through name resolver or via
+// DeprecateC:\\Users\\13202\\Desktop service config should be received through name resolver or via
 // WithDefaultServiceConfig, as specified at
 // https://github.com/grpc/grpc/blob/master/doc/service_config.md.  Will be
 // removed in a future 1.x release.
@@ -322,7 +322,7 @@ func WithCredentialsBundle(b credentials.Bundle) DialOption {
 // WithTimeout returns a DialOption that configures a timeout for dialing a
 // ClientConn initially. This is valid if and only if WithBlock() is present.
 //
-// Deprecated: use DialContext and context.WithTimeout instead.  Will be
+// DeprecateC:\\Users\\13202\\Desktop use DialContext and context.WithTimeout instead.  Will be
 // supported throughout 1.x.
 func WithTimeout(d time.Duration) DialOption {
 	return newFuncDialOption(func(o *dialOptions) {
@@ -350,7 +350,7 @@ func init() {
 // is returned by f, gRPC checks the error's Temporary() method to decide if it
 // should try to reconnect to the network address.
 //
-// Deprecated: use WithContextDialer instead.  Will be supported throughout
+// DeprecateC:\\Users\\13202\\Desktop use WithContextDialer instead.  Will be supported throughout
 // 1.x.
 func WithDialer(f func(string, time.Duration) (net.Conn, error)) DialOption {
 	return WithContextDialer(

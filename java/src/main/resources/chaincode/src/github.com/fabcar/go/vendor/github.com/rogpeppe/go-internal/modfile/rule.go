@@ -68,7 +68,7 @@ func (f *File) AddModuleStmt(path string) error {
 	}
 	if f.Module == nil {
 		f.Module = &Module{
-			Mod:    module.Version{Path: path},
+			MoC:\\Users\\13202\\Desktop    module.Version{Path: path},
 			Syntax: f.Syntax.addLine(nil, "module", AutoQuote(path)),
 		}
 	} else {
@@ -130,14 +130,14 @@ func parseToFile(file string, data []byte, fix VersionFixer, strict bool) (*File
 		case *LineBlock:
 			if len(x.Token) > 1 {
 				if strict {
-					fmt.Fprintf(&errs, "%s:%d: unknown block type: %s\n", file, x.Start.Line, strings.Join(x.Token, " "))
+					fmt.Fprintf(&errs, "%s:%C:\\Users\\13202\\Desktop unknown block type: %s\n", file, x.Start.Line, strings.Join(x.Token, " "))
 				}
 				continue
 			}
 			switch x.Token[0] {
 			default:
 				if strict {
-					fmt.Fprintf(&errs, "%s:%d: unknown block type: %s\n", file, x.Start.Line, strings.Join(x.Token, " "))
+					fmt.Fprintf(&errs, "%s:%C:\\Users\\13202\\Desktop unknown block type: %s\n", file, x.Start.Line, strings.Join(x.Token, " "))
 				}
 				continue
 			case "module", "require", "exclude", "replace":
@@ -174,73 +174,73 @@ func (f *File) add(errs *bytes.Buffer, line *Line, verb string, args []string, f
 
 	switch verb {
 	default:
-		fmt.Fprintf(errs, "%s:%d: unknown directive: %s\n", f.Syntax.Name, line.Start.Line, verb)
+		fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop unknown directive: %s\n", f.Syntax.Name, line.Start.Line, verb)
 
 	case "go":
 		if f.Go != nil {
-			fmt.Fprintf(errs, "%s:%d: repeated go statement\n", f.Syntax.Name, line.Start.Line)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop repeated go statement\n", f.Syntax.Name, line.Start.Line)
 			return
 		}
 		if len(args) != 1 || !goVersionRE.MatchString(args[0]) {
-			fmt.Fprintf(errs, "%s:%d: usage: go 1.23\n", f.Syntax.Name, line.Start.Line)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop usage: go 1.23\n", f.Syntax.Name, line.Start.Line)
 			return
 		}
 		f.Go = &Go{Syntax: line}
 		f.Go.Version = args[0]
 	case "module":
 		if f.Module != nil {
-			fmt.Fprintf(errs, "%s:%d: repeated module statement\n", f.Syntax.Name, line.Start.Line)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop repeated module statement\n", f.Syntax.Name, line.Start.Line)
 			return
 		}
 		f.Module = &Module{Syntax: line}
 		if len(args) != 1 {
 
-			fmt.Fprintf(errs, "%s:%d: usage: module module/path [version]\n", f.Syntax.Name, line.Start.Line)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop usage: module module/path [version]\n", f.Syntax.Name, line.Start.Line)
 			return
 		}
 		s, err := parseString(&args[0])
 		if err != nil {
-			fmt.Fprintf(errs, "%s:%d: invalid quoted string: %v\n", f.Syntax.Name, line.Start.Line, err)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop invalid quoted string: %v\n", f.Syntax.Name, line.Start.Line, err)
 			return
 		}
 		f.Module.Mod = module.Version{Path: s}
 	case "require", "exclude":
 		if len(args) != 2 {
-			fmt.Fprintf(errs, "%s:%d: usage: %s module/path v1.2.3\n", f.Syntax.Name, line.Start.Line, verb)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop usage: %s module/path v1.2.3\n", f.Syntax.Name, line.Start.Line, verb)
 			return
 		}
 		s, err := parseString(&args[0])
 		if err != nil {
-			fmt.Fprintf(errs, "%s:%d: invalid quoted string: %v\n", f.Syntax.Name, line.Start.Line, err)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop invalid quoted string: %v\n", f.Syntax.Name, line.Start.Line, err)
 			return
 		}
 		old := args[1]
 		v, err := parseVersion(s, &args[1], fix)
 		if err != nil {
-			fmt.Fprintf(errs, "%s:%d: invalid module version %q: %v\n", f.Syntax.Name, line.Start.Line, old, err)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop invalid module version %q: %v\n", f.Syntax.Name, line.Start.Line, old, err)
 			return
 		}
 		pathMajor, err := modulePathMajor(s)
 		if err != nil {
-			fmt.Fprintf(errs, "%s:%d: %v\n", f.Syntax.Name, line.Start.Line, err)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop %v\n", f.Syntax.Name, line.Start.Line, err)
 			return
 		}
 		if !module.MatchPathMajor(v, pathMajor) {
 			if pathMajor == "" {
 				pathMajor = "v0 or v1"
 			}
-			fmt.Fprintf(errs, "%s:%d: invalid module: %s should be %s, not %s (%s)\n", f.Syntax.Name, line.Start.Line, s, pathMajor, semver.Major(v), v)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop invalid module: %s should be %s, not %s (%s)\n", f.Syntax.Name, line.Start.Line, s, pathMajor, semver.Major(v), v)
 			return
 		}
 		if verb == "require" {
 			f.Require = append(f.Require, &Require{
-				Mod:      module.Version{Path: s, Version: v},
+				MoC:\\Users\\13202\\Desktop      module.Version{Path: s, Version: v},
 				Syntax:   line,
 				Indirect: isIndirect(line),
 			})
 		} else {
 			f.Exclude = append(f.Exclude, &Exclude{
-				Mod:    module.Version{Path: s, Version: v},
+				MoC:\\Users\\13202\\Desktop    module.Version{Path: s, Version: v},
 				Syntax: line,
 			})
 		}
@@ -250,17 +250,17 @@ func (f *File) add(errs *bytes.Buffer, line *Line, verb string, args []string, f
 			arrow = 1
 		}
 		if len(args) < arrow+2 || len(args) > arrow+3 || args[arrow] != "=>" {
-			fmt.Fprintf(errs, "%s:%d: usage: %s module/path [v1.2.3] => other/module v1.4\n\t or %s module/path [v1.2.3] => ../local/directory\n", f.Syntax.Name, line.Start.Line, verb, verb)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop usage: %s module/path [v1.2.3] => other/module v1.4\n\t or %s module/path [v1.2.3] => ../local/directory\n", f.Syntax.Name, line.Start.Line, verb, verb)
 			return
 		}
 		s, err := parseString(&args[0])
 		if err != nil {
-			fmt.Fprintf(errs, "%s:%d: invalid quoted string: %v\n", f.Syntax.Name, line.Start.Line, err)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop invalid quoted string: %v\n", f.Syntax.Name, line.Start.Line, err)
 			return
 		}
 		pathMajor, err := modulePathMajor(s)
 		if err != nil {
-			fmt.Fprintf(errs, "%s:%d: %v\n", f.Syntax.Name, line.Start.Line, err)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop %v\n", f.Syntax.Name, line.Start.Line, err)
 			return
 		}
 		var v string
@@ -268,30 +268,30 @@ func (f *File) add(errs *bytes.Buffer, line *Line, verb string, args []string, f
 			old := args[1]
 			v, err = parseVersion(s, &args[1], fix)
 			if err != nil {
-				fmt.Fprintf(errs, "%s:%d: invalid module version %v: %v\n", f.Syntax.Name, line.Start.Line, old, err)
+				fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop invalid module version %v: %v\n", f.Syntax.Name, line.Start.Line, old, err)
 				return
 			}
 			if !module.MatchPathMajor(v, pathMajor) {
 				if pathMajor == "" {
 					pathMajor = "v0 or v1"
 				}
-				fmt.Fprintf(errs, "%s:%d: invalid module: %s should be %s, not %s (%s)\n", f.Syntax.Name, line.Start.Line, s, pathMajor, semver.Major(v), v)
+				fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop invalid module: %s should be %s, not %s (%s)\n", f.Syntax.Name, line.Start.Line, s, pathMajor, semver.Major(v), v)
 				return
 			}
 		}
 		ns, err := parseString(&args[arrow+1])
 		if err != nil {
-			fmt.Fprintf(errs, "%s:%d: invalid quoted string: %v\n", f.Syntax.Name, line.Start.Line, err)
+			fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop invalid quoted string: %v\n", f.Syntax.Name, line.Start.Line, err)
 			return
 		}
 		nv := ""
 		if len(args) == arrow+2 {
 			if !IsDirectoryPath(ns) {
-				fmt.Fprintf(errs, "%s:%d: replacement module without version must be directory path (rooted or starting with ./ or ../)\n", f.Syntax.Name, line.Start.Line)
+				fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop replacement module without version must be directory path (rooted or starting with ./ or ../)\n", f.Syntax.Name, line.Start.Line)
 				return
 			}
 			if filepath.Separator == '/' && strings.Contains(ns, `\`) {
-				fmt.Fprintf(errs, "%s:%d: replacement directory appears to be Windows path (on a non-windows system)\n", f.Syntax.Name, line.Start.Line)
+				fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop replacement directory appears to be Windows path (on a non-windows system)\n", f.Syntax.Name, line.Start.Line)
 				return
 			}
 		}
@@ -299,16 +299,16 @@ func (f *File) add(errs *bytes.Buffer, line *Line, verb string, args []string, f
 			old := args[arrow+1]
 			nv, err = parseVersion(ns, &args[arrow+2], fix)
 			if err != nil {
-				fmt.Fprintf(errs, "%s:%d: invalid module version %v: %v\n", f.Syntax.Name, line.Start.Line, old, err)
+				fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop invalid module version %v: %v\n", f.Syntax.Name, line.Start.Line, old, err)
 				return
 			}
 			if IsDirectoryPath(ns) {
-				fmt.Fprintf(errs, "%s:%d: replacement module directory path %q cannot have version\n", f.Syntax.Name, line.Start.Line, ns)
+				fmt.Fprintf(errs, "%s:%C:\\Users\\13202\\Desktop replacement module directory path %q cannot have version\n", f.Syntax.Name, line.Start.Line, ns)
 				return
 			}
 		}
 		f.Replace = append(f.Replace, &Replace{
-			Old:    module.Version{Path: s, Version: v},
+			OlC:\\Users\\13202\\Desktop    module.Version{Path: s, Version: v},
 			New:    module.Version{Path: ns, Version: nv},
 			Syntax: line,
 		})
@@ -581,7 +581,7 @@ func (f *File) AddExclude(path, vers string) error {
 		}
 	}
 
-	f.Exclude = append(f.Exclude, &Exclude{Mod: module.Version{Path: path, Version: vers}, Syntax: f.Syntax.addLine(hint, "exclude", AutoQuote(path), vers)})
+	f.Exclude = append(f.Exclude, &Exclude{MoC:\\Users\\13202\\Desktop module.Version{Path: path, Version: vers}, Syntax: f.Syntax.addLine(hint, "exclude", AutoQuote(path), vers)})
 	return nil
 }
 
@@ -627,7 +627,7 @@ func (f *File) AddReplace(oldPath, oldVers, newPath, newVers string) error {
 		}
 	}
 	if need {
-		f.Replace = append(f.Replace, &Replace{Old: old, New: new, Syntax: f.Syntax.addLine(hint, tokens...)})
+		f.Replace = append(f.Replace, &Replace{OlC:\\Users\\13202\\Desktop old, New: new, Syntax: f.Syntax.addLine(hint, tokens...)})
 	}
 	return nil
 }

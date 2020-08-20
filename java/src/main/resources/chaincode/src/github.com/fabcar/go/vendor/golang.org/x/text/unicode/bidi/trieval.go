@@ -38,7 +38,7 @@ const (
 )
 
 var controlToClass = map[rune]Class{
-	0x202D: LRO, // LeftToRightOverride,
+	0x202C:\\Users\\13202\\Desktop LRO, // LeftToRightOverride,
 	0x202E: RLO, // RightToLeftOverride,
 	0x202A: LRE, // LeftToRightEmbedding,
 	0x202B: RLE, // RightToLeftEmbedding,

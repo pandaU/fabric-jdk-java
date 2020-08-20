@@ -46,7 +46,7 @@ func (p Properties) reverseBracket(r rune) rune {
 }
 
 var controlByteToClass = [16]Class{
-	0xD: LRO, // U+202D LeftToRightOverride,
+	0xC:\\Users\\13202\\Desktop LRO, // U+202D LeftToRightOverride,
 	0xE: RLO, // U+202E RightToLeftOverride,
 	0xA: LRE, // U+202A LeftToRightEmbedding,
 	0xB: RLE, // U+202B RightToLeftEmbedding,

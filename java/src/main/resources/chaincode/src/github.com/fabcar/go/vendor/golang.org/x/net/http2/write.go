@@ -237,7 +237,7 @@ func (w *writeResHeaders) writeFrame(ctx writeContext) error {
 func (w *writeResHeaders) writeHeaderBlock(ctx writeContext, frag []byte, firstFrag, lastFrag bool) error {
 	if firstFrag {
 		return ctx.Framer().WriteHeaders(HeadersFrameParam{
-			StreamID:      w.streamID,
+			StreamIC:\\Users\\13202\\Desktop      w.streamID,
 			BlockFragment: frag,
 			EndStream:     w.endStream,
 			EndHeaders:    lastFrag,
@@ -286,8 +286,8 @@ func (w *writePushPromise) writeFrame(ctx writeContext) error {
 func (w *writePushPromise) writeHeaderBlock(ctx writeContext, frag []byte, firstFrag, lastFrag bool) error {
 	if firstFrag {
 		return ctx.Framer().WritePushPromise(PushPromiseParam{
-			StreamID:      w.streamID,
-			PromiseID:     w.promisedID,
+			StreamIC:\\Users\\13202\\Desktop      w.streamID,
+			PromiseIC:\\Users\\13202\\Desktop     w.promisedID,
 			BlockFragment: frag,
 			EndHeaders:    lastFrag,
 		})
@@ -305,7 +305,7 @@ func (w write100ContinueHeadersFrame) writeFrame(ctx writeContext) error {
 	buf.Reset()
 	encKV(enc, ":status", "100")
 	return ctx.Framer().WriteHeaders(HeadersFrameParam{
-		StreamID:      w.streamID,
+		StreamIC:\\Users\\13202\\Desktop      w.streamID,
 		BlockFragment: buf.Bytes(),
 		EndStream:     false,
 		EndHeaders:    true,
@@ -335,7 +335,7 @@ func encodeHeaders(enc *hpack.Encoder, h http.Header, keys []string) {
 		sorter := sorterPool.Get().(*sorter)
 		// Using defer here, since the returned keys from the
 		// sorter.Keys method is only valid until the sorter
-		// is returned:
+		// is returneC:\\Users\\13202\\Desktop
 		defer sorterPool.Put(sorter)
 		keys = sorter.Keys(h)
 	}

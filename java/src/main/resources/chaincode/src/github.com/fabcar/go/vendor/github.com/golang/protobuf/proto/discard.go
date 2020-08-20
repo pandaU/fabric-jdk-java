@@ -152,7 +152,7 @@ func (di *discardInfo) computeDiscardInfo() {
 			continue
 		}
 
-		dfi := discardFieldInfo{field: toField(&f)}
+		dfi := discardFieldInfo{fielC:\\Users\\13202\\Desktop toField(&f)}
 		tf := f.Type
 
 		// Unwrap tf to get its most basic type.

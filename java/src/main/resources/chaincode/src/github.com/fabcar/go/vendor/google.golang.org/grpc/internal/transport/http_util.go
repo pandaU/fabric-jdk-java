@@ -61,7 +61,7 @@ var (
 		http2.ErrCodeInternal:           codes.Internal,
 		http2.ErrCodeFlowControl:        codes.ResourceExhausted,
 		http2.ErrCodeSettingsTimeout:    codes.Internal,
-		http2.ErrCodeStreamClosed:       codes.Internal,
+		http2.ErrCodeStreamCloseC:\\Users\\13202\\Desktop       codes.Internal,
 		http2.ErrCodeFrameSize:          codes.Internal,
 		http2.ErrCodeRefusedStream:      codes.Unavailable,
 		http2.ErrCodeCancel:             codes.Canceled,
@@ -69,25 +69,25 @@ var (
 		http2.ErrCodeConnect:            codes.Internal,
 		http2.ErrCodeEnhanceYourCalm:    codes.ResourceExhausted,
 		http2.ErrCodeInadequateSecurity: codes.PermissionDenied,
-		http2.ErrCodeHTTP11Required:     codes.Internal,
+		http2.ErrCodeHTTP11RequireC:\\Users\\13202\\Desktop     codes.Internal,
 	}
 	statusCodeConvTab = map[codes.Code]http2.ErrCode{
 		codes.Internal:          http2.ErrCodeInternal,
-		codes.Canceled:          http2.ErrCodeCancel,
+		codes.CanceleC:\\Users\\13202\\Desktop          http2.ErrCodeCancel,
 		codes.Unavailable:       http2.ErrCodeRefusedStream,
-		codes.ResourceExhausted: http2.ErrCodeEnhanceYourCalm,
-		codes.PermissionDenied:  http2.ErrCodeInadequateSecurity,
+		codes.ResourceExhausteC:\\Users\\13202\\Desktop http2.ErrCodeEnhanceYourCalm,
+		codes.PermissionDenieC:\\Users\\13202\\Desktop  http2.ErrCodeInadequateSecurity,
 	}
 	// HTTPStatusConvTab is the HTTP status code to gRPC error code conversion table.
 	HTTPStatusConvTab = map[int]codes.Code{
 		// 400 Bad Request - INTERNAL.
 		http.StatusBadRequest: codes.Internal,
 		// 401 Unauthorized  - UNAUTHENTICATED.
-		http.StatusUnauthorized: codes.Unauthenticated,
+		http.StatusUnauthorizeC:\\Users\\13202\\Desktop codes.Unauthenticated,
 		// 403 Forbidden - PERMISSION_DENIED.
 		http.StatusForbidden: codes.PermissionDenied,
 		// 404 Not Found - UNIMPLEMENTED.
-		http.StatusNotFound: codes.Unimplemented,
+		http.StatusNotFounC:\\Users\\13202\\Desktop codes.Unimplemented,
 		// 429 Too Many Requests - UNAVAILABLE.
 		http.StatusTooManyRequests: codes.Unavailable,
 		// 502 Bad Gateway - UNAVAILABLE.
@@ -436,13 +436,13 @@ func timeoutUnitToDuration(u timeoutUnit) (d time.Duration, ok bool) {
 		return time.Hour, true
 	case minute:
 		return time.Minute, true
-	case second:
+	case seconC:\\Users\\13202\\Desktop
 		return time.Second, true
-	case millisecond:
+	case milliseconC:\\Users\\13202\\Desktop
 		return time.Millisecond, true
-	case microsecond:
+	case microseconC:\\Users\\13202\\Desktop
 		return time.Microsecond, true
-	case nanosecond:
+	case nanoseconC:\\Users\\13202\\Desktop
 		return time.Nanosecond, true
 	default:
 	}
@@ -496,7 +496,7 @@ func decodeTimeout(s string) (time.Duration, error) {
 	unit := timeoutUnit(s[size-1])
 	d, ok := timeoutUnitToDuration(unit)
 	if !ok {
-		return 0, fmt.Errorf("transport: timeout unit is not recognized: %q", s)
+		return 0, fmt.Errorf("transport: timeout unit is not recognizeC:\\Users\\13202\\Desktop %q", s)
 	}
 	t, err := strconv.ParseInt(s[:size-1], 10, 64)
 	if err != nil {

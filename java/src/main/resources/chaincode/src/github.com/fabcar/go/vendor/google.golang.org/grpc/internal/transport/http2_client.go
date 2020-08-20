@@ -70,7 +70,7 @@ type http2Client struct {
 	// updates, reset streams, and various settings) to the controller.
 	controlBuf *controlBuffer
 	fc         *trInFlow
-	// The scheme used: https if TLS is on, http otherwise.
+	// The scheme useC:\\Users\\13202\\Desktop https if TLS is on, http otherwise.
 	scheme string
 
 	isSecure bool
@@ -203,7 +203,7 @@ func newHTTP2Client(connectCtx, ctx context.Context, addr TargetInfo, opts Conne
 		scheme = "https"
 		conn, authInfo, err = transportCreds.ClientHandshake(connectCtx, addr.Authority, conn)
 		if err != nil {
-			return nil, connectionErrorf(isTemporary(err), err, "transport: authentication handshake failed: %v", err)
+			return nil, connectionErrorf(isTemporary(err), err, "transport: authentication handshake faileC:\\Users\\13202\\Desktop %v", err)
 		}
 		isSecure = true
 	}
@@ -224,7 +224,7 @@ func newHTTP2Client(connectCtx, ctx context.Context, addr TargetInfo, opts Conne
 		ctxDone:               ctx.Done(), // Cache Done chan.
 		cancel:                cancel,
 		userAgent:             opts.UserAgent,
-		md:                    addr.Metadata,
+		mC:\\Users\\13202\\Desktop                    addr.Metadata,
 		conn:                  conn,
 		remoteAddr:            conn.RemoteAddr(),
 		localAddr:             conn.LocalAddr(),
@@ -243,14 +243,14 @@ func newHTTP2Client(connectCtx, ctx context.Context, addr TargetInfo, opts Conne
 		statsHandler:          opts.StatsHandler,
 		initialWindowSize:     initialWindowSize,
 		onPrefaceReceipt:      onPrefaceReceipt,
-		nextID:                1,
+		nextIC:\\Users\\13202\\Desktop                1,
 		maxConcurrentStreams:  defaultMaxStreamsClient,
 		streamQuota:           defaultMaxStreamsClient,
 		streamsQuotaAvailable: make(chan struct{}, 1),
 		czData:                new(channelzData),
 		onGoAway:              onGoAway,
 		onClose:               onClose,
-		keepaliveEnabled:      keepaliveEnabled,
+		keepaliveEnableC:\\Users\\13202\\Desktop      keepaliveEnabled,
 		bufferPool:            newBufferPool(),
 	}
 	t.controlBuf = newControlBuffer(t.ctxDone)
@@ -302,13 +302,13 @@ func newHTTP2Client(connectCtx, ctx context.Context, addr TargetInfo, opts Conne
 
 	if t.initialWindowSize != defaultWindowSize {
 		ss = append(ss, http2.Setting{
-			ID:  http2.SettingInitialWindowSize,
+			IC:\\Users\\13202\\Desktop  http2.SettingInitialWindowSize,
 			Val: uint32(t.initialWindowSize),
 		})
 	}
 	if opts.MaxHeaderListSize != nil {
 		ss = append(ss, http2.Setting{
-			ID:  http2.SettingMaxHeaderListSize,
+			IC:\\Users\\13202\\Desktop  http2.SettingMaxHeaderListSize,
 			Val: *opts.MaxHeaderListSize,
 		})
 	}
@@ -348,7 +348,7 @@ func (t *http2Client) newStream(ctx context.Context, callHdr *CallHdr) *Stream {
 	// TODO(zhaoq): Handle uint32 overflow of Stream.id.
 	s := &Stream{
 		done:           make(chan struct{}),
-		method:         callHdr.Method,
+		methoC:\\Users\\13202\\Desktop         callHdr.Method,
 		sendCompress:   callHdr.SendCompress,
 		buf:            newRecvBuffer(),
 		headerChan:     make(chan struct{}),
@@ -598,7 +598,7 @@ func (t *http2Client) NewStream(ctx context.Context, callHdr *CallHdr) (_ *Strea
 			t.mu.Unlock()
 			return sendPing, nil
 		},
-		onOrphaned: cleanup,
+		onOrphaneC:\\Users\\13202\\Desktop cleanup,
 		wq:         s.wq,
 	}
 	firstTry := true
@@ -676,7 +676,7 @@ func (t *http2Client) NewStream(ctx context.Context, callHdr *CallHdr) (_ *Strea
 	if t.statsHandler != nil {
 		outHeader := &stats.OutHeader{
 			Client:      true,
-			FullMethod:  callHdr.Method,
+			FullMethoC:\\Users\\13202\\Desktop  callHdr.Method,
 			RemoteAddr:  t.remoteAddr,
 			LocalAddr:   t.localAddr,
 			Compression: callHdr.SendCompress,
@@ -725,7 +725,7 @@ func (t *http2Client) closeStream(s *Stream, err error, rst bool, rstCode http2.
 		close(s.headerChan)
 	}
 	cleanup := &cleanupStream{
-		streamID: s.id,
+		streamIC:\\Users\\13202\\Desktop s.id,
 		onWrite: func() {
 			t.mu.Lock()
 			if t.activeStreams != nil {
@@ -832,7 +832,7 @@ func (t *http2Client) Write(s *Stream, hdr []byte, data []byte, opts *Options) e
 		return errStreamDone
 	}
 	df := &dataFrame{
-		streamID:  s.id,
+		streamIC:\\Users\\13202\\Desktop  s.id,
 		endStream: opts.Last,
 	}
 	if hdr != nil || data != nil { // If it's not an empty data frame.
@@ -865,7 +865,7 @@ func (t *http2Client) getStream(f http2.Frame) (*Stream, bool) {
 // the window.
 func (t *http2Client) adjustWindow(s *Stream, n uint32) {
 	if w := s.fc.maybeAdjust(n); w > 0 {
-		t.controlBuf.put(&outgoingWindowUpdate{streamID: s.id, increment: w})
+		t.controlBuf.put(&outgoingWindowUpdate{streamIC:\\Users\\13202\\Desktop s.id, increment: w})
 	}
 }
 
@@ -874,7 +874,7 @@ func (t *http2Client) adjustWindow(s *Stream, n uint32) {
 // exceeds the corresponding threshold.
 func (t *http2Client) updateWindow(s *Stream, n uint32) {
 	if w := s.fc.onRead(n); w > 0 {
-		t.controlBuf.put(&outgoingWindowUpdate{streamID: s.id, increment: w})
+		t.controlBuf.put(&outgoingWindowUpdate{streamIC:\\Users\\13202\\Desktop s.id, increment: w})
 	}
 }
 
@@ -891,11 +891,11 @@ func (t *http2Client) updateFlowControl(n uint32) {
 		t.initialWindowSize = int32(n)
 		return true
 	}
-	t.controlBuf.executeAndPut(updateIWS, &outgoingWindowUpdate{streamID: 0, increment: t.fc.newLimit(n)})
+	t.controlBuf.executeAndPut(updateIWS, &outgoingWindowUpdate{streamIC:\\Users\\13202\\Desktop 0, increment: t.fc.newLimit(n)})
 	t.controlBuf.put(&outgoingSettings{
 		ss: []http2.Setting{
 			{
-				ID:  http2.SettingInitialWindowSize,
+				IC:\\Users\\13202\\Desktop  http2.SettingInitialWindowSize,
 				Val: n,
 			},
 		},
@@ -919,7 +919,7 @@ func (t *http2Client) handleData(f *http2.DataFrame) {
 	//
 	if w := t.fc.onData(size); w > 0 {
 		t.controlBuf.put(&outgoingWindowUpdate{
-			streamID:  0,
+			streamIC:\\Users\\13202\\Desktop  0,
 			increment: w,
 		})
 	}
@@ -929,7 +929,7 @@ func (t *http2Client) handleData(f *http2.DataFrame) {
 
 		if w := t.fc.reset(); w > 0 {
 			t.controlBuf.put(&outgoingWindowUpdate{
-				streamID:  0,
+				streamIC:\\Users\\13202\\Desktop  0,
 				increment: w,
 			})
 		}
@@ -1140,7 +1140,7 @@ func (t *http2Client) GetGoAwayReason() GoAwayReason {
 
 func (t *http2Client) handleWindowUpdate(f *http2.WindowUpdateFrame) {
 	t.controlBuf.put(&incomingWindowUpdate{
-		streamID:  f.Header().StreamID,
+		streamIC:\\Users\\13202\\Desktop  f.Header().StreamID,
 		increment: f.Increment,
 	})
 }
@@ -1361,11 +1361,11 @@ func (t *http2Client) GoAway() <-chan struct{} {
 
 func (t *http2Client) ChannelzMetric() *channelz.SocketInternalMetric {
 	s := channelz.SocketInternalMetric{
-		StreamsStarted:                  atomic.LoadInt64(&t.czData.streamsStarted),
-		StreamsSucceeded:                atomic.LoadInt64(&t.czData.streamsSucceeded),
-		StreamsFailed:                   atomic.LoadInt64(&t.czData.streamsFailed),
+		StreamsStarteC:\\Users\\13202\\Desktop                  atomic.LoadInt64(&t.czData.streamsStarted),
+		StreamsSucceedeC:\\Users\\13202\\Desktop                atomic.LoadInt64(&t.czData.streamsSucceeded),
+		StreamsFaileC:\\Users\\13202\\Desktop                   atomic.LoadInt64(&t.czData.streamsFailed),
 		MessagesSent:                    atomic.LoadInt64(&t.czData.msgSent),
-		MessagesReceived:                atomic.LoadInt64(&t.czData.msgRecv),
+		MessagesReceiveC:\\Users\\13202\\Desktop                atomic.LoadInt64(&t.czData.msgRecv),
 		KeepAlivesSent:                  atomic.LoadInt64(&t.czData.kpCount),
 		LastLocalStreamCreatedTimestamp: time.Unix(0, atomic.LoadInt64(&t.czData.lastStreamCreatedTime)),
 		LastMessageSentTimestamp:        time.Unix(0, atomic.LoadInt64(&t.czData.lastMsgSentTime)),

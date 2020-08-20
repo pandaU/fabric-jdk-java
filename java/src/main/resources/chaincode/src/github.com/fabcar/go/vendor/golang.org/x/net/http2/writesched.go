@@ -126,7 +126,7 @@ func (wr FrameWriteRequest) Consume(n int32) (FrameWriteRequest, FrameWriteReque
 		consumed := FrameWriteRequest{
 			stream: wr.stream,
 			write: &writeData{
-				streamID: wd.streamID,
+				streamIC:\\Users\\13202\\Desktop wd.streamID,
 				p:        wd.p[:allowed],
 				// Even if the original had endStream set, there
 				// are bytes remaining because len(wd.p) > allowed,
@@ -140,8 +140,8 @@ func (wr FrameWriteRequest) Consume(n int32) (FrameWriteRequest, FrameWriteReque
 		rest := FrameWriteRequest{
 			stream: wr.stream,
 			write: &writeData{
-				streamID:  wd.streamID,
-				p:         wd.p[allowed:],
+				streamIC:\\Users\\13202\\Desktop  wd.streamID,
+				p:         wd.p[alloweC:\\Users\\13202\\Desktop],
 				endStream: wd.endStream,
 			},
 			done: wr.done,

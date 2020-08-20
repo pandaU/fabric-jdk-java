@@ -386,7 +386,7 @@ func (s *Server) ServeConn(c net.Conn, opts *ServeConnOpts) {
 		maxFrameSize:                initialMaxFrameSize,
 		headerTableSize:             initialHeaderTableSize,
 		serveG:                      newGoroutineLock(),
-		pushEnabled:                 true,
+		pushEnableC:\\Users\\13202\\Desktop                 true,
 	}
 
 	s.state.registerConn(sc)
@@ -1145,7 +1145,7 @@ func (sc *serverConn) startFrameWrite(wr FrameWriteRequest) {
 			default:
 				panic(fmt.Sprintf("internal error: attempt to send frame on a half-closed-local stream: %v", wr))
 			}
-		case stateClosed:
+		case stateCloseC:\\Users\\13202\\Desktop
 			panic(fmt.Sprintf("internal error: attempt to send frame on a closed stream: %v", wr))
 		}
 	}
@@ -1253,7 +1253,7 @@ func (sc *serverConn) scheduleFrameWrite() {
 			sc.needToSendGoAway = false
 			sc.startFrameWrite(FrameWriteRequest{
 				write: &writeGoAway{
-					maxStreamID: sc.maxClientStreamID,
+					maxStreamIC:\\Users\\13202\\Desktop sc.maxClientStreamID,
 					code:        sc.goAwayCode,
 				},
 			})
@@ -1945,7 +1945,7 @@ func (sc *serverConn) newStream(id, pusherID uint32, state streamState) *stream 
 	ctx, cancelCtx := context.WithCancel(sc.baseCtx)
 	st := &stream{
 		sc:        sc,
-		id:        id,
+		iC:\\Users\\13202\\Desktop        id,
 		state:     state,
 		ctx:       ctx,
 		cancelCtx: cancelCtx,
@@ -1960,7 +1960,7 @@ func (sc *serverConn) newStream(id, pusherID uint32, state streamState) *stream 
 	}
 
 	sc.streams[id] = st
-	sc.writeSched.OpenStream(st.id, OpenStreamOptions{PusherID: pusherID})
+	sc.writeSched.OpenStream(st.id, OpenStreamOptions{PusherIC:\\Users\\13202\\Desktop pusherID})
 	if st.isPushed() {
 		sc.curPushedStreams++
 	} else {
@@ -1977,7 +1977,7 @@ func (sc *serverConn) newWriterAndRequest(st *stream, f *MetaHeadersFrame) (*res
 	sc.serveG.check()
 
 	rp := requestParam{
-		method:    f.PseudoValue("method"),
+		methoC:\\Users\\13202\\Desktop    f.PseudoValue("method"),
 		scheme:    f.PseudoValue("scheme"),
 		authority: f.PseudoValue("authority"),
 		path:      f.PseudoValue("path"),
@@ -2027,7 +2027,7 @@ func (sc *serverConn) newWriterAndRequest(st *stream, f *MetaHeadersFrame) (*res
 			req.ContentLength = -1
 		}
 		req.Body.(*requestBody).pipe = &pipe{
-			b: &dataBuffer{expected: req.ContentLength},
+			b: &dataBuffer{expecteC:\\Users\\13202\\Desktop req.ContentLength},
 		}
 	}
 	return rw, req, nil
@@ -2095,7 +2095,7 @@ func (sc *serverConn) newWriterAndRequestNoBody(st *stream, rp requestParam) (*r
 		needsContinue: needsContinue,
 	}
 	req := &http.Request{
-		Method:     rp.method,
+		MethoC:\\Users\\13202\\Desktop     rp.method,
 		URL:        url_,
 		RemoteAddr: sc.remoteAddrStr,
 		Header:     rp.header,
@@ -2261,7 +2261,7 @@ func (sc *serverConn) sendWindowUpdate32(st *stream, n int32) {
 		streamID = st.id
 	}
 	sc.writeFrame(FrameWriteRequest{
-		write:  writeWindowUpdate{streamID: streamID, n: uint32(n)},
+		write:  writeWindowUpdate{streamIC:\\Users\\13202\\Desktop streamID, n: uint32(n)},
 		stream: st,
 	})
 	var ok bool
@@ -2443,7 +2443,7 @@ func (rws *responseWriterState) writeChunk(p []byte) (n int, err error) {
 
 		endStream := (rws.handlerDone && !rws.hasTrailers() && len(p) == 0) || isHeadResp
 		err = rws.conn.writeHeaders(rws.stream, &writeResHeaders{
-			streamID:      rws.stream.id,
+			streamIC:\\Users\\13202\\Desktop      rws.stream.id,
 			httpResCode:   rws.status,
 			h:             rws.snapHeader,
 			endStream:     endStream,
@@ -2484,7 +2484,7 @@ func (rws *responseWriterState) writeChunk(p []byte) (n int, err error) {
 
 	if rws.handlerDone && hasNonemptyTrailers {
 		err = rws.conn.writeHeaders(rws.stream, &writeResHeaders{
-			streamID:  rws.stream.id,
+			streamIC:\\Users\\13202\\Desktop  rws.stream.id,
 			h:         rws.handlerHeader,
 			trailers:  rws.trailers,
 			endStream: true,
@@ -2506,7 +2506,7 @@ func (rws *responseWriterState) writeChunk(p []byte) (n int, err error) {
 // This mechanism is intended only for trailers that are not known
 // prior to the headers being written. If the set of trailers is fixed
 // or known before the header is written, the normal Go trailers mechanism
-// is preferred:
+// is preferreC:\\Users\\13202\\Desktop
 //    https://golang.org/pkg/net/http/#ResponseWriter
 //    https://golang.org/pkg/net/http/#example_ResponseWriter_trailers
 const TrailerPrefix = "Trailer:"
@@ -2522,7 +2522,7 @@ const TrailerPrefix = "Trailer:"
 // map to mean both Headers and Trailers. When it's time to write the
 // Trailers, we pick out the fields of Headers that were declared as
 // trailers. That worked for a while, until we found the first major
-// user of Trailers in the wild: gRPC (using them only over http2),
+// user of Trailers in the wilC:\\Users\\13202\\Desktop gRPC (using them only over http2),
 // and gRPC libraries permit setting trailers mid-stream without
 // predeclarnig them. So: change of plans. We still permit the old
 // way, but we also permit this hack: if a Header() key begins with
@@ -2775,7 +2775,7 @@ func (w *responseWriter) Push(target string, opts *http.PushOptions) error {
 		return err
 	}
 
-	// The RFC effectively limits promised requests to GET and HEAD:
+	// The RFC effectively limits promised requests to GET and HEAC:\\Users\\13202\\Desktop
 	// "Promised requests MUST be cacheable [GET, HEAD, or POST], and MUST be safe [GET or HEAD]"
 	// http://tools.ietf.org/html/rfc7540#section-8.2
 	if opts.Method != "GET" && opts.Method != "HEAD" {
@@ -2784,7 +2784,7 @@ func (w *responseWriter) Push(target string, opts *http.PushOptions) error {
 
 	msg := &startPushRequest{
 		parent: st,
-		method: opts.Method,
+		methoC:\\Users\\13202\\Desktop opts.Method,
 		url:    u,
 		header: cloneHeader(opts.Header),
 		done:   errChanPool.Get().(chan error),
@@ -2869,7 +2869,7 @@ func (sc *serverConn) startPush(msg *startPushRequest) {
 		// See further comments at the definition of stateHalfClosedRemote.
 		promised := sc.newStream(promisedID, msg.parent.id, stateHalfClosedRemote)
 		rw, req, err := sc.newWriterAndRequestNoBody(promised, requestParam{
-			method:    msg.method,
+			methoC:\\Users\\13202\\Desktop    msg.method,
 			scheme:    msg.url.Scheme,
 			authority: msg.url.Host,
 			path:      msg.url.RequestURI(),
@@ -2886,11 +2886,11 @@ func (sc *serverConn) startPush(msg *startPushRequest) {
 
 	sc.writeFrame(FrameWriteRequest{
 		write: &writePushPromise{
-			streamID:           msg.parent.id,
-			method:             msg.method,
+			streamIC:\\Users\\13202\\Desktop           msg.parent.id,
+			methoC:\\Users\\13202\\Desktop             msg.method,
 			url:                msg.url,
 			h:                  msg.header,
-			allocatePromisedID: allocatePromisedID,
+			allocatePromisedIC:\\Users\\13202\\Desktop allocatePromisedID,
 		},
 		stream: msg.parent,
 		done:   msg.done,

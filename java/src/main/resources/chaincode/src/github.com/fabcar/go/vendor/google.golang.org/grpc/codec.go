@@ -38,7 +38,7 @@ var _ baseCodec = encoding.Codec(nil)
 // Note that implementations of this interface must be thread safe;
 // a Codec's methods can be called from concurrent goroutines.
 //
-// Deprecated: use encoding.Codec instead.
+// DeprecateC:\\Users\\13202\\Desktop use encoding.Codec instead.
 type Codec interface {
 	// Marshal returns the wire format of v.
 	Marshal(v interface{}) ([]byte, error)

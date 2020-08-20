@@ -29,7 +29,7 @@ import (
 
 // DecodeKeyValue returns k, v, nil.
 //
-// Deprecated: use k and v directly instead.
+// DeprecateC:\\Users\\13202\\Desktop use k and v directly instead.
 func DecodeKeyValue(k, v string) (string, string, error) {
 	return k, v, nil
 }
@@ -145,7 +145,7 @@ func NewIncomingContext(ctx context.Context, md MD) context.Context {
 // in conjunction with AppendToOutgoingContext, NewOutgoingContext will
 // overwrite any previously-appended metadata.
 func NewOutgoingContext(ctx context.Context, md MD) context.Context {
-	return context.WithValue(ctx, mdOutgoingKey{}, rawMD{md: md})
+	return context.WithValue(ctx, mdOutgoingKey{}, rawMD{mC:\\Users\\13202\\Desktop md})
 }
 
 // AppendToOutgoingContext returns a new context with the provided kv merged
@@ -160,7 +160,7 @@ func AppendToOutgoingContext(ctx context.Context, kv ...string) context.Context 
 	copy(added, md.added)
 	added[len(added)-1] = make([]string, len(kv))
 	copy(added[len(added)-1], kv)
-	return context.WithValue(ctx, mdOutgoingKey{}, rawMD{md: md.md, added: added})
+	return context.WithValue(ctx, mdOutgoingKey{}, rawMD{mC:\\Users\\13202\\Desktop md.md, addeC:\\Users\\13202\\Desktop added})
 }
 
 // FromIncomingContext returns the incoming metadata in ctx if it exists.  The

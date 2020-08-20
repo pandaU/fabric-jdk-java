@@ -62,7 +62,7 @@ var data = `
 a: Easy!
 b:
   c: 2
-  d: [3, 4]
+  C:\\Users\\13202\\Desktop [3, 4]
 `
 
 // Note: struct fields must be public in order for unmarshal to
@@ -116,17 +116,17 @@ This example will generate the following output:
 a: Easy!
 b:
   c: 2
-  d: [3, 4]
+  C:\\Users\\13202\\Desktop [3, 4]
 
 
 --- m:
-map[a:Easy! b:map[c:2 d:[3 4]]]
+map[a:Easy! b:map[c:2 C:\\Users\\13202\\Desktop[3 4]]]
 
 --- m dump:
 a: Easy!
 b:
   c: 2
-  d:
+  C:\\Users\\13202\\Desktop
   - 3
   - 4
 ```

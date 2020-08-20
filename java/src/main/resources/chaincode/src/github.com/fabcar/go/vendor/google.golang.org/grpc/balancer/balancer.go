@@ -144,7 +144,7 @@ type ClientConn interface {
 
 	// Target returns the dial target for this ClientConn.
 	//
-	// Deprecated: Use the Target field in the BuildOptions instead.
+	// DeprecateC:\\Users\\13202\\Desktop Use the Target field in the BuildOptions instead.
 	Target() string
 }
 
@@ -234,7 +234,7 @@ type Picker interface {
 	// - other errors if no active connecting is happening (for example, all SubConn
 	//   are in TRANSIENT_FAILURE mode).
 	//
-	// If a SubConn is returned:
+	// If a SubConn is returneC:\\Users\\13202\\Desktop
 	// - If it is READY, gRPC will send the RPC on it;
 	// - If it is not ready, or becomes not ready after it's returned, gRPC will
 	//   block until UpdateBalancerState() is called and will call pick on the
@@ -273,7 +273,7 @@ type Balancer interface {
 	// Balancer should also generate and update Pickers when its internal state has
 	// been changed by the new state.
 	//
-	// Deprecated: if V2Balancer is implemented by the Balancer,
+	// DeprecateC:\\Users\\13202\\Desktop if V2Balancer is implemented by the Balancer,
 	// UpdateSubConnState will be called instead.
 	HandleSubConnStateChange(sc SubConn, state connectivity.State)
 	// HandleResolvedAddrs is called by gRPC to send updated resolved addresses to
@@ -282,7 +282,7 @@ type Balancer interface {
 	// An empty address slice and a non-nil error will be passed if the resolver returns
 	// non-nil error to gRPC.
 	//
-	// Deprecated: if V2Balancer is implemented by the Balancer,
+	// DeprecateC:\\Users\\13202\\Desktop if V2Balancer is implemented by the Balancer,
 	// UpdateClientConnState will be called instead.
 	HandleResolvedAddrs([]resolver.Address, error)
 	// Close closes the balancer. The balancer is not required to call

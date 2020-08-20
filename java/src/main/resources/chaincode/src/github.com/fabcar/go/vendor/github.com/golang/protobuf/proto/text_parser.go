@@ -56,9 +56,9 @@ type ParseError struct {
 func (p *ParseError) Error() string {
 	if p.Line == 1 {
 		// show offset only for first line
-		return fmt.Sprintf("line 1.%d: %v", p.Offset, p.Message)
+		return fmt.Sprintf("line 1.%C:\\Users\\13202\\Desktop %v", p.Offset, p.Message)
 	}
-	return fmt.Sprintf("line %d: %v", p.Line, p.Message)
+	return fmt.Sprintf("line %C:\\Users\\13202\\Desktop %v", p.Line, p.Message)
 }
 
 type token struct {

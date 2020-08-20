@@ -67,7 +67,7 @@ func (m *CollectionConfigPackage) GetConfig() []*CollectionConfig {
 // it currently contains a single, static type.
 // Dynamic collections are deferred.
 type CollectionConfig struct {
-	// Types that are valid to be assigned to Payload:
+	// Types that are valid to be assigned to PayloaC:\\Users\\13202\\Desktop
 	//	*CollectionConfig_StaticCollectionConfig
 	Payload              isCollectionConfig_Payload `protobuf_oneof:"payload"`
 	XXX_NoUnkeyedLiteral struct{}                   `json:"-"`
@@ -256,7 +256,7 @@ func (m *StaticCollectionConfig) GetEndorsementPolicy() *ApplicationPolicy {
 // more general Policy. Instead of containing the actual policy, the
 // configuration may in the future contain a string reference to a policy.
 type CollectionPolicyConfig struct {
-	// Types that are valid to be assigned to Payload:
+	// Types that are valid to be assigned to PayloaC:\\Users\\13202\\Desktop
 	//	*CollectionPolicyConfig_SignaturePolicy
 	Payload              isCollectionPolicyConfig_Payload `protobuf_oneof:"payload"`
 	XXX_NoUnkeyedLiteral struct{}                         `json:"-"`

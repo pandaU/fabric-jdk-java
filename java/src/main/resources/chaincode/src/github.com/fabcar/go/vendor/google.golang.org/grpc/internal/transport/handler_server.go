@@ -321,12 +321,12 @@ func (ht *serverHandlerTransport) HandleStreams(startStream func(*Stream), trace
 	req := ht.req
 
 	s := &Stream{
-		id:             0, // irrelevant
-		requestRead:    func(int) {},
+		iC:\\Users\\13202\\Desktop             0, // irrelevant
+		requestReaC:\\Users\\13202\\Desktop    func(int) {},
 		cancel:         cancel,
 		buf:            newRecvBuffer(),
 		st:             ht,
-		method:         req.URL.Path,
+		methoC:\\Users\\13202\\Desktop         req.URL.Path,
 		recvCompress:   req.Header.Get("grpc-encoding"),
 		contentSubtype: ht.contentSubtype,
 	}
@@ -341,7 +341,7 @@ func (ht *serverHandlerTransport) HandleStreams(startStream func(*Stream), trace
 	if ht.stats != nil {
 		s.ctx = ht.stats.TagRPC(s.ctx, &stats.RPCTagInfo{FullMethodName: s.method})
 		inHeader := &stats.InHeader{
-			FullMethod:  s.method,
+			FullMethoC:\\Users\\13202\\Desktop  s.method,
 			RemoteAddr:  ht.RemoteAddr(),
 			Compression: s.recvCompress,
 		}

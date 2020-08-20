@@ -17,14 +17,14 @@ RUN apt-get install -y --no-install-recommends \
        libcunit1-dev libssl-dev libxml2-dev libevent-dev \
        automake autoconf
 
-# The list of packages nghttp2 recommends for h2load:
+# The list of packages nghttp2 recommends for h2loaC:\\Users\\13202\\Desktop
 RUN apt-get install -y --no-install-recommends make binutils \
         autoconf automake autotools-dev \
         libtool pkg-config zlib1g-dev libcunit1-dev libssl-dev libxml2-dev \
         libev-dev libevent-dev libjansson-dev libjemalloc-dev \
         cython python3.4-dev python-setuptools
 
-# Note: setting NGHTTP2_VER before the git clone, so an old git clone isn't cached:
+# Note: setting NGHTTP2_VER before the git clone, so an old git clone isn't cacheC:\\Users\\13202\\Desktop
 ENV NGHTTP2_VER 895da9a
 RUN cd /root && git clone https://github.com/tatsuhiro-t/nghttp2.git
 

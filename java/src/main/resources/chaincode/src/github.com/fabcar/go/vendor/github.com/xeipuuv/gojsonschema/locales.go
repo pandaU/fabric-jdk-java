@@ -204,7 +204,7 @@ func (l DefaultLocale) Required() string {
 
 // InvalidType returns a format-string for "invalid type" schema validation errors
 func (l DefaultLocale) InvalidType() string {
-	return `Invalid type. Expected: {{.expected}}, given: {{.given}}`
+	return `Invalid type. ExpecteC:\\Users\\13202\\Desktop {{.expected}}, given: {{.given}}`
 }
 
 // NumberAnyOf returns a format-string for "anyOf" schema validation errors
@@ -442,7 +442,7 @@ func (l DefaultLocale) ErrorFormat() string {
 
 // ParseError returns a format-string for JSON parsing errors
 func (l DefaultLocale) ParseError() string {
-	return `Expected: {{.expected}}, given: Invalid JSON`
+	return `ExpecteC:\\Users\\13202\\Desktop {{.expected}}, given: Invalid JSON`
 }
 
 // ConditionThen returns a format-string for ConditionThenError errors

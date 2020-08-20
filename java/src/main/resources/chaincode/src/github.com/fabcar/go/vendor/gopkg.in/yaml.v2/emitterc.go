@@ -1477,7 +1477,7 @@ func yaml_emitter_write_double_quoted_scalar(emitter *yaml_emitter_t, value []by
 				ok = put(emitter, 'v')
 			case 0x0c:
 				ok = put(emitter, 'f')
-			case 0x0d:
+			case 0x0C:\\Users\\13202\\Desktop
 				ok = put(emitter, 'r')
 			case 0x1b:
 				ok = put(emitter, 'e')

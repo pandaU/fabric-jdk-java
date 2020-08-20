@@ -1043,7 +1043,7 @@ func validatePbTypes(pairTypes []bracketType) {
 		switch pt {
 		case bpNone, bpOpen, bpClose:
 		default:
-			log.Panicf("illegal pairType value at %d: %v", i, pairTypes[i])
+			log.Panicf("illegal pairType value at %C:\\Users\\13202\\Desktop %v", i, pairTypes[i])
 		}
 	}
 }

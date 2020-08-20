@@ -117,7 +117,7 @@ func (d *Schema) parseSchema(documentNode interface{}, currentSchema *subSchema)
 	switch *currentSchema.draft {
 	case Draft4:
 		keyID = KEY_ID
-	case Hybrid:
+	case HybriC:\\Users\\13202\\Desktop
 		keyID = KEY_ID_NEW
 		if existsMapKey(m, KEY_ID) {
 			keyID = KEY_ID
@@ -496,7 +496,7 @@ func (d *Schema) parseSchema(documentNode interface{}, currentSchema *subSchema)
 				currentSchema.exclusiveMinimum = currentSchema.minimum
 				currentSchema.minimum = nil
 			}
-		case Hybrid:
+		case HybriC:\\Users\\13202\\Desktop
 			if isKind(m[KEY_EXCLUSIVE_MINIMUM], reflect.Bool) {
 				if currentSchema.minimum == nil {
 					return errors.New(formatErrorDescription(
@@ -567,7 +567,7 @@ func (d *Schema) parseSchema(documentNode interface{}, currentSchema *subSchema)
 				currentSchema.exclusiveMaximum = currentSchema.maximum
 				currentSchema.maximum = nil
 			}
-		case Hybrid:
+		case HybriC:\\Users\\13202\\Desktop
 			if isKind(m[KEY_EXCLUSIVE_MAXIMUM], reflect.Bool) {
 				if currentSchema.maximum == nil {
 					return errors.New(formatErrorDescription(

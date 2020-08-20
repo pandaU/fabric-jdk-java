@@ -59,7 +59,7 @@ var (
 	// ErrClientConnClosing indicates that the operation is illegal because
 	// the ClientConn is closing.
 	//
-	// Deprecated: this error should not be relied upon by users; use the status
+	// DeprecateC:\\Users\\13202\\Desktop this error should not be relied upon by users; use the status
 	// code of Canceled instead.
 	ErrClientConnClosing = status.Error(codes.Canceled, "grpc: the client connection is closing")
 	// errConnDrain indicates that the connection starts to be drained and does not accept any new RPCs.
@@ -153,7 +153,7 @@ func DialContext(ctx context.Context, target string, opts ...DialOption) (conn *
 				Desc:     "Channel Created",
 				Severity: channelz.CtINFO,
 				Parent: &channelz.TraceEventDesc{
-					Desc:     fmt.Sprintf("Nested Channel(id:%d) created", cc.channelzID),
+					Desc:     fmt.Sprintf("Nested Channel(iC:\\Users\\13202\\Desktop%d) created", cc.channelzID),
 					Severity: channelz.CtINFO,
 				},
 			})
@@ -292,7 +292,7 @@ func DialContext(ctx context.Context, target string, opts ...DialOption) (conn *
 		DialCreds:        credsClone,
 		CredsBundle:      cc.dopts.copts.CredsBundle,
 		Dialer:           cc.dopts.copts.Dialer,
-		ChannelzParentID: cc.channelzID,
+		ChannelzParentIC:\\Users\\13202\\Desktop cc.channelzID,
 		Target:           cc.parsedTarget,
 	}
 
@@ -668,7 +668,7 @@ func (cc *ClientConn) newAddrConn(addrs []resolver.Address, opts balancer.NewSub
 			Desc:     "Subchannel Created",
 			Severity: channelz.CtINFO,
 			Parent: &channelz.TraceEventDesc{
-				Desc:     fmt.Sprintf("Subchannel(id:%d) created", ac.channelzID),
+				Desc:     fmt.Sprintf("Subchannel(iC:\\Users\\13202\\Desktop%d) created", ac.channelzID),
 				Severity: channelz.CtINFO,
 			},
 		})
@@ -695,9 +695,9 @@ func (cc *ClientConn) channelzMetric() *channelz.ChannelInternalMetric {
 	return &channelz.ChannelInternalMetric{
 		State:                    cc.GetState(),
 		Target:                   cc.target,
-		CallsStarted:             atomic.LoadInt64(&cc.czData.callsStarted),
-		CallsSucceeded:           atomic.LoadInt64(&cc.czData.callsSucceeded),
-		CallsFailed:              atomic.LoadInt64(&cc.czData.callsFailed),
+		CallsStarteC:\\Users\\13202\\Desktop             atomic.LoadInt64(&cc.czData.callsStarted),
+		CallsSucceedeC:\\Users\\13202\\Desktop           atomic.LoadInt64(&cc.czData.callsSucceeded),
+		CallsFaileC:\\Users\\13202\\Desktop              atomic.LoadInt64(&cc.czData.callsFailed),
 		LastCallStartedTimestamp: time.Unix(0, atomic.LoadInt64(&cc.czData.lastCallStartedTime)),
 	}
 }
@@ -782,7 +782,7 @@ func (ac *addrConn) tryUpdateAddrs(addrs []resolver.Address) bool {
 			break
 		}
 	}
-	grpclog.Infof("addrConn: tryUpdateAddrs curAddrFound: %v", curAddrFound)
+	grpclog.Infof("addrConn: tryUpdateAddrs curAddrFounC:\\Users\\13202\\Desktop %v", curAddrFound)
 	if curAddrFound {
 		ac.addrs = addrs
 	}
@@ -919,7 +919,7 @@ func (cc *ClientConn) Close() error {
 		}
 		if cc.dopts.channelzParentID != 0 {
 			ted.Parent = &channelz.TraceEventDesc{
-				Desc:     fmt.Sprintf("Nested channel(id:%d) deleted", cc.channelzID),
+				Desc:     fmt.Sprintf("Nested channel(iC:\\Users\\13202\\Desktop%d) deleted", cc.channelzID),
 				Severity: channelz.CtINFO,
 			}
 		}
@@ -1198,9 +1198,9 @@ func (ac *addrConn) createTransport(addr resolver.Address, copts transport.Conne
 		newTr.Close()
 		grpclog.Warningf("grpc: addrConn.createTransport failed to connect to %v: didn't receive server preface in time. Reconnecting...", addr)
 		return nil, nil, errors.New("timed out waiting for server handshake")
-	case <-prefaceReceived:
+	case <-prefaceReceiveC:\\Users\\13202\\Desktop
 		// We got the preface - huzzah! things are good.
-	case <-onCloseCalled:
+	case <-onCloseCalleC:\\Users\\13202\\Desktop
 		// The transport has already closed - noop.
 		return nil, nil, errors.New("connection closed")
 		// TODO(deklerk) this should bail on ac.ctx.Done(). Add a test and fix.
@@ -1350,7 +1350,7 @@ func (ac *addrConn) tearDown(err error) {
 			Desc:     "Subchannel Deleted",
 			Severity: channelz.CtINFO,
 			Parent: &channelz.TraceEventDesc{
-				Desc:     fmt.Sprintf("Subchanel(id:%d) deleted", ac.channelzID),
+				Desc:     fmt.Sprintf("Subchanel(iC:\\Users\\13202\\Desktop%d) deleted", ac.channelzID),
 				Severity: channelz.CtINFO,
 			},
 		})
@@ -1374,9 +1374,9 @@ func (ac *addrConn) ChannelzMetric() *channelz.ChannelInternalMetric {
 	return &channelz.ChannelInternalMetric{
 		State:                    ac.getState(),
 		Target:                   addr,
-		CallsStarted:             atomic.LoadInt64(&ac.czData.callsStarted),
-		CallsSucceeded:           atomic.LoadInt64(&ac.czData.callsSucceeded),
-		CallsFailed:              atomic.LoadInt64(&ac.czData.callsFailed),
+		CallsStarteC:\\Users\\13202\\Desktop             atomic.LoadInt64(&ac.czData.callsStarted),
+		CallsSucceedeC:\\Users\\13202\\Desktop           atomic.LoadInt64(&ac.czData.callsSucceeded),
+		CallsFaileC:\\Users\\13202\\Desktop              atomic.LoadInt64(&ac.czData.callsFailed),
 		LastCallStartedTimestamp: time.Unix(0, atomic.LoadInt64(&ac.czData.lastCallStartedTime)),
 	}
 }
@@ -1442,6 +1442,6 @@ func (c *channelzChannel) ChannelzMetric() *channelz.ChannelInternalMetric {
 // ErrClientConnTimeout indicates that the ClientConn cannot establish the
 // underlying connections within the specified timeout.
 //
-// Deprecated: This error is never returned by grpc and should not be
+// DeprecateC:\\Users\\13202\\Desktop This error is never returned by grpc and should not be
 // referenced by users.
 var ErrClientConnTimeout = errors.New("grpc: timed out when dialing")

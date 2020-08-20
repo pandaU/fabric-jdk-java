@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,7 +29,9 @@ import org.example.user.UserContext;
 import org.example.util.Util;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.TransactionRequest.Type;
+import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
+import org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException;
 
 /**
  * 
@@ -43,23 +46,23 @@ public class DeployInstantiateChaincode {
 			CryptoSuite cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
 
 			UserContext org1Admin = new UserContext();
-			Enrollment enrollOrg1Admin = Util.getEnrollment("D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key1\\org1_key", null,
-					"D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server-org1p0.crt", null);
+			Enrollment enrollOrg1Admin = Util.getEnrollment("C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key1\\org1_key", null,
+					"C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server-org1p0.crt", null);
 			org1Admin.setEnrollment(enrollOrg1Admin);
 			org1Admin.setMspId(Config.ORG1_MSP);
 			org1Admin.setName(Config.ADMIN);
-
+			
 			UserContext org2Admin = new UserContext();
-			Enrollment enrollOrg2Admin = Util.getEnrollment("D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key2\\org2_key", null,
-					"D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server-org2p0.crt", null);
+			Enrollment enrollOrg2Admin = Util.getEnrollment("C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key2\\org2_key", null,
+					"C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server-org2p0.crt", null);
 			org2Admin.setEnrollment(enrollOrg2Admin);
 			org2Admin.setMspId(Config.ORG2_MSP);
 			org2Admin.setName(Config.ADMIN);
 			FabricClient fabClient = new FabricClient(org1Admin);
 			HFClient client = fabClient.getInstance();
-			Channel mychannel = fabClient.getInstance().newChannel("mychxx");
+			Channel mychannel = fabClient.getInstance().newChannel("mychannel");
 			Properties orderer1Prop = new Properties();
-			orderer1Prop.setProperty("pemFile", "D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\order.crt");
+			orderer1Prop.setProperty("pemFile", "C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\order.crt");
 			orderer1Prop.setProperty("sslProvider", "openSSL");
 			orderer1Prop.setProperty("negotiationType", "TLS");
 			orderer1Prop.setProperty("hostnameOverride", "orderer.example.com");
@@ -68,7 +71,7 @@ public class DeployInstantiateChaincode {
 			Orderer orderer = client.newOrderer("orderer.example.com", "grpcs://orderer.example.com:7050", orderer1Prop);
 
 			Properties peer1Prop = new Properties();
-			peer1Prop.setProperty("pemFile", "D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca1.crt");
+			peer1Prop.setProperty("pemFile", "C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca1.crt");
 			peer1Prop.setProperty("sslProvider", "openSSL");
 			peer1Prop.setProperty("negotiationType", "TLS");
 			peer1Prop.setProperty("hostnameOverride", "peer0.org1.example.com");
@@ -77,7 +80,7 @@ public class DeployInstantiateChaincode {
 			Peer peer = client.newPeer("peer0.org1.example.com", "grpcs://peer0.org1.example.com:7051", peer1Prop);
 
 			Properties peer2Prop = new Properties();
-			peer2Prop.setProperty("pemFile", "D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
+			peer2Prop.setProperty("pemFile", "C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
 			peer2Prop.setProperty("sslProvider", "openSSL");
 			peer2Prop.setProperty("negotiationType", "TLS");
 			peer2Prop.setProperty("hostnameOverride", "peer0.org2.example.com");
@@ -95,42 +98,29 @@ public class DeployInstantiateChaincode {
 			List<Peer> org2Peers = new ArrayList<Peer>();
 			org2Peers.add(peer2);
 
-			Collection<ProposalResponse> response = fabClient.deployChainCode(Config.CHAINCODE_1_NAME,
-					Config.CHAINCODE_1_PATH, Config.CHAINCODE_ROOT_DIR, Type.GO_LANG.toString(),
+			String package1 = fabClient.deployChainCode(Config.CHAINCODE_1_NAME,
+					Config.CHAINCODE_1_PATH, Config.CHAINCODE_ROOT_DIR, TransactionRequest.Type.GO_LANG,
 					Config.CHAINCODE_1_VERSION, org1Peers);
 
 
-			for (ProposalResponse res : response) {
-				Logger.getLogger(DeployInstantiateChaincode.class.getName()).log(Level.INFO,
-						Config.CHAINCODE_1_NAME + "- Chain code deployment " + res.getStatus());
-			}
 
 			fabClient.getInstance().setUserContext(org2Admin);
 
-			response = fabClient.deployChainCode(Config.CHAINCODE_1_NAME,
-					Config.CHAINCODE_1_PATH, Config.CHAINCODE_ROOT_DIR, Type.GO_LANG.toString(),
+			String package2 = fabClient.deployChainCode(Config.CHAINCODE_1_NAME,
+					Config.CHAINCODE_1_PATH, Config.CHAINCODE_ROOT_DIR, TransactionRequest.Type.GO_LANG,
 					Config.CHAINCODE_1_VERSION, org2Peers);
 
 
-			for (ProposalResponse res : response) {
-				Logger.getLogger(DeployInstantiateChaincode.class.getName()).log(Level.INFO,
-						Config.CHAINCODE_1_NAME + "- Chain code deployment " + res.getStatus());
-			}
 
 			ChannelClient channelClient = new ChannelClient(mychannel.getName(), mychannel, fabClient);
 
 			String[] arguments = { "" };
-			response = channelClient.instantiateChainCode(Config.CHAINCODE_1_NAME, Config.CHAINCODE_1_VERSION,
-					Config.CHAINCODE_1_PATH, Type.GO_LANG.toString(), "init", arguments, null);
+			CompletableFuture<BlockEvent.TransactionEvent> init = channelClient.instantiateChainCode(Config.CHAINCODE_1_NAME, Config.CHAINCODE_1_VERSION,
+					Config.CHAINCODE_1_PATH, TransactionRequest.Type.GO_LANG.toString(), "init", arguments, null, package1, org1Peers);
 
-			for (ProposalResponse res : response) {
-				Logger.getLogger(DeployInstantiateChaincode.class.getName()).log(Level.INFO,
-						Config.CHAINCODE_1_NAME + "- Chain code instantiation " + res.getStatus());
-			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 }

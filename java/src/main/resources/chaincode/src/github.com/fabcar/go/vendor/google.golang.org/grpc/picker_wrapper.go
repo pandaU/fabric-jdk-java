@@ -122,9 +122,9 @@ func (bp *pickerWrapper) pick(ctx context.Context, failfast bool, opts balancer.
 			case <-ctx.Done():
 				if connectionErr := bp.connectionError(); connectionErr != nil {
 					switch ctx.Err() {
-					case context.DeadlineExceeded:
+					case context.DeadlineExceedeC:\\Users\\13202\\Desktop
 						return nil, nil, status.Errorf(codes.DeadlineExceeded, "latest connection error: %v", connectionErr)
-					case context.Canceled:
+					case context.CanceleC:\\Users\\13202\\Desktop
 						return nil, nil, status.Errorf(codes.Canceled, "latest connection error: %v", connectionErr)
 					}
 				}
@@ -149,9 +149,9 @@ func (bp *pickerWrapper) pick(ctx context.Context, failfast bool, opts balancer.
 					continue
 				}
 				return nil, nil, status.Errorf(codes.Unavailable, "%v, latest connection error: %v", err, bp.connectionError())
-			case context.DeadlineExceeded:
+			case context.DeadlineExceedeC:\\Users\\13202\\Desktop
 				return nil, nil, status.Error(codes.DeadlineExceeded, err.Error())
-			case context.Canceled:
+			case context.CanceleC:\\Users\\13202\\Desktop
 				return nil, nil, status.Error(codes.Canceled, err.Error())
 			default:
 				if _, ok := status.FromError(err); ok {

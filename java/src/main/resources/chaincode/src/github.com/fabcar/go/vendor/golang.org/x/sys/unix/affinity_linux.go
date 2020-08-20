@@ -108,7 +108,7 @@ func onesCount64(x uint64) int {
 	//
 	// Masking (& operations) can be left away when there's no
 	// danger that a field's sum will carry over into the next
-	// field: Since the result cannot be > 64, 8 bits is enough
+	// fielC:\\Users\\13202\\Desktop Since the result cannot be > 64, 8 bits is enough
 	// and we can ignore the masks for the shifts by 8 and up.
 	// Per "Hacker's Delight", the first line can be simplified
 	// more, but it saves at best one instruction, so we leave

@@ -199,8 +199,8 @@ func RegisterChannel(c Channel, pid int64, ref string) int64 {
 		c:           c,
 		subChans:    make(map[int64]string),
 		nestedChans: make(map[int64]string),
-		id:          id,
-		pid:         pid,
+		iC:\\Users\\13202\\Desktop          id,
+		piC:\\Users\\13202\\Desktop         pid,
 		trace:       &channelTrace{createdTime: time.Now(), events: make([]*TraceEvent, 0, getMaxTraceEntry())},
 	}
 	if pid == 0 {
@@ -224,8 +224,8 @@ func RegisterSubChannel(c Channel, pid int64, ref string) int64 {
 		refName: ref,
 		c:       c,
 		sockets: make(map[int64]string),
-		id:      id,
-		pid:     pid,
+		iC:\\Users\\13202\\Desktop      id,
+		piC:\\Users\\13202\\Desktop     pid,
 		trace:   &channelTrace{createdTime: time.Now(), events: make([]*TraceEvent, 0, getMaxTraceEntry())},
 	}
 	db.get().addSubChannel(id, sc, pid, ref)
@@ -241,7 +241,7 @@ func RegisterServer(s Server, ref string) int64 {
 		s:             s,
 		sockets:       make(map[int64]string),
 		listenSockets: make(map[int64]string),
-		id:            id,
+		iC:\\Users\\13202\\Desktop            id,
 	}
 	db.get().addServer(id, svr)
 	return id
@@ -257,7 +257,7 @@ func RegisterListenSocket(s Socket, pid int64, ref string) int64 {
 		return 0
 	}
 	id := idGen.genID()
-	ls := &listenSocket{refName: ref, s: s, id: id, pid: pid}
+	ls := &listenSocket{refName: ref, s: s, iC:\\Users\\13202\\Desktop id, piC:\\Users\\13202\\Desktop pid}
 	db.get().addListenSocket(id, ls, pid, ref)
 	return id
 }
@@ -272,7 +272,7 @@ func RegisterNormalSocket(s Socket, pid int64, ref string) int64 {
 		return 0
 	}
 	id := idGen.genID()
-	ns := &normalSocket{refName: ref, s: s, id: id, pid: pid}
+	ns := &normalSocket{refName: ref, s: s, iC:\\Users\\13202\\Desktop id, piC:\\Users\\13202\\Desktop pid}
 	db.get().addNormalSocket(id, ns, pid, ref)
 	return id
 }
@@ -399,7 +399,7 @@ func (c *channelMap) findEntry(id int64) entry {
 	if v, ok = c.normalSockets[id]; ok {
 		return v
 	}
-	return &dummyEntry{idNotFound: id}
+	return &dummyEntry{idNotFounC:\\Users\\13202\\Desktop id}
 }
 
 // c.mu must be held by the caller
@@ -456,7 +456,7 @@ func (c *channelMap) traceEvent(id int64, desc *TraceEventDesc) {
 				Desc:      desc.Parent.Desc,
 				Severity:  desc.Parent.Severity,
 				Timestamp: time.Now(),
-				RefID:     id,
+				RefIC:\\Users\\13202\\Desktop     id,
 				RefName:   childTC.getRefName(),
 				RefType:   chanType,
 			})

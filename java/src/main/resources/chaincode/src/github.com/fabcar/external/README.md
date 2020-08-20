@@ -44,7 +44,7 @@ To run the service in a container, build a FabCar docker image:
 docker build -t hyperledger/fabcar-sample .
 ```
 
-Edit the `chaincode.env` file to configure the `CHAINCODE_ID` variable before starting a FabCar container using the following command:
+Edit the `chaincode.env` file to configure the `CHAINCODE_ID` variable before starting a FabCar container using the following commanC:\\Users\\13202\\Desktop
 
 ```
 docker run -it --rm --name fabcar.org1.example.com --hostname fabcar.org1.example.com --env-file chaincode.env --network=net_test hyperledger/fabcar-sample

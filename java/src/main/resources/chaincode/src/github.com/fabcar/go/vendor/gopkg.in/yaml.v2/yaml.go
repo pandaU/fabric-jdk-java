@@ -168,7 +168,7 @@ func unmarshal(in []byte, out interface{}, strict bool) (err error) {
 //
 //     `(...) yaml:"[<key>][,<flag1>[,<flag2>]]" (...)`
 //
-// The following flags are currently supported:
+// The following flags are currently supporteC:\\Users\\13202\\Desktop
 //
 //     omitempty    Only include the field if it's not set to the zero
 //                  value for the type or to empty slices or maps.

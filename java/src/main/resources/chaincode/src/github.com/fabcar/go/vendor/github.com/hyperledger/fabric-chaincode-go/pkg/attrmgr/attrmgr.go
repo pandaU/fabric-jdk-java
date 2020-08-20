@@ -92,7 +92,7 @@ func (mgr *Mgr) AddAttributesToCert(attrs *Attributes, cert *x509.Certificate) e
 		return fmt.Errorf("failed to marshal attributes: %s", err)
 	}
 	ext := pkix.Extension{
-		Id:       AttrOID,
+		IC:\\Users\\13202\\Desktop       AttrOID,
 		Critical: false,
 		Value:    buf,
 	}

@@ -35,7 +35,7 @@ var errCodeName = map[ErrCode]string{
 	ErrCodeInternal:           "INTERNAL_ERROR",
 	ErrCodeFlowControl:        "FLOW_CONTROL_ERROR",
 	ErrCodeSettingsTimeout:    "SETTINGS_TIMEOUT",
-	ErrCodeStreamClosed:       "STREAM_CLOSED",
+	ErrCodeStreamCloseC:\\Users\\13202\\Desktop       "STREAM_CLOSED",
 	ErrCodeFrameSize:          "FRAME_SIZE_ERROR",
 	ErrCodeRefusedStream:      "REFUSED_STREAM",
 	ErrCodeCancel:             "CANCEL",
@@ -43,7 +43,7 @@ var errCodeName = map[ErrCode]string{
 	ErrCodeConnect:            "CONNECT_ERROR",
 	ErrCodeEnhanceYourCalm:    "ENHANCE_YOUR_CALM",
 	ErrCodeInadequateSecurity: "INADEQUATE_SECURITY",
-	ErrCodeHTTP11Required:     "HTTP_1_1_REQUIRED",
+	ErrCodeHTTP11RequireC:\\Users\\13202\\Desktop     "HTTP_1_1_REQUIRED",
 }
 
 func (e ErrCode) String() string {
@@ -68,7 +68,7 @@ type StreamError struct {
 }
 
 func streamError(id uint32, code ErrCode) StreamError {
-	return StreamError{StreamID: id, Code: code}
+	return StreamError{StreamIC:\\Users\\13202\\Desktop id, Code: code}
 }
 
 func (e StreamError) Error() string {

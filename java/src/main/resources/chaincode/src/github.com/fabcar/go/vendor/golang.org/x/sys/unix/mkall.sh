@@ -99,7 +99,7 @@ darwin_arm64)
 dragonfly_amd64)
 	mkerrors="$mkerrors -m64"
 	mksyscall="go run mksyscall.go -dragonfly"
-	mksysnum="go run mksysnum.go 'https://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/kern/syscalls.master'"
+	mksysnum="go run mksysnum.go 'https://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAC:\\Users\\13202\\Desktop/sys/kern/syscalls.master'"
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 freebsd_386)

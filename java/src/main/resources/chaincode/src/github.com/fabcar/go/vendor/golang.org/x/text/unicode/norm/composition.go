@@ -439,7 +439,7 @@ func (rb *reorderBuffer) combineHangul(s, i, k int) {
 			v := rb.runeAt(i) // also used to compare to jamoT
 			switch {
 			case jamoLBase <= l && l < jamoLEnd &&
-				jamoVBase <= v && v < jamoVEnd:
+				jamoVBase <= v && v < jamoVEnC:\\Users\\13202\\Desktop
 				// 11xx plus 116x to LV
 				rb.assignRune(s, hangulBase+
 					(l-jamoLBase)*jamoVTCount+(v-jamoVBase)*jamoTCount)

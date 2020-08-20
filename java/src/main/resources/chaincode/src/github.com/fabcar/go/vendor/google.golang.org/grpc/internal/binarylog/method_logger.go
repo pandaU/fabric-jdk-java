@@ -63,7 +63,7 @@ func newMethodLogger(h, m uint64) *MethodLogger {
 		headerMaxLen:  h,
 		messageMaxLen: m,
 
-		callID:          idGen.next(),
+		callIC:\\Users\\13202\\Desktop          idGen.next(),
 		idWithinCallGen: &callIDGenerator{},
 
 		sink: defaultSink, // TODO(blog): make it plugable.
@@ -160,7 +160,7 @@ func (c *ClientHeader) toProto() *pb.GrpcLogEntry {
 	}
 	ret := &pb.GrpcLogEntry{
 		Type: pb.GrpcLogEntry_EVENT_TYPE_CLIENT_HEADER,
-		Payload: &pb.GrpcLogEntry_ClientHeader{
+		PayloaC:\\Users\\13202\\Desktop &pb.GrpcLogEntry_ClientHeader{
 			ClientHeader: clientHeader,
 		},
 	}
@@ -186,7 +186,7 @@ type ServerHeader struct {
 func (c *ServerHeader) toProto() *pb.GrpcLogEntry {
 	ret := &pb.GrpcLogEntry{
 		Type: pb.GrpcLogEntry_EVENT_TYPE_SERVER_HEADER,
-		Payload: &pb.GrpcLogEntry_ServerHeader{
+		PayloaC:\\Users\\13202\\Desktop &pb.GrpcLogEntry_ServerHeader{
 			ServerHeader: &pb.ServerHeader{
 				Metadata: mdToMetadataProto(c.Header),
 			},
@@ -228,7 +228,7 @@ func (c *ClientMessage) toProto() *pb.GrpcLogEntry {
 	}
 	ret := &pb.GrpcLogEntry{
 		Type: pb.GrpcLogEntry_EVENT_TYPE_CLIENT_MESSAGE,
-		Payload: &pb.GrpcLogEntry_Message{
+		PayloaC:\\Users\\13202\\Desktop &pb.GrpcLogEntry_Message{
 			Message: &pb.Message{
 				Length: uint32(len(data)),
 				Data:   data,
@@ -268,7 +268,7 @@ func (c *ServerMessage) toProto() *pb.GrpcLogEntry {
 	}
 	ret := &pb.GrpcLogEntry{
 		Type: pb.GrpcLogEntry_EVENT_TYPE_SERVER_MESSAGE,
-		Payload: &pb.GrpcLogEntry_Message{
+		PayloaC:\\Users\\13202\\Desktop &pb.GrpcLogEntry_Message{
 			Message: &pb.Message{
 				Length: uint32(len(data)),
 				Data:   data,
@@ -291,7 +291,7 @@ type ClientHalfClose struct {
 func (c *ClientHalfClose) toProto() *pb.GrpcLogEntry {
 	ret := &pb.GrpcLogEntry{
 		Type:    pb.GrpcLogEntry_EVENT_TYPE_CLIENT_HALF_CLOSE,
-		Payload: nil, // No payload here.
+		PayloaC:\\Users\\13202\\Desktop nil, // No payload here.
 	}
 	if c.OnClientSide {
 		ret.Logger = pb.GrpcLogEntry_LOGGER_CLIENT
@@ -330,7 +330,7 @@ func (c *ServerTrailer) toProto() *pb.GrpcLogEntry {
 	}
 	ret := &pb.GrpcLogEntry{
 		Type: pb.GrpcLogEntry_EVENT_TYPE_SERVER_TRAILER,
-		Payload: &pb.GrpcLogEntry_Trailer{
+		PayloaC:\\Users\\13202\\Desktop &pb.GrpcLogEntry_Trailer{
 			Trailer: &pb.Trailer{
 				Metadata:      mdToMetadataProto(c.Trailer),
 				StatusCode:    uint32(st.Code()),
@@ -358,7 +358,7 @@ type Cancel struct {
 func (c *Cancel) toProto() *pb.GrpcLogEntry {
 	ret := &pb.GrpcLogEntry{
 		Type:    pb.GrpcLogEntry_EVENT_TYPE_CANCEL,
-		Payload: nil,
+		PayloaC:\\Users\\13202\\Desktop nil,
 	}
 	if c.OnClientSide {
 		ret.Logger = pb.GrpcLogEntry_LOGGER_CLIENT

@@ -79,15 +79,15 @@ public class CreateChannel {
 
 
 			/*UserContext org1Admin = new UserContext();
-			Enrollment enrollOrg1Admin = Util.getEnrollment("D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key1\\org1_key", null,
-					"D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\cert1\\org1_cert", null);
+			Enrollment enrollOrg1Admin = Util.getEnrollment("C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key1\\org1_key", null,
+					"C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\cert1\\org1_cert", null);
 			org1Admin.setEnrollment(enrollOrg1Admin);
 			org1Admin.setMspId(Config.ORG1_MSP);
 			org1Admin.setName(Config.ADMIN);
 
 			UserContext org2Admin = new UserContext();
-			Enrollment enrollOrg2Admin = Util.getEnrollment("D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key2\\org2_key", null,
-					"D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\cert2\\org2_cert", null);
+			Enrollment enrollOrg2Admin = Util.getEnrollment("C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key2\\org2_key", null,
+					"C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\cert2\\org2_cert", null);
 			org2Admin.setEnrollment(enrollOrg2Admin);
 			org2Admin.setMspId(Config.ORG2_MSP);
 			org2Admin.setName(Config.ADMIN);*/
@@ -102,7 +102,7 @@ public class CreateChannel {
             peer_propertiesOder.setProperty("sslProvider", "openSSL");
             peer_propertiesOder.setProperty("negotiationType", "TLS");
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL,peer_propertiesOder);
-			//ChannelConfiguration channelConfiguration = new ChannelConfiguration(new File("D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\mychannel.tx"));
+			//ChannelConfiguration channelConfiguration = new ChannelConfiguration(new File("C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\mychannel.tx"));
 
 			//byte[] channelConfigurationSignatures = fabClient.getInstance()
 				//	.getChannelConfigurationSignature(channelConfiguration, adminUser1);
@@ -152,7 +152,7 @@ public class CreateChannel {
 	// initialize Channel
 	private static Channel initializeChannel(HFClient client, String channelName) throws InvalidArgumentException, TransactionException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException, IOException, ProposalException, NoSuchAlgorithmException, CryptoException, InvalidKeySpecException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 		Properties orderer1Prop = new Properties();
-		orderer1Prop.setProperty("pemFile", "D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\order.crt");
+		orderer1Prop.setProperty("pemFile", "C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\order.crt");
 		orderer1Prop.setProperty("sslProvider", "openSSL");
 		orderer1Prop.setProperty("negotiationType", "TLS");
 		orderer1Prop.setProperty("hostnameOverride", "orderer.example.com");
@@ -161,7 +161,7 @@ public class CreateChannel {
 		Orderer orderer = client.newOrderer("orderer.example.com", "grpcs://orderer.example.com:7050", orderer1Prop);
 
 		Properties peer1Prop = new Properties();
-		peer1Prop.setProperty("pemFile", "D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca1.crt");
+		peer1Prop.setProperty("pemFile", "C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca1.crt");
 		peer1Prop.setProperty("sslProvider", "openSSL");
 		peer1Prop.setProperty("negotiationType", "TLS");
 		peer1Prop.setProperty("hostnameOverride", "peer0.org1.example.com");
@@ -170,7 +170,7 @@ public class CreateChannel {
 		Peer peer = client.newPeer("peer0.org1.example.com", "grpcs://peer0.org1.example.com:7051", peer1Prop);
 
 		Properties peer2Prop = new Properties();
-		peer2Prop.setProperty("pemFile", "D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
+		peer2Prop.setProperty("pemFile", "C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\ca.crt");
 		peer2Prop.setProperty("sslProvider", "openSSL");
 		peer2Prop.setProperty("negotiationType", "TLS");
 		peer2Prop.setProperty("hostnameOverride", "peer0.org2.example.com");
@@ -178,25 +178,25 @@ public class CreateChannel {
 		peer2Prop.put("grpc.NettyChannelBuilderOption.maxInboundMessageSize", 9000000);
 		Peer peer2 = client.newPeer("peer0.org2.example.com", "grpcs://peer0.org2.example.com:9051", peer2Prop);
 		//EventHub eventHub = client.newEventHub("peer1.operation.com",Config.EVENTHUB1_ADDRESS,peer1Prop);
-		ChannelConfiguration channelConfiguration = new ChannelConfiguration(new File("D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\mychxx.tx"));
+		ChannelConfiguration channelConfiguration = new ChannelConfiguration(new File("C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\mychxx.tx"));
 		//3. 获取签名
 		byte[] signData = client.getChannelConfigurationSignature(channelConfiguration, client.getUserContext());
 		Channel channel = client.newChannel(channelName,orderer,channelConfiguration,signData);
 		channel.addOrderer(orderer);
 		channel.initialize();
-		channel.serializeChannel(new File("D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\block\\"+channelName + ".block"));
+		channel.serializeChannel(new File("C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\block\\"+channelName + ".block"));
 		String channel64String=Base64.getEncoder().encodeToString(channel.serializeChannel());
-		FileUtils.writeFile(channel64String, "D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\channelString\\" + channelName + ".txt", false);
+		FileUtils.writeFile(channel64String, "C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\channelString\\" + channelName + ".txt", false);
 		System.out.println("join peer");
 		channel.joinPeer(peer);
 		UserContext org2Admin = new UserContext();
-		Enrollment enrollOrg2Admin = Util.getEnrollment("D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key2\\org2_key", null,
-				"D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server-org2p0.crt", null);
+		Enrollment enrollOrg2Admin = Util.getEnrollment("C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key2\\org2_key", null,
+				"C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server-org2p0.crt", null);
 		org2Admin.setEnrollment(enrollOrg2Admin);
 		org2Admin.setMspId(Config.ORG2_MSP);
 		org2Admin.setName(Config.ADMIN);
 		FabricClient fabClient = new FabricClient(org2Admin);
-		String channel64String2 = new String(FileUtils.readFile("D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\channelString\\" + channelName + ".txt"));
+		String channel64String2 = new String(FileUtils.readFile("C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\channelString\\" + channelName + ".txt"));
 		Channel channel1 = fabClient.getInstance().deSerializeChannel(Base64.getDecoder().decode(channel64String2.getBytes()));
 		channel1.initialize();
 		channel1.joinPeer(peer2);
@@ -224,12 +224,12 @@ public class CreateChannel {
 
 		UserContext org1Admin = new UserContext();
 		Enrollment enrollOrg1Admin = Util.getEnrollment("D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\key1\\org1_key", null,
-				"D:\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server-org1p0.crt", null);
+				"C:\\Users\\13202\\Desktop\\linux-fabric\\blockchain-application-using-fabric-java-sdk\\java\\src\\main\\resources\\server-org1p0.crt", null);
 		org1Admin.setEnrollment(enrollOrg1Admin);
 		org1Admin.setMspId(Config.ORG1_MSP);
 		org1Admin.setName(Config.ADMIN);
 		FabricClient fabClient = new FabricClient(org1Admin);
-		//initializeChannel(fabClient.getInstance(),"mychxx");
+		initializeChannel(fabClient.getInstance(),"mychxx");
 	}
 
 }

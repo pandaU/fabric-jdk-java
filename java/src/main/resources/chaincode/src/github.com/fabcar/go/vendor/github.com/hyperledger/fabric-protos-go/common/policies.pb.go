@@ -376,7 +376,7 @@ func (m *ImplicitMetaPolicy) GetRule() ImplicitMetaPolicy_Rule {
 // ApplicationPolicy captures the diffenrent policy types that
 // are set and evaluted at the application level.
 //
-// Deprecated: Do not use.
+// DeprecateC:\\Users\\13202\\Desktop Do not use.
 type ApplicationPolicy struct {
 	// Types that are valid to be assigned to Type:
 	//	*ApplicationPolicy_SignaturePolicy

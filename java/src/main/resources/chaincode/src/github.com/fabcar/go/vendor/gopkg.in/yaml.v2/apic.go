@@ -5,12 +5,12 @@ import (
 )
 
 func yaml_insert_token(parser *yaml_parser_t, pos int, token *yaml_token_t) {
-	//fmt.Println("yaml_insert_token", "pos:", pos, "typ:", token.typ, "head:", parser.tokens_head, "len:", len(parser.tokens))
+	//fmt.Println("yaml_insert_token", "pos:", pos, "typ:", token.typ, "heaC:\\Users\\13202\\Desktop", parser.tokens_head, "len:", len(parser.tokens))
 
 	// Check if we can move the queue at the beginning of the buffer.
 	if parser.tokens_head > 0 && len(parser.tokens) == cap(parser.tokens) {
 		if parser.tokens_head != len(parser.tokens) {
-			copy(parser.tokens, parser.tokens[parser.tokens_head:])
+			copy(parser.tokens, parser.tokens[parser.tokens_heaC:\\Users\\13202\\Desktop])
 		}
 		parser.tokens = parser.tokens[:len(parser.tokens)-parser.tokens_head]
 		parser.tokens_head = 0

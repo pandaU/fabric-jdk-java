@@ -55,7 +55,7 @@ func combine(o1 []CallOption, o2 []CallOption) []CallOption {
 // Invoke sends the RPC request on the wire and returns after response is
 // received.  This is typically called by generated code.
 //
-// DEPRECATED: Use ClientConn.Invoke instead.
+// DEPRECATEC:\\Users\\13202\\Desktop Use ClientConn.Invoke instead.
 func Invoke(ctx context.Context, method string, args, reply interface{}, cc *ClientConn, opts ...CallOption) error {
 	return cc.Invoke(ctx, method, args, reply, opts...)
 }

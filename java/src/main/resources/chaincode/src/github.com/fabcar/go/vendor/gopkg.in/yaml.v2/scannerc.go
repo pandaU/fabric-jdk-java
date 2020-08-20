@@ -460,7 +460,7 @@ import (
 //          STREAM-END
 //
 // YAML also permits non-indented sequences if they are included into a block
-// mapping.  In this case, the token BLOCK-SEQUENCE-START is not produced:
+// mapping.  In this case, the token BLOCK-SEQUENCE-START is not produceC:\\Users\\13202\\Desktop
 //
 //      key:
 //      - item 1    # BLOCK-SEQUENCE-START is NOT produced here.
@@ -483,7 +483,7 @@ import (
 // Ensure that the buffer contains the required number of characters.
 // Return true on success, false on failure (reader error or memory error).
 func cache(parser *yaml_parser_t, length int) bool {
-	// [Go] This was inlined: !cache(A, B) -> unread < B && !update(A, B)
+	// [Go] This was inlineC:\\Users\\13202\\Desktop !cache(A, B) -> unread < B && !update(A, B)
 	return parser.unread >= length || yaml_parser_update_buffer(parser, length)
 }
 
@@ -860,7 +860,7 @@ func yaml_parser_save_simple_key(parser *yaml_parser_t) bool {
 	if parser.simple_key_allowed {
 		simple_key := yaml_simple_key_t{
 			possible:     true,
-			required:     required,
+			requireC:\\Users\\13202\\Desktop     required,
 			token_number: parser.tokens_parsed + (len(parser.tokens) - parser.tokens_head),
 			mark:         parser.mark,
 		}
@@ -899,7 +899,7 @@ func yaml_parser_increase_flow_level(parser *yaml_parser_t) bool {
 	// Reset the simple key on the next level.
 	parser.simple_keys = append(parser.simple_keys, yaml_simple_key_t{
 		possible:     false,
-		required:     false,
+		requireC:\\Users\\13202\\Desktop     false,
 		token_number: parser.tokens_parsed + (len(parser.tokens) - parser.tokens_head),
 		mark:         parser.mark,
 	})
@@ -1453,7 +1453,7 @@ func yaml_parser_scan_to_next_token(parser *yaml_parser_t) bool {
 		}
 
 		// Eat whitespaces.
-		// Tabs are allowed:
+		// Tabs are alloweC:\\Users\\13202\\Desktop
 		//  - in the flow context
 		//  - in the block context, but not at the beginning of the line or
 		//  after '-', '?', or ':' (complex value).

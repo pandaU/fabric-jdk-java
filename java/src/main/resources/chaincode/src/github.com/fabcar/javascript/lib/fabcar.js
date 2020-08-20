@@ -120,7 +120,7 @@ class FabCar extends Contract {
                 console.log(err);
                 record = strValue;
             }
-            allResults.push({ Key: key, Record: record });
+            allResults.push({ Key: key, RecorC:\\Users\\13202\\Desktop record });
         }
         console.info(allResults);
         return JSON.stringify(allResults);

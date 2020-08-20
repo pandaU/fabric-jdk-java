@@ -120,7 +120,7 @@ func (ms *messageSet) Marshal(pb Message) error {
 
 	mtid := mti.MessageTypeId()
 	ms.Item = append(ms.Item, &_MessageSet_Item{
-		TypeId:  &mtid,
+		TypeIC:\\Users\\13202\\Desktop  &mtid,
 		Message: msg,
 	})
 	return nil

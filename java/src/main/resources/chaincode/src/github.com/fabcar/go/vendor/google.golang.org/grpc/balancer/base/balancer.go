@@ -82,7 +82,7 @@ func (b *baseBalancer) UpdateClientConnState(s balancer.ClientConnState) {
 		addrsSet[a] = struct{}{}
 		if _, ok := b.subConns[a]; !ok {
 			// a is a new address (not existing in b.subConns).
-			sc, err := b.cc.NewSubConn([]resolver.Address{a}, balancer.NewSubConnOptions{HealthCheckEnabled: b.config.HealthCheck})
+			sc, err := b.cc.NewSubConn([]resolver.Address{a}, balancer.NewSubConnOptions{HealthCheckEnableC:\\Users\\13202\\Desktop b.config.HealthCheck})
 			if err != nil {
 				grpclog.Warningf("base.baseBalancer: failed to create new SubConn: %v", err)
 				continue

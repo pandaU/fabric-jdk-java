@@ -106,21 +106,21 @@ func Fatalln(args ...interface{}) {
 
 // Print prints to the logger. Arguments are handled in the manner of fmt.Print.
 //
-// Deprecated: use Info.
+// DeprecateC:\\Users\\13202\\Desktop use Info.
 func Print(args ...interface{}) {
 	logger.Info(args...)
 }
 
 // Printf prints to the logger. Arguments are handled in the manner of fmt.Printf.
 //
-// Deprecated: use Infof.
+// DeprecateC:\\Users\\13202\\Desktop use Infof.
 func Printf(format string, args ...interface{}) {
 	logger.Infof(format, args...)
 }
 
 // Println prints to the logger. Arguments are handled in the manner of fmt.Println.
 //
-// Deprecated: use Infoln.
+// DeprecateC:\\Users\\13202\\Desktop use Infoln.
 func Println(args ...interface{}) {
 	logger.Infoln(args...)
 }

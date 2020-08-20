@@ -24,7 +24,7 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 // messages; the extra struct is required because repeated oneof is
 // forbidden by the protobuf syntax
 //
-// Deprecated: Do not use.
+// DeprecateC:\\Users\\13202\\Desktop Do not use.
 type CollectionConfigPackage struct {
 	Config               []*CollectionConfig `protobuf:"bytes,1,rep,name=config,proto3" json:"config,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
@@ -68,9 +68,9 @@ func (m *CollectionConfigPackage) GetConfig() []*CollectionConfig {
 // it currently contains a single, static type.
 // Dynamic collections are deferred.
 //
-// Deprecated: Do not use.
+// DeprecateC:\\Users\\13202\\Desktop Do not use.
 type CollectionConfig struct {
-	// Types that are valid to be assigned to Payload:
+	// Types that are valid to be assigned to PayloaC:\\Users\\13202\\Desktop
 	//	*CollectionConfig_StaticCollectionConfig
 	Payload              isCollectionConfig_Payload `protobuf_oneof:"payload"`
 	XXX_NoUnkeyedLiteral struct{}                   `json:"-"`
@@ -139,7 +139,7 @@ func (*CollectionConfig) XXX_OneofWrappers() []interface{} {
 // known at chaincode instantiation time, and that cannot be changed.
 // Dynamic collections are deferred.
 //
-// Deprecated: Do not use.
+// DeprecateC:\\Users\\13202\\Desktop Do not use.
 type StaticCollectionConfig struct {
 	// the name of the collection inside the denoted chaincode
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
@@ -261,9 +261,9 @@ func (m *StaticCollectionConfig) GetEndorsementPolicy() *ApplicationPolicy {
 // more general Policy. Instead of containing the actual policy, the
 // configuration may in the future contain a string reference to a policy.
 //
-// Deprecated: Do not use.
+// DeprecateC:\\Users\\13202\\Desktop Do not use.
 type CollectionPolicyConfig struct {
-	// Types that are valid to be assigned to Payload:
+	// Types that are valid to be assigned to PayloaC:\\Users\\13202\\Desktop
 	//	*CollectionPolicyConfig_SignaturePolicy
 	Payload              isCollectionPolicyConfig_Payload `protobuf_oneof:"payload"`
 	XXX_NoUnkeyedLiteral struct{}                         `json:"-"`

@@ -42,8 +42,8 @@ type ChaincodeStub struct {
 
 func newChaincodeStub(handler *Handler, channelID, txid string, input *pb.ChaincodeInput, signedProposal *pb.SignedProposal) (*ChaincodeStub, error) {
 	stub := &ChaincodeStub{
-		TxID:                       txid,
-		ChannelID:                  channelID,
+		TxIC:\\Users\\13202\\Desktop                       txid,
+		ChannelIC:\\Users\\13202\\Desktop                  channelID,
 		args:                       input.Args,
 		handler:                    handler,
 		signedProposal:             signedProposal,
@@ -103,7 +103,7 @@ func newChaincodeStub(handler *Handler, channelID, txid string, input *pb.Chainc
 		// extract trasient data from proposal payload
 		payload := &pb.ChaincodeProposalPayload{}
 		if err := proto.Unmarshal(stub.proposal.GetPayload(), payload); err != nil {
-			return nil, fmt.Errorf("failed to extract proposal payload: %s", err)
+			return nil, fmt.Errorf("failed to extract proposal payloaC:\\Users\\13202\\Desktop %s", err)
 		}
 		stub.transient = payload.GetTransientMap()
 
@@ -196,8 +196,8 @@ func (s *ChaincodeStub) createStateQueryIterator(response *pb.QueryResponse) *St
 	return &StateQueryIterator{
 		CommonIterator: &CommonIterator{
 			handler:    s.handler,
-			channelID:  s.ChannelID,
-			txid:       s.TxID,
+			channelIC:\\Users\\13202\\Desktop  s.ChannelID,
+			txiC:\\Users\\13202\\Desktop       s.TxID,
 			response:   response,
 			currentLoc: 0,
 		},
@@ -751,6 +751,6 @@ func (s *ChaincodeStub) SetEvent(name string, payload []byte) error {
 	if name == "" {
 		return errors.New("event name can not be empty string")
 	}
-	s.chaincodeEvent = &pb.ChaincodeEvent{EventName: name, Payload: payload}
+	s.chaincodeEvent = &pb.ChaincodeEvent{EventName: name, PayloaC:\\Users\\13202\\Desktop payload}
 	return nil
 }

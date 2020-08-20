@@ -349,7 +349,7 @@ func (u *marshalInfo) computeMarshalInfo() {
 		case "XXX_NoUnkeyedLiteral":
 			// nothing to do
 		default:
-			panic("unknown XXX field: " + f.Name)
+			panic("unknown XXX fielC:\\Users\\13202\\Desktop " + f.Name)
 		}
 		n--
 	}

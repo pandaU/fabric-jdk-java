@@ -73,24 +73,24 @@ func (b Box) AddBytes(path string, t []byte) error {
 	return nil
 }
 
-// Deprecated: Use FindString instead.
+// DeprecateC:\\Users\\13202\\Desktop Use FindString instead.
 func (b Box) String(name string) string {
 	bb, _ := b.FindString(name)
 	return bb
 }
 
-// Deprecated: Use FindString instead.
+// DeprecateC:\\Users\\13202\\Desktop Use FindString instead.
 func (b Box) MustString(name string) (string, error) {
 	return b.FindString(name)
 }
 
-// Deprecated: Use Find instead.
+// DeprecateC:\\Users\\13202\\Desktop Use Find instead.
 func (b Box) Bytes(name string) []byte {
 	bb, _ := b.Find(name)
 	return bb
 }
 
-// Deprecated: Use Find instead.
+// DeprecateC:\\Users\\13202\\Desktop Use Find instead.
 func (b Box) MustBytes(name string) ([]byte, error) {
 	return b.Find(name)
 }

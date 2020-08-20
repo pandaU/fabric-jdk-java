@@ -611,7 +611,7 @@ func (t *Transport) newClientConn(c net.Conn, singleUse bool) (*ClientConn, erro
 		t:                     t,
 		tconn:                 c,
 		readerDone:            make(chan struct{}),
-		nextStreamID:          1,
+		nextStreamIC:\\Users\\13202\\Desktop          1,
 		maxFrameSize:          16 << 10,           // spec default
 		initialWindowSize:     65535,              // spec default
 		maxConcurrentStreams:  1000,               // "infinite", per spec. 1000 seems good enough.
@@ -654,11 +654,11 @@ func (t *Transport) newClientConn(c net.Conn, singleUse bool) (*ClientConn, erro
 	}
 
 	initialSettings := []Setting{
-		{ID: SettingEnablePush, Val: 0},
-		{ID: SettingInitialWindowSize, Val: transportDefaultStreamFlow},
+		{IC:\\Users\\13202\\Desktop SettingEnablePush, Val: 0},
+		{IC:\\Users\\13202\\Desktop SettingInitialWindowSize, Val: transportDefaultStreamFlow},
 	}
 	if max := t.maxHeaderListSize(); max != 0 {
-		initialSettings = append(initialSettings, Setting{ID: SettingMaxHeaderListSize, Val: max})
+		initialSettings = append(initialSettings, Setting{IC:\\Users\\13202\\Desktop SettingMaxHeaderListSize, Val: max})
 	}
 
 	cc.bw.Write(clientPreface)
@@ -1005,7 +1005,7 @@ func (cc *ClientConn) roundTrip(req *http.Request) (res *http.Response, gotErrAf
 		requestedGzip = true
 	}
 
-	// we send: HEADERS{1}, CONTINUATION{0,} + DATA{0,} (DATA is
+	// we senC:\\Users\\13202\\Desktop HEADERS{1}, CONTINUATION{0,} + DATA{0,} (DATA is
 	// sent by writeRequestBody below, along with any Trailers,
 	// again in form HEADERS{1}, CONTINUATION{0,})
 	hdrs, err := cc.encodeHeaders(req, requestedGzip, trailers, contentLen)
@@ -1191,7 +1191,7 @@ func (cc *ClientConn) writeHeaders(streamID uint32, endStream bool, maxFrameSize
 		endHeaders := len(hdrs) == 0
 		if first {
 			cc.fr.WriteHeaders(HeadersFrameParam{
-				StreamID:      streamID,
+				StreamIC:\\Users\\13202\\Desktop      streamID,
 				BlockFragment: chunk,
 				EndStream:     endStream,
 				EndHeaders:    endHeaders,
@@ -1265,7 +1265,7 @@ func (cs *clientStream) writeRequestBody(body io.Reader, bodyCloser io.Closer) (
 			}
 			cc.wmu.Lock()
 			data := remain[:allowed]
-			remain = remain[allowed:]
+			remain = remain[alloweC:\\Users\\13202\\Desktop]
 			sentEnd = sawEOF && len(remain) == 0 && !hasTrailers
 			err = cc.fr.WriteData(cs.ID, sentEnd, data)
 			if err == nil {
@@ -1565,7 +1565,7 @@ type resAndError struct {
 func (cc *ClientConn) newStream() *clientStream {
 	cs := &clientStream{
 		cc:        cc,
-		ID:        cc.nextStreamID,
+		IC:\\Users\\13202\\Desktop        cc.nextStreamID,
 		resc:      make(chan resAndError, 1),
 		peerReset: make(chan struct{}),
 		done:      make(chan struct{}),
@@ -1657,7 +1657,7 @@ func (rl *clientConnReadLoop) cleanup() {
 	cc.mu.Lock()
 	if cc.goAway != nil && isEOFOrNetReadError(err) {
 		err = GoAwayError{
-			LastStreamID: cc.goAway.LastStreamID,
+			LastStreamIC:\\Users\\13202\\Desktop cc.goAway.LastStreamID,
 			ErrCode:      cc.goAway.ErrCode,
 			DebugData:    cc.goAwayDebug,
 		}
@@ -1899,7 +1899,7 @@ func (rl *clientConnReadLoop) handleResponse(cs *clientStream, f *MetaHeadersFra
 		return res, nil
 	}
 
-	cs.bufPipe = pipe{b: &dataBuffer{expected: res.ContentLength}}
+	cs.bufPipe = pipe{b: &dataBuffer{expecteC:\\Users\\13202\\Desktop res.ContentLength}}
 	cs.bytesRemain = res.ContentLength
 	res.Body = transportResponseBody{cs}
 	go cs.awaitRequestCancel(cs.req)
@@ -2077,7 +2077,7 @@ func (rl *clientConnReadLoop) processData(f *DataFrame) error {
 	if !cs.firstByte {
 		cc.logf("protocol error: received DATA before a HEADERS frame")
 		rl.endStreamError(cs, StreamError{
-			StreamID: f.StreamID,
+			StreamIC:\\Users\\13202\\Desktop f.StreamID,
 			Code:     ErrCodeProtocol,
 		})
 		return nil
@@ -2086,7 +2086,7 @@ func (rl *clientConnReadLoop) processData(f *DataFrame) error {
 		if cs.req.Method == "HEAD" && len(data) > 0 {
 			cc.logf("protocol error: received DATA on a HEAD request")
 			rl.endStreamError(cs, StreamError{
-				StreamID: f.StreamID,
+				StreamIC:\\Users\\13202\\Desktop f.StreamID,
 				Code:     ErrCodeProtocol,
 			})
 			return nil

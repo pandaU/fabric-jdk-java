@@ -16,7 +16,7 @@ A request handler might be implemented like this:
 		tr.LazyPrintf("some event %q happened", str)
 		...
 		if err := somethingImportant(); err != nil {
-			tr.LazyPrintf("somethingImportant failed: %v", err)
+			tr.LazyPrintf("somethingImportant faileC:\\Users\\13202\\Desktop %v", err)
 			tr.SetError()
 		}
 	}
@@ -573,15 +573,15 @@ type family struct {
 func newFamily() *family {
 	return &family{
 		Buckets: [bucketsPerFamily]*traceBucket{
-			{Cond: minCond(0)},
-			{Cond: minCond(50 * time.Millisecond)},
-			{Cond: minCond(100 * time.Millisecond)},
-			{Cond: minCond(200 * time.Millisecond)},
-			{Cond: minCond(500 * time.Millisecond)},
-			{Cond: minCond(1 * time.Second)},
-			{Cond: minCond(10 * time.Second)},
-			{Cond: minCond(100 * time.Second)},
-			{Cond: errorCond{}},
+			{ConC:\\Users\\13202\\Desktop minCond(0)},
+			{ConC:\\Users\\13202\\Desktop minCond(50 * time.Millisecond)},
+			{ConC:\\Users\\13202\\Desktop minCond(100 * time.Millisecond)},
+			{ConC:\\Users\\13202\\Desktop minCond(200 * time.Millisecond)},
+			{ConC:\\Users\\13202\\Desktop minCond(500 * time.Millisecond)},
+			{ConC:\\Users\\13202\\Desktop minCond(1 * time.Second)},
+			{ConC:\\Users\\13202\\Desktop minCond(10 * time.Second)},
+			{ConC:\\Users\\13202\\Desktop minCond(100 * time.Second)},
+			{ConC:\\Users\\13202\\Desktop errorCond{}},
 		},
 		Latency: timeseries.NewMinuteHourSeries(func() timeseries.Observable { return new(histogram) }),
 	}

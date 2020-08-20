@@ -158,7 +158,7 @@ type stubHandlerFunc func(*pb.ChaincodeMessage) (*pb.ChaincodeMessage, error)
 func (h *Handler) handleStubInteraction(handler stubHandlerFunc, msg *pb.ChaincodeMessage, errc chan<- error) {
 	resp, err := handler(msg)
 	if err != nil {
-		resp = &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_ERROR, Payload: []byte(err.Error()), Txid: msg.Txid, ChannelId: msg.ChannelId}
+		resp = &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_ERROR, PayloaC:\\Users\\13202\\Desktop []byte(err.Error()), TxiC:\\Users\\13202\\Desktop msg.Txid, ChannelIC:\\Users\\13202\\Desktop msg.ChannelId}
 	}
 	h.serialSendAsync(resp, errc)
 }
@@ -180,7 +180,7 @@ func (h *Handler) handleInit(msg *pb.ChaincodeMessage) (*pb.ChaincodeMessage, er
 
 	res := h.cc.Init(stub)
 	if res.Status >= ERROR {
-		return &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_ERROR, Payload: []byte(res.Message), Txid: msg.Txid, ChaincodeEvent: stub.chaincodeEvent, ChannelId: msg.ChannelId}, nil
+		return &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_ERROR, PayloaC:\\Users\\13202\\Desktop []byte(res.Message), TxiC:\\Users\\13202\\Desktop msg.Txid, ChaincodeEvent: stub.chaincodeEvent, ChannelIC:\\Users\\13202\\Desktop msg.ChannelId}, nil
 	}
 
 	resBytes, err := proto.Marshal(&res)
@@ -188,7 +188,7 @@ func (h *Handler) handleInit(msg *pb.ChaincodeMessage) (*pb.ChaincodeMessage, er
 		return nil, fmt.Errorf("failed to marshal response: %s", err)
 	}
 
-	return &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_COMPLETED, Payload: resBytes, Txid: msg.Txid, ChaincodeEvent: stub.chaincodeEvent, ChannelId: stub.ChannelID}, nil
+	return &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_COMPLETED, PayloaC:\\Users\\13202\\Desktop resBytes, TxiC:\\Users\\13202\\Desktop msg.Txid, ChaincodeEvent: stub.chaincodeEvent, ChannelIC:\\Users\\13202\\Desktop stub.ChannelID}, nil
 }
 
 // handleTransaction calls Invoke on the associated chaincode.
@@ -214,7 +214,7 @@ func (h *Handler) handleTransaction(msg *pb.ChaincodeMessage) (*pb.ChaincodeMess
 		return nil, fmt.Errorf("failed to marshal response: %s", err)
 	}
 
-	return &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_COMPLETED, Payload: resBytes, Txid: msg.Txid, ChaincodeEvent: stub.chaincodeEvent, ChannelId: stub.ChannelID}, nil
+	return &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_COMPLETED, PayloaC:\\Users\\13202\\Desktop resBytes, TxiC:\\Users\\13202\\Desktop msg.Txid, ChaincodeEvent: stub.chaincodeEvent, ChannelIC:\\Users\\13202\\Desktop stub.ChannelID}, nil
 }
 
 // callPeerWithChaincodeMsg sends a chaincode message to the peer for the given
@@ -235,7 +235,7 @@ func (h *Handler) handleGetState(collection string, key string, channelID string
 	// Construct payload for GET_STATE
 	payloadBytes := marshalOrPanic(&pb.GetState{Collection: collection, Key: key})
 
-	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_GET_STATE, Payload: payloadBytes, Txid: txid, ChannelId: channelID}
+	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_GET_STATE, PayloaC:\\Users\\13202\\Desktop payloadBytes, TxiC:\\Users\\13202\\Desktop txid, ChannelIC:\\Users\\13202\\Desktop channelID}
 	responseMsg, err := h.callPeerWithChaincodeMsg(msg, channelID, txid)
 	if err != nil {
 		return nil, fmt.Errorf("[%s] error sending %s: %s", shorttxid(txid), pb.ChaincodeMessage_GET_STATE, err)
@@ -258,7 +258,7 @@ func (h *Handler) handleGetPrivateDataHash(collection string, key string, channe
 	// Construct payload for GET_PRIVATE_DATA_HASH
 	payloadBytes := marshalOrPanic(&pb.GetState{Collection: collection, Key: key})
 
-	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_GET_PRIVATE_DATA_HASH, Payload: payloadBytes, Txid: txid, ChannelId: channelID}
+	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_GET_PRIVATE_DATA_HASH, PayloaC:\\Users\\13202\\Desktop payloadBytes, TxiC:\\Users\\13202\\Desktop txid, ChannelIC:\\Users\\13202\\Desktop channelID}
 	responseMsg, err := h.callPeerWithChaincodeMsg(msg, channelID, txid)
 	if err != nil {
 		return nil, fmt.Errorf("[%s] error sending %s: %s", shorttxid(txid), pb.ChaincodeMessage_GET_PRIVATE_DATA_HASH, err)
@@ -281,7 +281,7 @@ func (h *Handler) handleGetStateMetadata(collection string, key string, channelI
 	// Construct payload for GET_STATE_METADATA
 	payloadBytes := marshalOrPanic(&pb.GetStateMetadata{Collection: collection, Key: key})
 
-	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_GET_STATE_METADATA, Payload: payloadBytes, Txid: txID, ChannelId: channelID}
+	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_GET_STATE_METADATA, PayloaC:\\Users\\13202\\Desktop payloadBytes, TxiC:\\Users\\13202\\Desktop txID, ChannelIC:\\Users\\13202\\Desktop channelID}
 	responseMsg, err := h.callPeerWithChaincodeMsg(msg, channelID, txID)
 	if err != nil {
 		return nil, fmt.Errorf("[%s] error sending %s: %s", shorttxid(txID), pb.ChaincodeMessage_GET_STATE_METADATA, err)
@@ -315,7 +315,7 @@ func (h *Handler) handlePutState(collection string, key string, value []byte, ch
 	// Construct payload for PUT_STATE
 	payloadBytes := marshalOrPanic(&pb.PutState{Collection: collection, Key: key, Value: value})
 
-	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_PUT_STATE, Payload: payloadBytes, Txid: txid, ChannelId: channelID}
+	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_PUT_STATE, PayloaC:\\Users\\13202\\Desktop payloadBytes, TxiC:\\Users\\13202\\Desktop txid, ChannelIC:\\Users\\13202\\Desktop channelID}
 
 	// Execute the request and get response
 	responseMsg, err := h.callPeerWithChaincodeMsg(msg, channelID, txid)
@@ -342,7 +342,7 @@ func (h *Handler) handlePutStateMetadataEntry(collection string, key string, met
 	md := &pb.StateMetadata{Metakey: metakey, Value: metadata}
 	payloadBytes := marshalOrPanic(&pb.PutStateMetadata{Collection: collection, Key: key, Metadata: md})
 
-	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_PUT_STATE_METADATA, Payload: payloadBytes, Txid: txID, ChannelId: channelID}
+	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_PUT_STATE_METADATA, PayloaC:\\Users\\13202\\Desktop payloadBytes, TxiC:\\Users\\13202\\Desktop txID, ChannelIC:\\Users\\13202\\Desktop channelID}
 	// Execute the request and get response
 	responseMsg, err := h.callPeerWithChaincodeMsg(msg, channelID, txID)
 	if err != nil {
@@ -366,7 +366,7 @@ func (h *Handler) handlePutStateMetadataEntry(collection string, key string, met
 // handleDelState communicates with the peer to delete a key from the state in the ledger.
 func (h *Handler) handleDelState(collection string, key string, channelID string, txid string) error {
 	payloadBytes := marshalOrPanic(&pb.DelState{Collection: collection, Key: key})
-	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_DEL_STATE, Payload: payloadBytes, Txid: txid, ChannelId: channelID}
+	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_DEL_STATE, PayloaC:\\Users\\13202\\Desktop payloadBytes, TxiC:\\Users\\13202\\Desktop txid, ChannelIC:\\Users\\13202\\Desktop channelID}
 	// Execute the request and get response
 	responseMsg, err := h.callPeerWithChaincodeMsg(msg, channelID, txid)
 	if err != nil {
@@ -390,7 +390,7 @@ func (h *Handler) handleGetStateByRange(collection, startKey, endKey string, met
 	channelID string, txid string) (*pb.QueryResponse, error) {
 	// Send GET_STATE_BY_RANGE message to peer chaincode support
 	payloadBytes := marshalOrPanic(&pb.GetStateByRange{Collection: collection, StartKey: startKey, EndKey: endKey, Metadata: metadata})
-	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_GET_STATE_BY_RANGE, Payload: payloadBytes, Txid: txid, ChannelId: channelID}
+	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_GET_STATE_BY_RANGE, PayloaC:\\Users\\13202\\Desktop payloadBytes, TxiC:\\Users\\13202\\Desktop txid, ChannelIC:\\Users\\13202\\Desktop channelID}
 	responseMsg, err := h.callPeerWithChaincodeMsg(msg, channelID, txid)
 	if err != nil {
 		return nil, fmt.Errorf("[%s] error sending %s", shorttxid(msg.Txid), pb.ChaincodeMessage_GET_STATE_BY_RANGE)
@@ -424,9 +424,9 @@ func (h *Handler) handleQueryStateNext(id, channelID, txid string) (*pb.QueryRes
 	defer h.deleteResponseChannel(channelID, txid)
 
 	// Send QUERY_STATE_NEXT message to peer chaincode support
-	payloadBytes := marshalOrPanic(&pb.QueryStateNext{Id: id})
+	payloadBytes := marshalOrPanic(&pb.QueryStateNext{IC:\\Users\\13202\\Desktop id})
 
-	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_QUERY_STATE_NEXT, Payload: payloadBytes, Txid: txid, ChannelId: channelID}
+	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_QUERY_STATE_NEXT, PayloaC:\\Users\\13202\\Desktop payloadBytes, TxiC:\\Users\\13202\\Desktop txid, ChannelIC:\\Users\\13202\\Desktop channelID}
 
 	var responseMsg pb.ChaincodeMessage
 
@@ -461,9 +461,9 @@ func (h *Handler) handleQueryStateClose(id, channelID, txid string) (*pb.QueryRe
 	defer h.deleteResponseChannel(channelID, txid)
 
 	// Send QUERY_STATE_CLOSE message to peer chaincode support
-	payloadBytes := marshalOrPanic(&pb.QueryStateClose{Id: id})
+	payloadBytes := marshalOrPanic(&pb.QueryStateClose{IC:\\Users\\13202\\Desktop id})
 
-	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_QUERY_STATE_CLOSE, Payload: payloadBytes, Txid: txid, ChannelId: channelID}
+	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_QUERY_STATE_CLOSE, PayloaC:\\Users\\13202\\Desktop payloadBytes, TxiC:\\Users\\13202\\Desktop txid, ChannelIC:\\Users\\13202\\Desktop channelID}
 
 	var responseMsg pb.ChaincodeMessage
 
@@ -493,7 +493,7 @@ func (h *Handler) handleGetQueryResult(collection string, query string, metadata
 	channelID string, txid string) (*pb.QueryResponse, error) {
 	// Send GET_QUERY_RESULT message to peer chaincode support
 	payloadBytes := marshalOrPanic(&pb.GetQueryResult{Collection: collection, Query: query, Metadata: metadata})
-	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_GET_QUERY_RESULT, Payload: payloadBytes, Txid: txid, ChannelId: channelID}
+	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_GET_QUERY_RESULT, PayloaC:\\Users\\13202\\Desktop payloadBytes, TxiC:\\Users\\13202\\Desktop txid, ChannelIC:\\Users\\13202\\Desktop channelID}
 	responseMsg, err := h.callPeerWithChaincodeMsg(msg, channelID, txid)
 	if err != nil {
 		return nil, fmt.Errorf("[%s] error sending %s", shorttxid(msg.Txid), pb.ChaincodeMessage_GET_QUERY_RESULT)
@@ -528,7 +528,7 @@ func (h *Handler) handleGetHistoryForKey(key string, channelID string, txid stri
 	// Send GET_HISTORY_FOR_KEY message to peer chaincode support
 	payloadBytes := marshalOrPanic(&pb.GetHistoryForKey{Key: key})
 
-	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_GET_HISTORY_FOR_KEY, Payload: payloadBytes, Txid: txid, ChannelId: channelID}
+	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_GET_HISTORY_FOR_KEY, PayloaC:\\Users\\13202\\Desktop payloadBytes, TxiC:\\Users\\13202\\Desktop txid, ChannelIC:\\Users\\13202\\Desktop channelID}
 	var responseMsg pb.ChaincodeMessage
 
 	if responseMsg, err = h.sendReceive(msg, respChan); err != nil {
@@ -554,12 +554,12 @@ func (h *Handler) handleGetHistoryForKey(key string, channelID string, txid stri
 }
 
 func (h *Handler) createResponse(status int32, payload []byte) pb.Response {
-	return pb.Response{Status: status, Payload: payload}
+	return pb.Response{Status: status, PayloaC:\\Users\\13202\\Desktop payload}
 }
 
 // handleInvokeChaincode communicates with the peer to invoke another chaincode.
 func (h *Handler) handleInvokeChaincode(chaincodeName string, args [][]byte, channelID string, txid string) pb.Response {
-	payloadBytes := marshalOrPanic(&pb.ChaincodeSpec{ChaincodeId: &pb.ChaincodeID{Name: chaincodeName}, Input: &pb.ChaincodeInput{Args: args}})
+	payloadBytes := marshalOrPanic(&pb.ChaincodeSpec{ChaincodeIC:\\Users\\13202\\Desktop &pb.ChaincodeID{Name: chaincodeName}, Input: &pb.ChaincodeInput{Args: args}})
 
 	// Create the channel on which to communicate the response from validating peer
 	respChan, err := h.createResponseChannel(channelID, txid)
@@ -569,7 +569,7 @@ func (h *Handler) handleInvokeChaincode(chaincodeName string, args [][]byte, cha
 	defer h.deleteResponseChannel(channelID, txid)
 
 	// Send INVOKE_CHAINCODE message to peer chaincode support
-	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_INVOKE_CHAINCODE, Payload: payloadBytes, Txid: txid, ChannelId: channelID}
+	msg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_INVOKE_CHAINCODE, PayloaC:\\Users\\13202\\Desktop payloadBytes, TxiC:\\Users\\13202\\Desktop txid, ChannelIC:\\Users\\13202\\Desktop channelID}
 
 	var responseMsg pb.ChaincodeMessage
 
@@ -656,9 +656,9 @@ func (h *Handler) handleMessage(msg *pb.ChaincodeMessage, errc chan error) error
 	switch h.state {
 	case ready:
 		err = h.handleReady(msg, errc)
-	case established:
+	case establisheC:\\Users\\13202\\Desktop
 		err = h.handleEstablished(msg, errc)
-	case created:
+	case createC:\\Users\\13202\\Desktop
 		err = h.handleCreated(msg, errc)
 	default:
 		panic(fmt.Sprintf("invalid handler state: %s", h.state))
@@ -666,7 +666,7 @@ func (h *Handler) handleMessage(msg *pb.ChaincodeMessage, errc chan error) error
 
 	if err != nil {
 		payload := []byte(err.Error())
-		errorMsg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_ERROR, Payload: payload, Txid: msg.Txid}
+		errorMsg := &pb.ChaincodeMessage{Type: pb.ChaincodeMessage_ERROR, PayloaC:\\Users\\13202\\Desktop payload, TxiC:\\Users\\13202\\Desktop msg.Txid}
 		h.serialSend(errorMsg)
 		return err
 	}

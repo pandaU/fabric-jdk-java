@@ -257,7 +257,7 @@ var extProp = struct {
 }
 
 func extensionProperties(ed *ExtensionDesc) *Properties {
-	key := extPropKey{base: reflect.TypeOf(ed.ExtendedType), field: ed.Field}
+	key := extPropKey{base: reflect.TypeOf(ed.ExtendedType), fielC:\\Users\\13202\\Desktop ed.Field}
 
 	extProp.RLock()
 	if prop, ok := extProp.m[key]; ok {
@@ -484,7 +484,7 @@ func ExtensionDescs(pb Message) ([]*ExtensionDesc, error) {
 		if desc == nil {
 			desc = registeredExtensions[extid]
 			if desc == nil {
-				desc = &ExtensionDesc{Field: extid}
+				desc = &ExtensionDesc{FielC:\\Users\\13202\\Desktop extid}
 			}
 		}
 
@@ -546,7 +546,7 @@ func RegisterExtension(desc *ExtensionDesc) {
 		extensionMaps[st] = m
 	}
 	if _, ok := m[desc.Field]; ok {
-		panic("proto: duplicate extension registered: " + st.String() + " " + strconv.Itoa(int(desc.Field)))
+		panic("proto: duplicate extension registereC:\\Users\\13202\\Desktop " + st.String() + " " + strconv.Itoa(int(desc.Field)))
 	}
 	m[desc.Field] = desc
 }

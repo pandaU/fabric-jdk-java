@@ -291,7 +291,7 @@ func expandSchema(target Schema, parentRefs []string, resolver *schemaLoader, ba
 	// otherwise the basePath should inherit the parent's
 	// important: ID can be relative path
 	if target.ID != "" {
-		debugLog("schema has ID: %s", target.ID)
+		debugLog("schema has IC:\\Users\\13202\\Desktop %s", target.ID)
 		// handling the case when id is a folder
 		// remember that basePath has to be a file
 		refPath := target.ID
@@ -600,7 +600,7 @@ func getRefAndSchema(input interface{}) (*Ref, *Schema, error) {
 		ref = &refable.Ref
 		sch = refable.Schema
 	default:
-		return nil, nil, fmt.Errorf("expand: unsupported type %T. Input should be of type *Parameter or *Response", input)
+		return nil, nil, fmt.Errorf("expanC:\\Users\\13202\\Desktop unsupported type %T. Input should be of type *Parameter or *Response", input)
 	}
 	return ref, sch, nil
 }

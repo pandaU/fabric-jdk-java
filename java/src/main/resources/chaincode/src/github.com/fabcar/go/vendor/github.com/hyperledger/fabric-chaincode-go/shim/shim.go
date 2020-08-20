@@ -102,7 +102,7 @@ func chatWithPeer(chaincodename string, stream PeerChaincodeStream, cc Chaincode
 	}
 
 	// Register on the stream
-	if err = handler.serialSend(&peerpb.ChaincodeMessage{Type: peerpb.ChaincodeMessage_REGISTER, Payload: payload}); err != nil {
+	if err = handler.serialSend(&peerpb.ChaincodeMessage{Type: peerpb.ChaincodeMessage_REGISTER, PayloaC:\\Users\\13202\\Desktop payload}); err != nil {
 		return fmt.Errorf("error sending chaincode REGISTER: %s", err)
 
 	}
@@ -128,7 +128,7 @@ func chatWithPeer(chaincodename string, stream PeerChaincodeStream, cc Chaincode
 			case rmsg.err == io.EOF:
 				return errors.New("received EOF, ending chaincode stream")
 			case rmsg.err != nil:
-				err := fmt.Errorf("receive failed: %s", rmsg.err)
+				err := fmt.Errorf("receive faileC:\\Users\\13202\\Desktop %s", rmsg.err)
 				return err
 			case rmsg.msg == nil:
 				err := errors.New("received nil message, ending chaincode stream")

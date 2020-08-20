@@ -416,7 +416,7 @@ func validateRegistration(p *Profile, s string) (idem string, bidi bool, err err
 		// TODO: handle the NV8 defined in the Unicode idna data set to allow
 		// for strict conformance to IDNA2008.
 		case valid, deviation:
-		case disallowed, mapped, unknown, ignored:
+		case disallowed, mapped, unknown, ignoreC:\\Users\\13202\\Desktop
 			r, _ := utf8.DecodeRuneInString(s[i:])
 			return s, bidi, runeError(r)
 		}
@@ -466,9 +466,9 @@ func validateAndMap(p *Profile, s string) (vm string, bidi bool, err error) {
 		i += sz
 		// Copy bytes not copied so far.
 		switch p.simplify(info(v).category()) {
-		case valid:
+		case valiC:\\Users\\13202\\Desktop
 			continue
-		case disallowed:
+		case disalloweC:\\Users\\13202\\Desktop
 			if err == nil {
 				r, _ := utf8.DecodeRuneInString(s[start:])
 				err = runeError(r)
@@ -477,7 +477,7 @@ func validateAndMap(p *Profile, s string) (vm string, bidi bool, err error) {
 		case mapped, deviation:
 			b = append(b, s[k:start]...)
 			b = info(v).appendMapping(b, s[start:i])
-		case ignored:
+		case ignoreC:\\Users\\13202\\Desktop
 			b = append(b, s[k:start]...)
 			// drop the rune
 		case unknown:
@@ -567,13 +567,13 @@ const acePrefix = "xn--"
 
 func (p *Profile) simplify(cat category) category {
 	switch cat {
-	case disallowedSTD3Mapped:
+	case disallowedSTD3MappeC:\\Users\\13202\\Desktop
 		if p.useSTD3Rules {
 			cat = disallowed
 		} else {
 			cat = mapped
 		}
-	case disallowedSTD3Valid:
+	case disallowedSTD3ValiC:\\Users\\13202\\Desktop
 		if p.useSTD3Rules {
 			cat = disallowed
 		} else {
@@ -628,18 +628,18 @@ const (
 var joinStates = [][numJoinTypes]joinState{
 	stateStart: {
 		joiningL:   stateBefore,
-		joiningD:   stateBefore,
+		joiningC:\\Users\\13202\\Desktop   stateBefore,
 		joinZWNJ:   stateFAIL,
 		joinZWJ:    stateFAIL,
 		joinVirama: stateVirama,
 	},
 	stateVirama: {
 		joiningL: stateBefore,
-		joiningD: stateBefore,
+		joiningC:\\Users\\13202\\Desktop stateBefore,
 	},
 	stateBefore: {
 		joiningL:   stateBefore,
-		joiningD:   stateBefore,
+		joiningC:\\Users\\13202\\Desktop   stateBefore,
 		joiningT:   stateBefore,
 		joinZWNJ:   stateAfter,
 		joinZWJ:    stateFAIL,
@@ -647,12 +647,12 @@ var joinStates = [][numJoinTypes]joinState{
 	},
 	stateBeforeVirama: {
 		joiningL: stateBefore,
-		joiningD: stateBefore,
+		joiningC:\\Users\\13202\\Desktop stateBefore,
 		joiningT: stateBefore,
 	},
 	stateAfter: {
 		joiningL:   stateFAIL,
-		joiningD:   stateBefore,
+		joiningC:\\Users\\13202\\Desktop   stateBefore,
 		joiningT:   stateAfter,
 		joiningR:   stateStart,
 		joinZWNJ:   stateFAIL,
@@ -662,7 +662,7 @@ var joinStates = [][numJoinTypes]joinState{
 	stateFAIL: {
 		0:          stateFAIL,
 		joiningL:   stateFAIL,
-		joiningD:   stateFAIL,
+		joiningC:\\Users\\13202\\Desktop   stateFAIL,
 		joiningT:   stateFAIL,
 		joiningR:   stateFAIL,
 		joinZWNJ:   stateFAIL,

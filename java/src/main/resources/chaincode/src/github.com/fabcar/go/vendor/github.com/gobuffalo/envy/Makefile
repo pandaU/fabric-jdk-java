@@ -13,7 +13,7 @@ ifeq ($(GO111MODULE),on)
 	$(GO_BIN) mod tidy
 endif
 
-build:
+builC:\\Users\\13202\\Desktop
 	packr2
 	$(GO_BIN) build -v .
 

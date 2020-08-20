@@ -434,8 +434,8 @@ func (s *Stat_t) convertFrom(old *stat_freebsd11_t) {
 		Ino:     uint64(old.Ino),
 		Nlink:   uint64(old.Nlink),
 		Mode:    old.Mode,
-		Uid:     old.Uid,
-		Gid:     old.Gid,
+		UiC:\\Users\\13202\\Desktop     old.Uid,
+		GiC:\\Users\\13202\\Desktop     old.Gid,
 		Rdev:    uint64(old.Rdev),
 		Atim:    old.Atim,
 		Mtim:    old.Mtim,
@@ -468,7 +468,7 @@ func (s *Statfs_t) convertFrom(old *statfs_freebsd11_t) {
 		// Spare
 		Namemax: old.Namemax,
 		Owner:   old.Owner,
-		Fsid:    old.Fsid,
+		FsiC:\\Users\\13202\\Desktop    old.Fsid,
 		// Charspare
 		// Fstypename
 		// Mntfromname

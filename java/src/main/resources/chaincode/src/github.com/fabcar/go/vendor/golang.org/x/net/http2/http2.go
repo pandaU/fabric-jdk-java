@@ -103,7 +103,7 @@ var stateName = [...]string{
 	stateOpen:             "Open",
 	stateHalfClosedLocal:  "HalfClosedLocal",
 	stateHalfClosedRemote: "HalfClosedRemote",
-	stateClosed:           "Closed",
+	stateCloseC:\\Users\\13202\\Desktop           "Closed",
 }
 
 func (st streamState) String() string {

@@ -13,6 +13,7 @@
 
 package org.example.client;
 
+import static java.lang.String.format;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.io.File;
@@ -20,20 +21,17 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.example.chaincode.invocation.InvokeChaincode;
+import org.example.user.UserContext;
+import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.BlockEvent.TransactionEvent;
-import org.hyperledger.fabric.sdk.ChaincodeEndorsementPolicy;
-import org.hyperledger.fabric.sdk.ChaincodeID;
-import org.hyperledger.fabric.sdk.Channel;
-import org.hyperledger.fabric.sdk.InstantiateProposalRequest;
-import org.hyperledger.fabric.sdk.Peer;
-import org.hyperledger.fabric.sdk.ProposalResponse;
-import org.hyperledger.fabric.sdk.QueryByChaincodeRequest;
-import org.hyperledger.fabric.sdk.TransactionInfo;
-import org.hyperledger.fabric.sdk.TransactionProposalRequest;
 import org.hyperledger.fabric.sdk.TransactionRequest.Type;
 import org.hyperledger.fabric.sdk.exception.ChaincodeEndorsementPolicyParseException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
@@ -121,7 +119,7 @@ public class ChannelClient {
 			String stringResponse = new String(pres.getChaincodeActionResponsePayload());
 			Logger.getLogger(ChannelClient.class.getName()).log(Level.INFO,
 					"Transaction proposal on channel " + channel.getName() + " " + pres.getMessage() + " "
-							+ pres.getStatus() + " with transaction id:" + pres.getTransactionID());
+							+ pres.getStatus() + " with transaction iC:\\Users\\13202\\Desktop" + pres.getTransactionID());
 			Logger.getLogger(ChannelClient.class.getName()).log(Level.INFO,stringResponse);
 		}
 
@@ -148,10 +146,11 @@ public class ChannelClient {
 	 * @throws ChaincodeEndorsementPolicyParseException
 	 * @throws IOException
 	 */
-	public Collection<ProposalResponse> instantiateChainCode(String chaincodeName, String version, String chaincodePath,
-			String language, String functionName, String[] functionArgs, String policyPath)
+	public
+	CompletableFuture<TransactionEvent>   instantiateChainCode(String chaincodeName, String version, String chaincodePath,
+																					  String language, String functionName, String[] functionArgs, String policyPath,String org1ChaincodePackageID,Collection<Peer> peers)
 			throws InvalidArgumentException, ProposalException, ChaincodeEndorsementPolicyParseException, IOException {
-		Logger.getLogger(ChannelClient.class.getName()).log(Level.INFO,
+		/*Logger.getLogger(ChannelClient.class.getName()).log(Level.INFO,
 				"Instantiate proposal request " + chaincodeName + " on channel " + channel.getName()
 						+ " with Fabric client " + fabClient.getInstance().getUserContext().getMspId() + " "
 						+ fabClient.getInstance().getUserContext().getName());
@@ -182,12 +181,28 @@ public class ChannelClient {
 			instantiateProposalRequest.setChaincodeEndorsementPolicy(chaincodeEndorsementPolicy);
 		}
 
-		Collection<ProposalResponse> responses = channel.sendInstantiationProposal(instantiateProposalRequest);
-		CompletableFuture<TransactionEvent> cf = channel.sendTransaction(responses);
-		
+		Collection<ProposalResponse> responses = channel.sendLifecycleApproveChaincodeDefinitionForMyOrgProposal(instantiateProposalRequest,channel.getPeers());
+		//CompletableFuture<TransactionEvent> cf = channel.sendTransaction(responses);
+
 		Logger.getLogger(ChannelClient.class.getName()).log(Level.INFO,
-				"Chaincode " + chaincodeName + " on channel " + channel.getName() + " instantiation " + cf);
-		return responses;
+				"Chaincode " + chaincodeName + " on channel " + channel.getName());
+		return responses;*/
+		LifecycleApproveChaincodeDefinitionForMyOrgRequest lifecycleApproveChaincodeDefinitionForMyOrgRequest = fabClient.getInstance().newLifecycleApproveChaincodeDefinitionForMyOrgRequest();
+		lifecycleApproveChaincodeDefinitionForMyOrgRequest.setSequence(1);
+		lifecycleApproveChaincodeDefinitionForMyOrgRequest.setChaincodeName(chaincodeName);
+		lifecycleApproveChaincodeDefinitionForMyOrgRequest.setChaincodeVersion("1");
+		lifecycleApproveChaincodeDefinitionForMyOrgRequest.setInitRequired(true);
+
+		lifecycleApproveChaincodeDefinitionForMyOrgRequest.setPackageId(org1ChaincodePackageID);
+
+		Collection<LifecycleApproveChaincodeDefinitionForMyOrgProposalResponse> lifecycleApproveChaincodeDefinitionForMyOrgProposalResponse = channel.sendLifecycleApproveChaincodeDefinitionForMyOrgProposal(lifecycleApproveChaincodeDefinitionForMyOrgRequest,
+				peers);
+
+		for (LifecycleApproveChaincodeDefinitionForMyOrgProposalResponse response : lifecycleApproveChaincodeDefinitionForMyOrgProposalResponse) {
+			final Peer peer = response.getPeer();
+		}
+
+		return channel.sendTransaction(lifecycleApproveChaincodeDefinitionForMyOrgProposalResponse);
 	}
 
 	/**
@@ -208,5 +223,53 @@ public class ChannelClient {
 		}
 		return null;
 	}
+	public void verifyByCheckCommitReadinessStatus(String chaincodeName, boolean initRequired, Collection<Peer> org1MyPeers,
+												   Set<String> expectedApproved, Set<String> expectedUnApproved) throws InvalidArgumentException, ProposalException {
+		LifecycleCheckCommitReadinessRequest lifecycleCheckCommitReadinessRequest = fabClient.getInstance().newLifecycleSimulateCommitChaincodeDefinitionRequest();
+		lifecycleCheckCommitReadinessRequest.setSequence(1);
+		lifecycleCheckCommitReadinessRequest.setChaincodeName(chaincodeName);
+		lifecycleCheckCommitReadinessRequest.setChaincodeVersion("1");
+		lifecycleCheckCommitReadinessRequest.setInitRequired(initRequired);
 
+		Collection<LifecycleCheckCommitReadinessProposalResponse> lifecycleSimulateCommitChaincodeDefinitionProposalResponse = channel.sendLifecycleCheckCommitReadinessRequest(lifecycleCheckCommitReadinessRequest, org1MyPeers);
+		for (LifecycleCheckCommitReadinessProposalResponse resp : lifecycleSimulateCommitChaincodeDefinitionProposalResponse) {
+			final Peer peer = resp.getPeer();
+		}
+	}
+	public CompletableFuture<TransactionEvent> commitChaincodeDefinitionRequest(String chaincodeName,
+																				 boolean initRequired, Collection<Peer> endorsingPeers) throws ProposalException, InvalidArgumentException, InterruptedException, ExecutionException, TimeoutException {
+		LifecycleCommitChaincodeDefinitionRequest lifecycleCommitChaincodeDefinitionRequest = fabClient.getInstance().newLifecycleCommitChaincodeDefinitionRequest();
+
+		lifecycleCommitChaincodeDefinitionRequest.setSequence(1);
+		lifecycleCommitChaincodeDefinitionRequest.setChaincodeName(chaincodeName);
+		lifecycleCommitChaincodeDefinitionRequest.setChaincodeVersion("1");
+		lifecycleCommitChaincodeDefinitionRequest.setInitRequired(initRequired);
+
+		Collection<LifecycleCommitChaincodeDefinitionProposalResponse> lifecycleCommitChaincodeDefinitionProposalResponses = channel.sendLifecycleCommitChaincodeDefinitionProposal(lifecycleCommitChaincodeDefinitionRequest,
+				endorsingPeers);
+
+		for (LifecycleCommitChaincodeDefinitionProposalResponse resp : lifecycleCommitChaincodeDefinitionProposalResponses) {
+
+			final Peer peer = resp.getPeer();
+			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,peer.toString());
+		}
+
+		return channel.sendTransaction(lifecycleCommitChaincodeDefinitionProposalResponses);
+
+	}
+	public void chainCodeInit(String fcn, UserContext context, Boolean doInit, String chaincodeName, Type chaincodeType, String... args) throws InvalidArgumentException, ProposalException {
+		TransactionProposalRequest transactionProposalRequest = fabClient.getInstance().newTransactionProposalRequest();
+		transactionProposalRequest.setChaincodeName(chaincodeName);
+		transactionProposalRequest.setChaincodeLanguage(chaincodeType);
+		transactionProposalRequest.setUserContext(context);
+
+		transactionProposalRequest.setFcn(fcn);
+		transactionProposalRequest.setProposalWaitTime(12000);
+		transactionProposalRequest.setArgs(args);
+		if (null != doInit) {
+			transactionProposalRequest.setInit(doInit);
+		}
+		Collection<ProposalResponse> transactionPropResp = channel.sendTransactionProposal(transactionProposalRequest, channel.getPeers());
+		channel.sendTransaction(transactionPropResp);
+	}
 }

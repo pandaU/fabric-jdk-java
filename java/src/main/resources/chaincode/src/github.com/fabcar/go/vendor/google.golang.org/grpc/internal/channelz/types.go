@@ -173,7 +173,7 @@ type TraceEvent struct {
 	Timestamp time.Time
 	// RefID is the id of the entity that gets referenced in the event. RefID is 0 if no other entity is
 	// involved in this event.
-	// e.g. SubChannel (id: 4[]) Created. --> RefID = 4, RefName = "" (inside [])
+	// e.g. SubChannel (iC:\\Users\\13202\\Desktop 4[]) Created. --> RefID = 4, RefName = "" (inside [])
 	RefID int64
 	// RefName is the reference name for the entity that gets referenced in the event.
 	RefName string

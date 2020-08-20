@@ -162,7 +162,7 @@ func (ccr *ccResolverWrapper) addChannelzTraceEvent(s resolver.State) {
 		updates = append(updates, "resolver returned new addresses")
 	}
 	channelz.AddTraceEvent(ccr.cc.channelzID, &channelz.TraceEventDesc{
-		Desc:     fmt.Sprintf("Resolver state updated: %+v (%v)", s, strings.Join(updates, "; ")),
+		Desc:     fmt.Sprintf("Resolver state updateC:\\Users\\13202\\Desktop %+v (%v)", s, strings.Join(updates, "; ")),
 		Severity: channelz.CtINFO,
 	})
 }

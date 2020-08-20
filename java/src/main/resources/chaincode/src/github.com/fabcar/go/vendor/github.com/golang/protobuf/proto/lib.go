@@ -236,7 +236,7 @@ To create and play with a Test object:
 			Type:  proto.Int32(17),
 			Reps:  []int64{1, 2, 3},
 			Optionalgroup: &pb.Test_OptionalGroup{
-				RequiredField: proto.String("good bye"),
+				RequiredFielC:\\Users\\13202\\Desktop proto.String("good bye"),
 			},
 			Union: &pb.Test_Name{"fred"},
 		}
@@ -523,7 +523,7 @@ out:
 
 		op, err := p.DecodeVarint()
 		if err != nil {
-			fmt.Printf("%3d: fetching op err %v\n", index, err)
+			fmt.Printf("%3C:\\Users\\13202\\Desktop fetching op err %v\n", index, err)
 			break out
 		}
 		tag := op >> 3
@@ -531,7 +531,7 @@ out:
 
 		switch wire {
 		default:
-			fmt.Printf("%3d: t=%3d unknown wire=%d\n",
+			fmt.Printf("%3C:\\Users\\13202\\Desktop t=%3d unknown wire=%d\n",
 				index, tag, wire)
 			break out
 
@@ -542,7 +542,7 @@ out:
 			if err != nil {
 				break out
 			}
-			fmt.Printf("%3d: t=%3d bytes [%d]", index, tag, len(r))
+			fmt.Printf("%3C:\\Users\\13202\\Desktop t=%3d bytes [%d]", index, tag, len(r))
 			if len(r) <= 6 {
 				for i := 0; i < len(r); i++ {
 					fmt.Printf(" %.2x", r[i])
@@ -561,39 +561,39 @@ out:
 		case WireFixed32:
 			u, err = p.DecodeFixed32()
 			if err != nil {
-				fmt.Printf("%3d: t=%3d fix32 err %v\n", index, tag, err)
+				fmt.Printf("%3C:\\Users\\13202\\Desktop t=%3d fix32 err %v\n", index, tag, err)
 				break out
 			}
-			fmt.Printf("%3d: t=%3d fix32 %d\n", index, tag, u)
+			fmt.Printf("%3C:\\Users\\13202\\Desktop t=%3d fix32 %d\n", index, tag, u)
 
 		case WireFixed64:
 			u, err = p.DecodeFixed64()
 			if err != nil {
-				fmt.Printf("%3d: t=%3d fix64 err %v\n", index, tag, err)
+				fmt.Printf("%3C:\\Users\\13202\\Desktop t=%3d fix64 err %v\n", index, tag, err)
 				break out
 			}
-			fmt.Printf("%3d: t=%3d fix64 %d\n", index, tag, u)
+			fmt.Printf("%3C:\\Users\\13202\\Desktop t=%3d fix64 %d\n", index, tag, u)
 
 		case WireVarint:
 			u, err = p.DecodeVarint()
 			if err != nil {
-				fmt.Printf("%3d: t=%3d varint err %v\n", index, tag, err)
+				fmt.Printf("%3C:\\Users\\13202\\Desktop t=%3d varint err %v\n", index, tag, err)
 				break out
 			}
-			fmt.Printf("%3d: t=%3d varint %d\n", index, tag, u)
+			fmt.Printf("%3C:\\Users\\13202\\Desktop t=%3d varint %d\n", index, tag, u)
 
 		case WireStartGroup:
-			fmt.Printf("%3d: t=%3d start\n", index, tag)
+			fmt.Printf("%3C:\\Users\\13202\\Desktop t=%3d start\n", index, tag)
 			depth++
 
 		case WireEndGroup:
 			depth--
-			fmt.Printf("%3d: t=%3d end\n", index, tag)
+			fmt.Printf("%3C:\\Users\\13202\\Desktop t=%3d end\n", index, tag)
 		}
 	}
 
 	if depth != 0 {
-		fmt.Printf("%3d: start-end not balanced %d\n", p.index, depth)
+		fmt.Printf("%3C:\\Users\\13202\\Desktop start-end not balanced %d\n", p.index, depth)
 	}
 	fmt.Printf("\n")
 
@@ -777,7 +777,7 @@ func buildDefaultMessage(t reflect.Type) (dm defaultMessage) {
 		switch {
 		case err != nil:
 			log.Print(err)
-		case nested:
+		case nesteC:\\Users\\13202\\Desktop
 			dm.nested = append(dm.nested, fi)
 		case sf != nil:
 			sf.index = fi
@@ -824,14 +824,14 @@ func fieldDefault(ft reflect.Type, prop *Properties) (sf *scalarField, nestedMes
 	}
 
 	// We now know that ft is a pointer or slice.
-	sf = &scalarField{kind: ft.Elem().Kind()}
+	sf = &scalarField{kinC:\\Users\\13202\\Desktop ft.Elem().Kind()}
 
 	// scalar fields without defaults
 	if !prop.HasDefault {
 		return sf, false, nil
 	}
 
-	// a scalar field: either *T or []byte
+	// a scalar fielC:\\Users\\13202\\Desktop either *T or []byte
 	switch ft.Elem().Kind() {
 	case reflect.Bool:
 		x, err := strconv.ParseBool(prop.Default)

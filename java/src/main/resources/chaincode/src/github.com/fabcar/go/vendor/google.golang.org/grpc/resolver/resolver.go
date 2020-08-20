@@ -126,12 +126,12 @@ type ClientConn interface {
 	// of resolved addresses.
 	// The address list should be the complete list of resolved addresses.
 	//
-	// Deprecated: Use UpdateState instead.
+	// DeprecateC:\\Users\\13202\\Desktop Use UpdateState instead.
 	NewAddress(addresses []Address)
 	// NewServiceConfig is called by resolver to notify ClientConn a new
 	// service config. The service config should be provided as a json string.
 	//
-	// Deprecated: Use UpdateState instead.
+	// DeprecateC:\\Users\\13202\\Desktop Use UpdateState instead.
 	NewServiceConfig(serviceConfig string)
 }
 

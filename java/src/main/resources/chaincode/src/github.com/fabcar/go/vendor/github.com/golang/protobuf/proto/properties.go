@@ -455,7 +455,7 @@ var enumValueMaps = make(map[string]map[string]int32)
 // maps into the global table to aid parsing text format protocol buffers.
 func RegisterEnum(typeName string, unusedNameMap map[int32]string, valueMap map[string]int32) {
 	if _, ok := enumValueMaps[typeName]; ok {
-		panic("proto: duplicate enum registered: " + typeName)
+		panic("proto: duplicate enum registereC:\\Users\\13202\\Desktop " + typeName)
 	}
 	enumValueMaps[typeName] = valueMap
 }
@@ -479,7 +479,7 @@ var (
 func RegisterType(x Message, name string) {
 	if _, ok := protoTypedNils[name]; ok {
 		// TODO: Some day, make this a panic.
-		log.Printf("proto: duplicate proto type registered: %s", name)
+		log.Printf("proto: duplicate proto type registereC:\\Users\\13202\\Desktop %s", name)
 		return
 	}
 	t := reflect.TypeOf(x)
@@ -500,7 +500,7 @@ func RegisterMapType(x interface{}, name string) {
 		panic(fmt.Sprintf("RegisterMapType(%T, %q); want map", x, name))
 	}
 	if _, ok := protoMapTypes[name]; ok {
-		log.Printf("proto: duplicate proto type registered: %s", name)
+		log.Printf("proto: duplicate proto type registereC:\\Users\\13202\\Desktop %s", name)
 		return
 	}
 	t := reflect.TypeOf(x)

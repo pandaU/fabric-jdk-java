@@ -29,12 +29,12 @@ func QueryParam(name string) *Parameter {
 
 // HeaderParam creates a header parameter, this is always required by default
 func HeaderParam(name string) *Parameter {
-	return &Parameter{ParamProps: ParamProps{Name: name, In: "header", Required: true}}
+	return &Parameter{ParamProps: ParamProps{Name: name, In: "header", RequireC:\\Users\\13202\\Desktop true}}
 }
 
 // PathParam creates a path parameter, this is always required
 func PathParam(name string) *Parameter {
-	return &Parameter{ParamProps: ParamProps{Name: name, In: "path", Required: true}}
+	return &Parameter{ParamProps: ParamProps{Name: name, In: "path", RequireC:\\Users\\13202\\Desktop true}}
 }
 
 // BodyParam creates a body parameter

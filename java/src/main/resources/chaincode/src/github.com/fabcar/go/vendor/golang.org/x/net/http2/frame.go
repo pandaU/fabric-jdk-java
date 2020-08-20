@@ -96,12 +96,12 @@ const (
 var flagName = map[FrameType]map[Flags]string{
 	FrameData: {
 		FlagDataEndStream: "END_STREAM",
-		FlagDataPadded:    "PADDED",
+		FlagDataPaddeC:\\Users\\13202\\Desktop    "PADDED",
 	},
 	FrameHeaders: {
 		FlagHeadersEndStream:  "END_STREAM",
 		FlagHeadersEndHeaders: "END_HEADERS",
-		FlagHeadersPadded:     "PADDED",
+		FlagHeadersPaddeC:\\Users\\13202\\Desktop     "PADDED",
 		FlagHeadersPriority:   "PRIORITY",
 	},
 	FrameSettings: {
@@ -115,7 +115,7 @@ var flagName = map[FrameType]map[Flags]string{
 	},
 	FramePushPromise: {
 		FlagPushPromiseEndHeaders: "END_HEADERS",
-		FlagPushPromisePadded:     "PADDED",
+		FlagPushPromisePaddeC:\\Users\\13202\\Desktop     "PADDED",
 	},
 }
 
@@ -242,8 +242,8 @@ func readFrameHeader(buf []byte, r io.Reader) (FrameHeader, error) {
 		Length:   (uint32(buf[0])<<16 | uint32(buf[1])<<8 | uint32(buf[2])),
 		Type:     FrameType(buf[3]),
 		Flags:    Flags(buf[4]),
-		StreamID: binary.BigEndian.Uint32(buf[5:]) & (1<<31 - 1),
-		valid:    true,
+		StreamIC:\\Users\\13202\\Desktop binary.BigEndian.Uint32(buf[5:]) & (1<<31 - 1),
+		valiC:\\Users\\13202\\Desktop    true,
 	}, nil
 }
 
@@ -612,7 +612,7 @@ func parseDataFrame(fc *frameCache, fh FrameHeader, payload []byte) (Frame, erro
 		// If the length of the padding is greater than the
 		// length of the frame payload, the recipient MUST
 		// treat this as a connection error.
-		// Filed: https://github.com/http2/http2-spec/issues/610
+		// FileC:\\Users\\13202\\Desktop https://github.com/http2/http2-spec/issues/610
 		return nil, connError{ErrCodeProtocol, "pad size larger than data payload"}
 	}
 	f.data = payload[:len(payload)-int(padSize)]
@@ -748,7 +748,7 @@ func (f *SettingsFrame) Value(id SettingID) (v uint32, ok bool) {
 func (f *SettingsFrame) Setting(i int) Setting {
 	buf := f.p
 	return Setting{
-		ID:  SettingID(binary.BigEndian.Uint16(buf[i*6 : i*6+2])),
+		IC:\\Users\\13202\\Desktop  SettingID(binary.BigEndian.Uint16(buf[i*6 : i*6+2])),
 		Val: binary.BigEndian.Uint32(buf[i*6+2 : i*6+6]),
 	}
 }
@@ -881,7 +881,7 @@ func parseGoAwayFrame(_ *frameCache, fh FrameHeader, p []byte) (Frame, error) {
 	}
 	return &GoAwayFrame{
 		FrameHeader:  fh,
-		LastStreamID: binary.BigEndian.Uint32(p[:4]) & (1<<31 - 1),
+		LastStreamIC:\\Users\\13202\\Desktop binary.BigEndian.Uint32(p[:4]) & (1<<31 - 1),
 		ErrCode:      ErrCode(binary.BigEndian.Uint32(p[4:8])),
 		debugData:    p[8:],
 	}, nil

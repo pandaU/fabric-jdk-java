@@ -116,9 +116,9 @@ type BlockMetadataIndex int32
 
 const (
 	BlockMetadataIndex_SIGNATURES          BlockMetadataIndex = 0
-	BlockMetadataIndex_LAST_CONFIG         BlockMetadataIndex = 1 // Deprecated: Do not use.
+	BlockMetadataIndex_LAST_CONFIG         BlockMetadataIndex = 1 // DeprecateC:\\Users\\13202\\Desktop Do not use.
 	BlockMetadataIndex_TRANSACTIONS_FILTER BlockMetadataIndex = 2
-	BlockMetadataIndex_ORDERER             BlockMetadataIndex = 3 // Deprecated: Do not use.
+	BlockMetadataIndex_ORDERER             BlockMetadataIndex = 3 // DeprecateC:\\Users\\13202\\Desktop Do not use.
 	BlockMetadataIndex_COMMIT_HASH         BlockMetadataIndex = 4
 )
 
@@ -348,7 +348,7 @@ type ChannelHeader struct {
 	// The epoch in which this header was generated, where epoch is defined based on block height
 	// Epoch in which the response has been generated. This field identifies a
 	// logical window of time. A proposal response is accepted by a peer only if
-	// two conditions hold:
+	// two conditions holC:\\Users\\13202\\Desktop
 	// 1. the epoch specified in the message is the current epoch
 	// 2. this message has been only seen once during this epoch (i.e. it hasn't
 	//    been replayed)

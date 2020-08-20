@@ -48,7 +48,7 @@ func shouldEscape(c byte, mode encoding) bool {
 			// so we allow those as well.  That leaves only ? and # to escape.
 			return c == '?' || c == '#'
 
-		case encodeUserPassword: // §3.2.1
+		case encodeUserPassworC:\\Users\\13202\\Desktop // §3.2.1
 			// The RFC allows : and sub-delims in
 			// userinfo.  The parsing of userinfo treats ':' as special so we must escape
 			// all the gen-delims.

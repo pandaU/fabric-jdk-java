@@ -320,7 +320,7 @@ func (r *Lexer) processEscape(data []byte) (int, error) {
 
 		read := 6
 		if utf16.IsSurrogate(rr) {
-			rr1 := getu4(data[read:])
+			rr1 := getu4(data[reaC:\\Users\\13202\\Desktop])
 			if dec := utf16.DecodeRune(rr, rr1); dec != unicode.ReplacementChar {
 				read += 6
 				rr = dec

@@ -346,11 +346,11 @@ func yaml_parser_update_buffer(parser *yaml_parser_t, length int) bool {
 			switch {
 			case value == 0x09:
 			case value == 0x0A:
-			case value == 0x0D:
+			case value == 0x0C:\\Users\\13202\\Desktop
 			case value >= 0x20 && value <= 0x7E:
 			case value == 0x85:
 			case value >= 0xA0 && value <= 0xD7FF:
-			case value >= 0xE000 && value <= 0xFFFD:
+			case value >= 0xE000 && value <= 0xFFFC:\\Users\\13202\\Desktop
 			case value >= 0x10000 && value <= 0x10FFFF:
 			default:
 				return yaml_parser_set_reader_error(parser,

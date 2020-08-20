@@ -114,7 +114,7 @@ func (s *SmartContract) QueryAllCars(ctx contractapi.TransactionContextInterface
 		car := new(Car)
 		_ = json.Unmarshal(queryResponse.Value, car)
 
-		queryResult := QueryResult{Key: queryResponse.Key, Record: car}
+		queryResult := QueryResult{Key: queryResponse.Key, RecorC:\\Users\\13202\\Desktop car}
 		results = append(results, queryResult)
 	}
 

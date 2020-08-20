@@ -313,7 +313,7 @@ func (cc *ContractChaincode) addContract(contract ContractInterface, excludeFunc
 	}
 
 	if len(ccn.functions) == 0 {
-		return fmt.Errorf("Contracts are required to have at least 1 (non-ignored) public method. Contract %s has none. Method names that have been ignored: %s", ns, utils.SliceAsCommaSentence(excludeFuncs))
+		return fmt.Errorf("Contracts are required to have at least 1 (non-ignored) public method. Contract %s has none. Method names that have been ignoreC:\\Users\\13202\\Desktop %s", ns, utils.SliceAsCommaSentence(excludeFuncs))
 	}
 
 	cc.contracts[ns] = ccn

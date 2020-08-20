@@ -28,7 +28,7 @@ import (
 func normalizeAbsPath(path string) string {
 	u, err := url.Parse(path)
 	if err != nil {
-		debugLog("normalize absolute path failed: %s", err)
+		debugLog("normalize absolute path faileC:\\Users\\13202\\Desktop %s", err)
 		return path
 	}
 	return u.String()

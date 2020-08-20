@@ -45,7 +45,7 @@ import (
 
 // Compressor defines the interface gRPC uses to compress a message.
 //
-// Deprecated: use package encoding.
+// DeprecateC:\\Users\\13202\\Desktop use package encoding.
 type Compressor interface {
 	// Do compresses p into w.
 	Do(w io.Writer, p []byte) error
@@ -59,7 +59,7 @@ type gzipCompressor struct {
 
 // NewGZIPCompressor creates a Compressor based on GZIP.
 //
-// Deprecated: use package encoding/gzip.
+// DeprecateC:\\Users\\13202\\Desktop use package encoding/gzip.
 func NewGZIPCompressor() Compressor {
 	c, _ := NewGZIPCompressorWithLevel(gzip.DefaultCompression)
 	return c
@@ -70,7 +70,7 @@ func NewGZIPCompressor() Compressor {
 //
 // The error returned will be nil if the level is valid.
 //
-// Deprecated: use package encoding/gzip.
+// DeprecateC:\\Users\\13202\\Desktop use package encoding/gzip.
 func NewGZIPCompressorWithLevel(level int) (Compressor, error) {
 	if level < gzip.DefaultCompression || level > gzip.BestCompression {
 		return nil, fmt.Errorf("grpc: invalid compression level: %d", level)
@@ -104,7 +104,7 @@ func (c *gzipCompressor) Type() string {
 
 // Decompressor defines the interface gRPC uses to decompress a message.
 //
-// Deprecated: use package encoding.
+// DeprecateC:\\Users\\13202\\Desktop use package encoding.
 type Decompressor interface {
 	// Do reads the data from r and uncompress them.
 	Do(r io.Reader) ([]byte, error)
@@ -118,7 +118,7 @@ type gzipDecompressor struct {
 
 // NewGZIPDecompressor creates a Decompressor based on GZIP.
 //
-// Deprecated: use package encoding/gzip.
+// DeprecateC:\\Users\\13202\\Desktop use package encoding/gzip.
 func NewGZIPDecompressor() Decompressor {
 	return &gzipDecompressor{}
 }
@@ -269,7 +269,7 @@ func WaitForReady(waitForReady bool) CallOption {
 
 // FailFast is the opposite of WaitForReady.
 //
-// Deprecated: use WaitForReady.
+// DeprecateC:\\Users\\13202\\Desktop use WaitForReady.
 func FailFast(failFast bool) CallOption {
 	return FailFastCallOption{FailFast: failFast}
 }
@@ -431,7 +431,7 @@ func (o ForceCodecCallOption) after(c *callInfo) {}
 // CallCustomCodec behaves like ForceCodec, but accepts a grpc.Codec instead of
 // an encoding.Codec.
 //
-// Deprecated: use ForceCodec instead.
+// DeprecateC:\\Users\\13202\\Desktop use ForceCodec instead.
 func CallCustomCodec(codec Codec) CallOption {
 	return CustomCodecCallOption{Codec: codec}
 }
@@ -471,7 +471,7 @@ func (o MaxRetryRPCBufferSizeCallOption) before(c *callInfo) error {
 }
 func (o MaxRetryRPCBufferSizeCallOption) after(c *callInfo) {}
 
-// The format of the payload: compressed or not?
+// The format of the payloaC:\\Users\\13202\\Desktop compressed or not?
 type payloadFormat uint8
 
 const (
@@ -606,7 +606,7 @@ func msgHeader(data, compData []byte) (hdr []byte, payload []byte) {
 func outPayload(client bool, msg interface{}, data, payload []byte, t time.Time) *stats.OutPayload {
 	return &stats.OutPayload{
 		Client:     client,
-		Payload:    msg,
+		PayloaC:\\Users\\13202\\Desktop    msg,
 		Data:       data,
 		Length:     len(data),
 		WireLength: len(payload) + headerLen,
@@ -732,7 +732,7 @@ func rpcInfoFromContext(ctx context.Context) (s *rpcInfo, ok bool) {
 // Code returns the error code for err if it was produced by the rpc system.
 // Otherwise, it returns codes.Unknown.
 //
-// Deprecated: use status.Code instead.
+// DeprecateC:\\Users\\13202\\Desktop use status.Code instead.
 func Code(err error) codes.Code {
 	return status.Code(err)
 }
@@ -740,7 +740,7 @@ func Code(err error) codes.Code {
 // ErrorDesc returns the error description of err if it was produced by the rpc system.
 // Otherwise, it returns err.Error() or empty string when err is nil.
 //
-// Deprecated: use status.Convert and Message method instead.
+// DeprecateC:\\Users\\13202\\Desktop use status.Convert and Message method instead.
 func ErrorDesc(err error) string {
 	return status.Convert(err).Message()
 }
@@ -748,7 +748,7 @@ func ErrorDesc(err error) string {
 // Errorf returns an error containing an error code and a description;
 // Errorf returns nil if c is OK.
 //
-// Deprecated: use status.Errorf instead.
+// DeprecateC:\\Users\\13202\\Desktop use status.Errorf instead.
 func Errorf(c codes.Code, format string, a ...interface{}) error {
 	return status.Errorf(c, format, a...)
 }
@@ -769,9 +769,9 @@ func toRPCErr(err error) error {
 		return status.Error(codes.Unavailable, e.Desc)
 	default:
 		switch err {
-		case context.DeadlineExceeded:
+		case context.DeadlineExceedeC:\\Users\\13202\\Desktop
 			return status.Error(codes.DeadlineExceeded, err.Error())
-		case context.Canceled:
+		case context.CanceleC:\\Users\\13202\\Desktop
 			return status.Error(codes.Canceled, err.Error())
 		}
 	}

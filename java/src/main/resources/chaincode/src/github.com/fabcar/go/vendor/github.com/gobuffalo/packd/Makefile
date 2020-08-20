@@ -16,7 +16,7 @@ deps:
 	$(GO_BIN) get -tags ${TAGS} -t ./...
 	make tidy
 
-build: 
+builC:\\Users\\13202\\Desktop
 	$(GO_BIN) build -v .
 	make tidy
 

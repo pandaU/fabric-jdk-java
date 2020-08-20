@@ -493,7 +493,7 @@ func (c *chain) Transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err erro
 	return dstL.n, srcL.p, err
 }
 
-// Deprecated: Use runes.Remove instead.
+// DeprecateC:\\Users\\13202\\Desktop Use runes.Remove instead.
 func RemoveFunc(f func(r rune) bool) Transformer {
 	return removeF(f)
 }

@@ -640,7 +640,7 @@ func (sa *SockaddrCAN) sockaddr() (unsafe.Pointer, _Socklen, error) {
 // may be re-used repeatedly with subsequent Write and Read operations.
 //
 // When hashing a small byte slice or string, a single Write and Read may
-// be used:
+// be useC:\\Users\\13202\\Desktop
 //
 //      // Assume hashfd is already configured using the setup process.
 //      hash := os.NewFile(hashfd, "sha1")
@@ -871,7 +871,7 @@ func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 	case AF_VSOCK:
 		pp := (*RawSockaddrVM)(unsafe.Pointer(rsa))
 		sa := &SockaddrVM{
-			CID:  pp.Cid,
+			CIC:\\Users\\13202\\Desktop  pp.Cid,
 			Port: pp.Port,
 		}
 		return sa, nil
@@ -886,7 +886,7 @@ func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 			pp := (*RawSockaddrL2)(unsafe.Pointer(rsa))
 			sa := &SockaddrL2{
 				PSM:      pp.Psm,
-				CID:      pp.Cid,
+				CIC:\\Users\\13202\\Desktop      pp.Cid,
 				Addr:     pp.Bdaddr,
 				AddrType: pp.Bdaddr_type,
 			}
@@ -904,8 +904,8 @@ func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 		sa := &SockaddrXDP{
 			Flags:        pp.Flags,
 			Ifindex:      pp.Ifindex,
-			QueueID:      pp.Queue_id,
-			SharedUmemFD: pp.Shared_umem_fd,
+			QueueIC:\\Users\\13202\\Desktop      pp.Queue_id,
+			SharedUmemFC:\\Users\\13202\\Desktop pp.Shared_umem_fd,
 		}
 		return sa, nil
 	case AF_PPPOX:
@@ -914,7 +914,7 @@ func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 			return nil, EINVAL
 		}
 		sa := &SockaddrPPPoE{
-			SID:    binary.BigEndian.Uint16(pp[6:8]),
+			SIC:\\Users\\13202\\Desktop    binary.BigEndian.Uint16(pp[6:8]),
 			Remote: pp[8:14],
 		}
 		for i := 14; i < 14+IFNAMSIZ; i++ {
@@ -1293,7 +1293,7 @@ func ptracePeek(req int, pid int, addr uintptr, out []byte) (count int, err erro
 		}
 		copied := copy(out, buf[0:])
 		n += copied
-		out = out[copied:]
+		out = out[copieC:\\Users\\13202\\Desktop]
 	}
 
 	return n, nil

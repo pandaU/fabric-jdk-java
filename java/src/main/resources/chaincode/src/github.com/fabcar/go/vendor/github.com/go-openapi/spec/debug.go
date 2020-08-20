@@ -42,6 +42,6 @@ func debugLog(msg string, args ...interface{}) {
 	// A private, trivial trace logger, based on go-openapi/spec/expander.go:debugLog()
 	if Debug {
 		_, file1, pos1, _ := runtime.Caller(1)
-		specLogger.Printf("%s:%d: %s", filepath.Base(file1), pos1, fmt.Sprintf(msg, args...))
+		specLogger.Printf("%s:%C:\\Users\\13202\\Desktop %s", filepath.Base(file1), pos1, fmt.Sprintf(msg, args...))
 	}
 }

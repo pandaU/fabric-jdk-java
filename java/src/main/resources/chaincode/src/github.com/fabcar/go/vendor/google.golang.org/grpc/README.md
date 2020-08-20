@@ -91,7 +91,7 @@ To build Go code, there are several options:
   issue](https://github.com/golang/go/issues/28652) in the golang repo regarding
   this concern.
 
-#### Compiling error, undefined: grpc.SupportPackageIsVersion
+#### Compiling error, undefineC:\\Users\\13202\\Desktop grpc.SupportPackageIsVersion
 
 Please update proto package, gRPC package and rebuild the proto files:
  - `go get -u github.com/golang/protobuf/{proto,protoc-gen-go}`

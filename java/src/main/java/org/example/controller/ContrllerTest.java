@@ -1,26 +1,36 @@
 package org.example.controller;
 
 import org.apache.commons.compress.utils.IOUtils;
+import org.apache.commons.logging.LogFactory;
 import org.example.chaincode.invocation.InvokeChaincode;
 import org.example.chaincode.invocation.QueryChaincode;
 import org.example.client.CAClient;
 import org.example.client.ChannelClient;
 import org.example.client.FabricClient;
 import org.example.config.Config;
+import org.example.network.DeployInstantiateChaincode;
 import org.example.user.UserContext;
 import org.example.util.Util;
 import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.exception.CryptoException;
+import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
+import org.hyperledger.fabric.sdk.exception.ProposalException;
+import org.hyperledger.fabric.sdk.exception.TransactionException;
+import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.hyperledger.fabric.sdk.Channel.PeerOptions.createPeerOptions;
 
 @RestController
 public class ContrllerTest {
@@ -235,5 +245,160 @@ public class ContrllerTest {
             e.printStackTrace();
         }
         return "操作失败";
+    }
+    @RequestMapping("/deployCC")
+    public Object deployCC(){
+        try {
+            Util.cleanUp();
+            CryptoSuite cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
+
+            UserContext org1Admin = new UserContext();
+            Enrollment enrollOrg1Admin = Util.getEnrollment("/usr/local/src/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/priv_sk", null,
+                    "/usr/local/src/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem", null);
+            org1Admin.setEnrollment(enrollOrg1Admin);
+            org1Admin.setMspId(Config.ORG1_MSP);
+            org1Admin.setName(Config.ADMIN);
+
+            UserContext org2Admin = new UserContext();
+            Enrollment enrollOrg2Admin = Util.getEnrollment("/usr/local/src/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/priv_sk", null,
+                    "/usr/local/src/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/Admin@org2.example.com-cert.pem", null);
+            org2Admin.setEnrollment(enrollOrg2Admin);
+            org2Admin.setMspId(Config.ORG2_MSP);
+            org2Admin.setName(Config.ADMIN);
+            FabricClient fabClient = new FabricClient(org1Admin);
+            HFClient client = fabClient.getInstance();
+            Channel mychannel = fabClient.getInstance().newChannel("mychannel");
+            Properties orderer1Prop = new Properties();
+            orderer1Prop.setProperty("pemFile", "/usr/local/src/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem");
+            orderer1Prop.setProperty("sslProvider", "openSSL");
+            orderer1Prop.setProperty("negotiationType", "TLS");
+            orderer1Prop.setProperty("hostnameOverride", "orderer.example.com");
+            orderer1Prop.setProperty("trustServerCertificate", "true");
+            orderer1Prop.put("grpc.NettyChannelBuilderOption.maxInboundMessageSize", 9000000);
+            Orderer orderer = client.newOrderer("orderer.example.com", "grpcs://orderer.example.com:7050", orderer1Prop);
+
+            Properties peer1Prop = new Properties();
+            peer1Prop.setProperty("pemFile", "/usr/local/src/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem");
+            peer1Prop.setProperty("sslProvider", "openSSL");
+            peer1Prop.setProperty("negotiationType", "TLS");
+            peer1Prop.setProperty("hostnameOverride", "peer0.org1.example.com");
+            peer1Prop.setProperty("trustServerCertificate", "true");
+            peer1Prop.put("grpc.NettyChannelBuilderOption.maxInboundMessageSize", 9000000);
+            Peer peer = client.newPeer("peer0.org1.example.com", "grpcs://peer0.org1.example.com:7051", peer1Prop);
+
+            Properties peer2Prop = new Properties();
+            peer2Prop.setProperty("pemFile", "/usr/local/src/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/tlscacerts/tlsca.org2.example.com-cert.pem");
+            peer2Prop.setProperty("sslProvider", "openSSL");
+            peer2Prop.setProperty("negotiationType", "TLS");
+            peer2Prop.setProperty("hostnameOverride", "peer0.org2.example.com");
+            peer2Prop.setProperty("trustServerCertificate", "true");
+            peer2Prop.put("grpc.NettyChannelBuilderOption.maxInboundMessageSize", 9000000);
+            Peer peer2 = client.newPeer("peer0.org2.example.com", "grpcs://peer0.org2.example.com:9051", peer2Prop);
+            mychannel.addOrderer(orderer);
+            mychannel.addPeer(peer2);
+            mychannel.addPeer(peer);
+            mychannel.initialize();
+
+            List<Peer> org1Peers = new ArrayList<Peer>();
+            org1Peers.add(peer);
+
+            List<Peer> org2Peers = new ArrayList<Peer>();
+            org2Peers.add(peer2);
+
+            String package1 = fabClient.deployChainCode(Config.CHAINCODE_1_NAME,
+                    Config.CHAINCODE_1_PATH, Config.CHAINCODE_ROOT_DIR, TransactionRequest.Type.GO_LANG,
+                    Config.CHAINCODE_1_VERSION, org1Peers);
+
+            ChannelClient channelClient = new ChannelClient(mychannel.getName(), mychannel, fabClient);
+
+            String[] arguments = { "" };
+            CompletableFuture<BlockEvent.TransactionEvent> init = channelClient.instantiateChainCode(Config.CHAINCODE_1_NAME, Config.CHAINCODE_1_VERSION,
+                    Config.CHAINCODE_1_PATH, TransactionRequest.Type.GO_LANG.toString(), "init", arguments, null, package1, org1Peers);
+
+            channelClient.verifyByCheckCommitReadinessStatus(Config.CHAINCODE_1_NAME,true,org1Peers,new HashSet<>(Arrays.asList(Config.ORG1_MSP)), // Approved
+                    new HashSet<>(Arrays.asList(Config.ORG2_MSP)));
+
+            fabClient.getInstance().setUserContext(org2Admin);
+            channelClient=new ChannelClient(mychannel.getName(), mychannel, fabClient);
+
+            String package2 = fabClient.deployChainCode(Config.CHAINCODE_1_NAME,
+                    Config.CHAINCODE_1_PATH, Config.CHAINCODE_ROOT_DIR, TransactionRequest.Type.GO_LANG,
+                    Config.CHAINCODE_1_VERSION, org2Peers);
+
+            CompletableFuture<BlockEvent.TransactionEvent> inits = channelClient.instantiateChainCode(Config.CHAINCODE_1_NAME, Config.CHAINCODE_1_VERSION,
+                    Config.CHAINCODE_1_PATH, TransactionRequest.Type.GO_LANG.toString(), "init", arguments, null, package2, org2Peers);
+            channelClient.verifyByCheckCommitReadinessStatus(Config.CHAINCODE_1_NAME,true,org2Peers,new HashSet<>(Arrays.asList(Config.ORG1_MSP,Config.ORG2_MSP)), // Approved
+                    Collections.emptySet());
+            channelClient.verifyByCheckCommitReadinessStatus(Config.CHAINCODE_1_NAME,true,org1Peers,new HashSet<>(Arrays.asList(Config.ORG1_MSP,Config.ORG2_MSP)), // Approved
+                    Collections.emptySet());
+            //沉睡很关键  由于都是回调  可能审批未完成
+            Thread.sleep(10000);
+            Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,org1Peers.toString());
+            CompletableFuture<BlockEvent.TransactionEvent> future2 = channelClient.commitChaincodeDefinitionRequest(Config.CHAINCODE_1_NAME, true,Arrays.asList(peer,peer2));
+
+            //channelClient2.chainCodeInit("init",true,Config.CHAINCODE_1_NAME, TransactionRequest.Type.GO_LANG);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "操作失败";
+    }
+    @RequestMapping("initCC")
+    public Object init(String codeName) {
+        try {
+            UserContext org1Admin = new UserContext();
+            Enrollment enrollOrg1Admin = Util.getEnrollment("/usr/local/src/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/priv_sk", null,
+                    "/usr/local/src/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem", null);
+            org1Admin.setEnrollment(enrollOrg1Admin);
+            org1Admin.setMspId(Config.ORG1_MSP);
+            org1Admin.setName(Config.ADMIN);
+
+            UserContext org2Admin = new UserContext();
+            Enrollment enrollOrg2Admin = Util.getEnrollment("/usr/local/src/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/priv_sk", null,
+                    "/usr/local/src/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/Admin@org2.example.com-cert.pem", null);
+            org2Admin.setEnrollment(enrollOrg2Admin);
+            org2Admin.setMspId(Config.ORG2_MSP);
+            org2Admin.setName(Config.ADMIN);
+            FabricClient fabClient = new FabricClient(org1Admin);
+            HFClient client = fabClient.getInstance();
+            Channel mychannel = fabClient.getInstance().newChannel("mychannel");
+            Properties orderer1Prop = new Properties();
+            orderer1Prop.setProperty("pemFile", "/usr/local/src/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem");
+            orderer1Prop.setProperty("sslProvider", "openSSL");
+            orderer1Prop.setProperty("negotiationType", "TLS");
+            orderer1Prop.setProperty("hostnameOverride", "orderer.example.com");
+            orderer1Prop.setProperty("trustServerCertificate", "true");
+            orderer1Prop.put("grpc.NettyChannelBuilderOption.maxInboundMessageSize", 9000000);
+            Orderer orderer = client.newOrderer("orderer.example.com", "grpcs://orderer.example.com:7050", orderer1Prop);
+
+            Properties peer1Prop = new Properties();
+            peer1Prop.setProperty("pemFile", "/usr/local/src/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem");
+            peer1Prop.setProperty("sslProvider", "openSSL");
+            peer1Prop.setProperty("negotiationType", "TLS");
+            peer1Prop.setProperty("hostnameOverride", "peer0.org1.example.com");
+            peer1Prop.setProperty("trustServerCertificate", "true");
+            peer1Prop.put("grpc.NettyChannelBuilderOption.maxInboundMessageSize", 9000000);
+            Peer peer = client.newPeer("peer0.org1.example.com", "grpcs://peer0.org1.example.com:7051", peer1Prop);
+
+            Properties peer2Prop = new Properties();
+            peer2Prop.setProperty("pemFile", "/usr/local/src/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/tlscacerts/tlsca.org2.example.com-cert.pem");
+            peer2Prop.setProperty("sslProvider", "openSSL");
+            peer2Prop.setProperty("negotiationType", "TLS");
+            peer2Prop.setProperty("hostnameOverride", "peer0.org2.example.com");
+            peer2Prop.setProperty("trustServerCertificate", "true");
+            peer2Prop.put("grpc.NettyChannelBuilderOption.maxInboundMessageSize", 9000000);
+            Peer peer2 = client.newPeer("peer0.org2.example.com", "grpcs://peer0.org2.example.com:9051", peer2Prop);
+            mychannel.addOrderer(orderer);
+            mychannel.addPeer(peer2);
+            mychannel.addPeer(peer);
+            mychannel.initialize();
+
+            //init
+            ChannelClient channelClient = new ChannelClient(mychannel.getName(), mychannel, fabClient);
+            channelClient.chainCodeInit("initLedger",org1Admin,true,codeName, TransactionRequest.Type.GO_LANG);
+        } catch (Exception e) {
+            return "操作失败";
+        }
+        return "操作成功";
     }
 }

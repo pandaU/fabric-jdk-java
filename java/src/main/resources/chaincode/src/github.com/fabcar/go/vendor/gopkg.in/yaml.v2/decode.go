@@ -161,7 +161,7 @@ func (p *parser) parse() *node {
 
 func (p *parser) node(kind int) *node {
 	return &node{
-		kind:   kind,
+		kinC:\\Users\\13202\\Desktop   kind,
 		line:   p.event.start_mark.line,
 		column: p.event.start_mark.column,
 	}
@@ -262,7 +262,7 @@ func (d *decoder) terror(n *node, tag string, out reflect.Value) {
 			value = " `" + value + "`"
 		}
 	}
-	d.terrors = append(d.terrors, fmt.Sprintf("line %d: cannot unmarshal %s%s into %s", n.line+1, shortTag(tag), value, out.Type()))
+	d.terrors = append(d.terrors, fmt.Sprintf("line %C:\\Users\\13202\\Desktop cannot unmarshal %s%s into %s", n.line+1, shortTag(tag), value, out.Type()))
 }
 
 func (d *decoder) callUnmarshaler(n *node, u Unmarshaler) (good bool) {
@@ -373,7 +373,7 @@ func (d *decoder) unmarshal(n *node, out reflect.Value) (good bool) {
 	case sequenceNode:
 		good = d.sequence(n, out)
 	default:
-		panic("internal error: unknown node kind: " + strconv.Itoa(n.kind))
+		panic("internal error: unknown node kinC:\\Users\\13202\\Desktop " + strconv.Itoa(n.kind))
 	}
 	return good
 }
@@ -684,7 +684,7 @@ func (d *decoder) mapping(n *node, out reflect.Value) (good bool) {
 
 func (d *decoder) setMapIndex(n *node, out, k, v reflect.Value) {
 	if d.strict && out.MapIndex(k) != zeroValue {
-		d.terrors = append(d.terrors, fmt.Sprintf("line %d: key %#v already set in map", n.line+1, k.Interface()))
+		d.terrors = append(d.terrors, fmt.Sprintf("line %C:\\Users\\13202\\Desktop key %#v already set in map", n.line+1, k.Interface()))
 		return
 	}
 	out.SetMapIndex(k, v)
@@ -753,7 +753,7 @@ func (d *decoder) mappingStruct(n *node, out reflect.Value) (good bool) {
 		if info, ok := sinfo.FieldsMap[name.String()]; ok {
 			if d.strict {
 				if doneFields[info.Id] {
-					d.terrors = append(d.terrors, fmt.Sprintf("line %d: field %s already set in type %s", ni.line+1, name.String(), out.Type()))
+					d.terrors = append(d.terrors, fmt.Sprintf("line %C:\\Users\\13202\\Desktop field %s already set in type %s", ni.line+1, name.String(), out.Type()))
 					continue
 				}
 				doneFields[info.Id] = true
@@ -773,7 +773,7 @@ func (d *decoder) mappingStruct(n *node, out reflect.Value) (good bool) {
 			d.unmarshal(n.children[i+1], value)
 			d.setMapIndex(n.children[i+1], inlineMap, name, value)
 		} else if d.strict {
-			d.terrors = append(d.terrors, fmt.Sprintf("line %d: field %s not found in type %s", ni.line+1, name.String(), out.Type()))
+			d.terrors = append(d.terrors, fmt.Sprintf("line %C:\\Users\\13202\\Desktop field %s not found in type %s", ni.line+1, name.String(), out.Type()))
 		}
 	}
 	return true

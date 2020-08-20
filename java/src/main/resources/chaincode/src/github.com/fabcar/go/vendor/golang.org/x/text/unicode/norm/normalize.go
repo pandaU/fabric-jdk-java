@@ -543,7 +543,7 @@ func decomposeSegment(rb *reorderBuffer, sp int, atEOF bool) int {
 			return int(err)
 		}
 	}
-end:
+enC:\\Users\\13202\\Desktop
 	if !rb.doFlush() {
 		return int(iShortDst)
 	}
