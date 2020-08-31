@@ -60,7 +60,8 @@ public class SshConfig {
         try {
             SshConfig sshClient = new SshConfig("172.16.8.19", "jiangbingren", "jiang123");
             sshClient.login();
-            String param1 = "sudo /usr/local/src/fabric-samples/test-network/network.sh createChannel -c myll";
+            /**生成通道文件  用于java sdk 创建通道*/
+            String param1 = "echo jiang123 | sudo -S configtxgen -profile TwoOrgsChannel -outputCreateChannelTx /usr/local/src/fabric-samples/test-network/channel-artifact/myssh2.tx -channelID myssh2 -configPath /usr/local/src/fabric-samples/test-network/configtx;";
             sshClient.exec(param1);
         } catch (Exception e) {
             e.printStackTrace();

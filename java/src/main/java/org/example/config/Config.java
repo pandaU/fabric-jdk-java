@@ -68,7 +68,7 @@ public class Config {
 	
 	public static final String CHAINCODE_ROOT_DIR = "/home/jiangbingren/go";
 	
-	public static final String CHAINCODE_1_NAME = "fabcar111";
+	public static final String CHAINCODE_1_NAME = "fabcar520";
 	
 	public static final String CHAINCODE_1_PATH = "github.com/fabcar/go";
 	

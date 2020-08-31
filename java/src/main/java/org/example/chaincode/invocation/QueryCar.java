@@ -113,7 +113,6 @@ public class QueryCar {
 
 
     public static void main(String args[]) {
-
         try {
             Util.cleanUp();
             UserContext adminUser = new UserContext();
@@ -133,7 +132,7 @@ public class QueryCar {
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
 
-            File fp = new File (QueryCar.class.getResource("/server-org2p0.crt").getPath());
+            File fp = new File (QueryCar.class.getResource("/ca.crt").getPath());
             String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
             Properties peer_properties = new Properties();
             peer_properties.put("pemBytes", certficatep.getBytes());

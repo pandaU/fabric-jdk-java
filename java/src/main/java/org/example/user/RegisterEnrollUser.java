@@ -51,7 +51,7 @@ public class RegisterEnrollUser {
 
 			// Register and Enroll user to Org1MSP
 			UserContext userContext = new UserContext();
-			String name = "my_user555";
+			String name = "my_user777";
 			userContext.setName(name);
 			userContext.setAffiliation(Config.ORG2);
 			userContext.setMspId(Config.ORG2_MSP);

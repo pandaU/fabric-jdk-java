@@ -28,6 +28,7 @@ import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
+import org.springframework.util.ResourceUtils;
 
 import static java.lang.String.format;
 
@@ -113,7 +114,7 @@ public class FabricClient {
 				Type.GO_LANG,
 				codepath,
 				chaincodePath,
-				null);
+				 "/usr/local/src/java_project/couchdb-index");
 		request.setLifecycleChaincodePackage(lifecycleChaincodePackage);
 		request.setProposalWaitTime(120000);
 		Collection<LifecycleInstallChaincodeProposalResponse> responses = instance.sendLifecycleInstallChaincodeRequest(request, peers);

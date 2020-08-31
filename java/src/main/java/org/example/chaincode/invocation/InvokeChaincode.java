@@ -69,7 +69,7 @@ public class InvokeChaincode {
 			FabricClient fabClient = new FabricClient(adminUser);
 			ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
 			Channel channel = channelClient.getChannel();
-			File fp = new File (InvokeChaincode.class.getResource("/server-org2p0.crt").getPath());
+			File fp = new File (InvokeChaincode.class.getResource("/ca.crt").getPath());
 			String certficatep = new String (IOUtils.toByteArray(new FileInputStream(fp)),"UTF-8");
 			Properties peer_properties = new Properties();
 			peer_properties.put("pemBytes", certficatep.getBytes());
@@ -85,7 +85,7 @@ public class InvokeChaincode {
 			peer_propertiesOder.setProperty("negotiationType", "TLS");
 			Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL,peer_propertiesOder);
 
-			File fp2 = new File (InvokeChaincode.class.getResource("/server-org1p0.crt").getPath());
+			File fp2 = new File (InvokeChaincode.class.getResource("/ca1.crt").getPath());
 			String certficatep2 = new String (IOUtils.toByteArray(new FileInputStream(fp2)),"UTF-8");
 			Properties peer_properties2= new Properties();
 			peer_properties2.put("pemBytes", certficatep2.getBytes());
@@ -99,7 +99,7 @@ public class InvokeChaincode {
 			channel.initialize();
 
 			TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
-			ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
+			ChaincodeID ccid = ChaincodeID.newBuilder().setName("fabcar").build();
 			request.setChaincodeID(ccid);
 			request.setFcn("createCar");
 			String[] arguments = { "CAR15", "Mini", "Volt", "Red", "pandaUUU" };
